@@ -1,0 +1,126 @@
+dataset_name: LusoSupport-PT
+language:
+  primary: pt-PT
+  future_extensions:
+    - pt-BR
+
+domains:
+  - ecommerce
+  - subscriptions
+  - saas
+  - telecom
+  - utilities
+  - travel
+  - marketplace
+  - billing_accounts
+
+subdomains:
+  ecommerce:
+    - order_status
+    - delivery_delay
+    - returns_refunds
+    - damaged_item
+    - exchange_request
+  subscriptions:
+    - cancel_subscription
+    - change_plan
+    - renewal_question
+    - payment_failure
+  saas:
+    - account_access
+    - password_reset
+    - feature_question
+    - bug_report
+    - billing_question
+  telecom:
+    - internet_issue
+    - mobile_service_issue
+    - invoice_question
+    - plan_change
+    - service_activation
+  utilities:
+    - outage_report
+    - meter_question
+    - payment_plan
+    - invoice_clarification
+  travel:
+    - booking_change
+    - cancellation
+    - refund_status
+    - checkin_issue
+  marketplace:
+    - seller_buyer_dispute
+    - damaged_item
+    - order_not_received
+    - return_request
+  billing_accounts:
+    - invoice_request
+    - duplicate_charge
+    - payment_confirmation
+    - account_update
+    - complaint
+
+task_types:
+  - response_generation
+  - email_reply
+  - summarization
+  - intent_classification
+  - urgency_classification
+  - rewrite_professional
+  - next_action_suggestion
+  - faq_answer
+
+customer_intents:
+  - refund_request
+  - return_request
+  - order_status
+  - delivery_delay
+  - damaged_item
+  - billing_question
+  - invoice_request
+  - cancel_subscription
+  - change_plan
+  - technical_issue
+  - password_reset
+  - account_access
+  - complaint
+  - escalation_request
+  - booking_change
+  - payment_failure
+  - duplicate_charge
+
+customer_tones:
+  - calm
+  - confused
+  - frustrated
+  - urgent
+  - formal
+  - informal
+
+agent_tones:
+  - professional
+  - empathetic
+  - concise
+  - reassuring
+  - formal
+
+channels:
+  - email
+  - chat
+  - web_form
+  - phone_transcript
+
+difficulty:
+  - easy
+  - medium
+  - hard
+
+output_styles:
+  - concise_reply
+  - step_by_step
+  - empathetic_reply
+  - policy_based_reply
+  - classification_label
+  - structured_summary
+  - rewritten_message
+  - next_action_list
