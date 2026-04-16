@@ -1,3 +1,7 @@
+Schema version: v1.0
+Dataset: LusoSupport-PT
+Status: stable
+
 # LusoSupport-PT — Dataset Schema (v1.0)
 
 This document defines the **canonical schema** for the LusoSupport-PT dataset.
