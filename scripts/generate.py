@@ -4,6 +4,10 @@ import random
 from config import *
 from scenarios import INTENT_MESSAGES
 from templates import build_instruction
+from validate import is_valid_row
+
+dataset = generate_dataset(100)
+dataset = [r for r in dataset if is_valid_row(r)]
 
 
 def generate_output(task_type, intent):
@@ -65,3 +69,5 @@ def save_jsonl(rows, path):
 if __name__ == "__main__":
     data = generate_dataset(50)
     save_jsonl(data, "../data/interim/generated.jsonl")
+
+
