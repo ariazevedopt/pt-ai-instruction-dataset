@@ -14,6 +14,11 @@ def _row(**overrides):
         "variant": "pt-PT",
         "domain": "ecommerce",
         "task_type": "response_generation",
+        "customer_intent": "order_status",
+        "customer_tone": "calm",
+        "agent_tone": "professional",
+        "channel": "email",
+        "difficulty": "easy",
         "input": "Mensagem do cliente: A encomenda não chegou.",
         "output": "Lamentamos o sucedido. Para darmos seguimento à sua situação, pedimos que nos indique o número da encomenda e entraremos em contacto brevemente.",
     }
@@ -209,3 +214,91 @@ def test_urgency_classification_missing_key_fails():
     ok, reason = is_valid_row(_row(task_type="urgency_classification", output=output))
     assert ok is False
     assert reason == "json_urgency_missing_keys"
+
+
+# ── rule 1 (extended): id format ─────────────────────────────────────────────
+def test_invalid_id_format_fails():
+    for bad_id in ["lusosupport_pt_1", "lusosupport_en_000001", "pt_000001", "abc123"]:
+        ok, reason = is_valid_row(_row(id=bad_id))
+        assert ok is False, f"id='{bad_id}' should fail format check"
+        assert reason == "invalid_id_format", f"got {reason} for id='{bad_id}'"
+
+def test_valid_id_format_passes():
+    ok, reason = is_valid_row(_row(id="lusosupport_pt_999999"))
+    assert ok is True, reason
+
+
+# ── rule 6: customer_intent enum ─────────────────────────────────────────────
+def test_invalid_customer_intent_fails():
+    ok, reason = is_valid_row(_row(customer_intent="fly_to_moon"))
+    assert ok is False
+    assert reason == "invalid_customer_intent"
+
+def test_valid_customer_intent_passes():
+    ok, reason = is_valid_row(_row(customer_intent="booking_cancellation"))
+    assert ok is True, reason
+
+
+# ── rule 7: customer_tone enum ───────────────────────────────────────────────
+def test_invalid_customer_tone_fails():
+    ok, reason = is_valid_row(_row(customer_tone="sarcastic"))
+    assert ok is False
+    assert reason == "invalid_customer_tone"
+
+def test_valid_customer_tone_passes():
+    for tone in ["calm", "confused", "frustrated", "urgent", "formal", "informal"]:
+        ok, _ = is_valid_row(_row(customer_tone=tone))
+        assert ok is True, f"customer_tone={tone} should pass"
+
+
+# ── rule 8: agent_tone enum ──────────────────────────────────────────────────
+def test_invalid_agent_tone_fails():
+    ok, reason = is_valid_row(_row(agent_tone="aggressive"))
+    assert ok is False
+    assert reason == "invalid_agent_tone"
+
+def test_valid_agent_tone_passes():
+    for tone in ["professional", "empathetic", "concise", "reassuring", "formal"]:
+        ok, _ = is_valid_row(_row(agent_tone=tone))
+        assert ok is True, f"agent_tone={tone} should pass"
+
+
+# ── rule 9: channel enum ─────────────────────────────────────────────────────
+def test_invalid_channel_fails():
+    ok, reason = is_valid_row(_row(channel="carrier_pigeon"))
+    assert ok is False
+    assert reason == "invalid_channel"
+
+def test_valid_channel_passes():
+    for ch in ["email", "chat", "web_form", "phone_transcript"]:
+        ok, _ = is_valid_row(_row(channel=ch))
+        assert ok is True, f"channel={ch} should pass"
+
+
+# ── rule 10: difficulty enum ─────────────────────────────────────────────────
+def test_invalid_difficulty_fails():
+    ok, reason = is_valid_row(_row(difficulty="impossible"))
+    assert ok is False
+    assert reason == "invalid_difficulty"
+
+def test_valid_difficulty_passes():
+    for d in ["easy", "medium", "hard"]:
+        ok, _ = is_valid_row(_row(difficulty=d))
+        assert ok is True, f"difficulty={d} should pass"
+
+
+# ── rule 13: PT-BR vocabulary in input ───────────────────────────────────────
+def test_banned_ptbr_words_in_input_fail():
+    for word, phrase in [
+        ("celular", "Mensagem do cliente: O meu celular não recebe chamadas desde ontem à tarde."),
+        ("senha", "Mensagem do cliente: Esqueci a minha senha e não consigo entrar na conta."),
+    ]:
+        ok, reason = is_valid_row(_row(input=phrase))
+        assert ok is False, f"banned input word '{word}' should fail"
+        assert reason.startswith("pt_br_vocab_input"), f"reason should be pt_br_vocab_input, got {reason}"
+
+def test_clean_input_passes():
+    ok, _ = is_valid_row(_row(
+        input="Mensagem do cliente: Esqueci a minha palavra-passe e não consigo aceder à conta."
+    ))
+    assert ok is True
