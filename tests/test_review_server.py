@@ -89,14 +89,13 @@ def test_sample_row_returns_none_when_all_reviewed(tmp_path):
     assert sample_row(rows, {"lusosupport_pt_000001"}, mode="random") is None
 
 
-def test_sample_row_flagged_mode_filters_to_flagged(tmp_path, monkeypatch):
+def test_sample_row_flagged_mode_filters_to_flagged(tmp_path):
     import review_server
     flagged_path = tmp_path / "flagged.jsonl"
     _write_jsonl(flagged_path, [{"id": "lusosupport_pt_000002", "reason": "duplicate_in_bucket"}])
-    monkeypatch.setattr(review_server, "FEEDBACK_DIR", tmp_path)
 
     rows = [_make_row(id_=f"lusosupport_pt_{i:06d}") for i in range(5)]
-    result = sample_row(rows, set(), mode="flagged")
+    result = sample_row(rows, set(), mode="flagged", feedback_dir=tmp_path)
     assert result is not None
     assert result["id"] == "lusosupport_pt_000002"
 

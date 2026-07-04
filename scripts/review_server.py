@@ -68,10 +68,11 @@ def load_reviewed_ids(feedback_dir: Path = FEEDBACK_DIR) -> set:
     return ids
 
 
-def sample_row(rows: list, reviewed_ids: set, mode: str = "random") -> Optional[dict]:
+def sample_row(rows: list, reviewed_ids: set, mode: str = "random",
+               feedback_dir: Path = FEEDBACK_DIR) -> Optional[dict]:
     """Return one unreviewed row. mode='flagged' restricts to flagged.jsonl IDs."""
     if mode == "flagged":
-        flagged_path = FEEDBACK_DIR / "flagged.jsonl"
+        flagged_path = feedback_dir / "flagged.jsonl"
         flagged_ids: set = set()
         if flagged_path.exists():
             for line in flagged_path.read_text(encoding="utf-8").splitlines():
@@ -228,7 +229,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 <script>
 var sessCount=0,curRow=null,selRating=null,browseMode='random';
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\\n/g,'<br>')}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/\\n/g,'<br>')}
 function switchTab(t){
   document.querySelectorAll('.tab').forEach(function(el,i){el.classList.toggle('active',['browse','generate'][i]===t)});
   document.getElementById('tab-browse').style.display=t==='browse'?'':'none';
@@ -372,7 +373,7 @@ class ReviewHandler(BaseHTTPRequestHandler):
             mode = _param("mode", "random")
             rows = load_rows()
             reviewed = load_reviewed_ids()
-            row = sample_row(rows, reviewed, mode=mode)
+            row = sample_row(rows, reviewed, mode=mode, feedback_dir=FEEDBACK_DIR)
             self._send_json({"row": row})
 
         elif path == "/api/generate":
@@ -399,17 +400,17 @@ class ReviewHandler(BaseHTTPRequestHandler):
 
         elif path == "/api/export":
             export_path = FEEDBACK_DIR / "browser_ratings.jsonl"
-            if export_path.exists():
-                content = export_path.read_bytes()
+            if not export_path.exists():
+                self._send_json({"error": "No ratings yet"}, status=404)
             else:
-                content = b""
-            self.send_response(200)
-            self.send_header("Content-Type", "application/jsonl")
-            self.send_header("Content-Disposition",
-                             'attachment; filename="browser_ratings.jsonl"')
-            self.send_header("Content-Length", str(len(content)))
-            self.end_headers()
-            self.wfile.write(content)
+                content = export_path.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/jsonl")
+                self.send_header("Content-Disposition",
+                                 'attachment; filename="browser_ratings.jsonl"')
+                self.send_header("Content-Length", str(len(content)))
+                self.end_headers()
+                self.wfile.write(content)
 
         else:
             self.send_response(404)
@@ -434,9 +435,9 @@ class ReviewHandler(BaseHTTPRequestHandler):
 
     # ----------------------------------------------------------------- util
 
-    def _send_json(self, data: dict):
+    def _send_json(self, data: dict, status: int = 200):
         payload = json.dumps(data, ensure_ascii=False).encode()
-        self.send_response(200)
+        self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(payload)))
         self.end_headers()
