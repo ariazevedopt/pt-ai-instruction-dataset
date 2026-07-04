@@ -35,12 +35,14 @@ INTENT_MESSAGES = {
         "O produto não corresponde à descrição e quero devolvê-lo.",
         "Pretendo iniciar o processo de devolução da minha encomenda.",
         "O artigo veio errado e preciso de o devolver.",
+        "Mudei de ideias e quero devolver o produto — ainda estou dentro do prazo?",
     ],
     "order_status": [
         "Queria saber qual é o estado da minha encomenda.",
         "Quando é que a minha encomenda vai ser entregue?",
         "Não recebi nenhuma actualização sobre o meu pedido desde que o realizei.",
         "Podem confirmar se o meu pedido foi processado?",
+        "Já passaram três dias e não tenho qualquer informação sobre a encomenda.",
     ],
     "delivery_delay": [
         "A encomenda ainda não chegou.",
@@ -59,6 +61,8 @@ INTENT_MESSAGES = {
         "Tenho uma dúvida relativamente ao valor cobrado na minha fatura.",
         "O montante debitado não corresponde ao que foi acordado.",
         "Gostaria de perceber a que se referem alguns itens da minha fatura.",
+        "Há um valor na fatura que não reconheço — podem esclarecer?",
+        "A fatura deste mês está mais elevada do que o habitual sem explicação.",
     ],
     "invoice_request": [
         "Preciso de uma fatura com os dados da minha empresa.",
@@ -69,16 +73,22 @@ INTENT_MESSAGES = {
         "Pretendo cancelar a minha subscrição.",
         "Quero encerrar a minha conta e deixar de ser cobrado.",
         "Desejo cancelar o plano com efeitos no final do período de faturação.",
+        "Não necessito mais do serviço e quero proceder ao cancelamento.",
+        "Como posso cancelar a minha subscrição sem custos adicionais?",
     ],
     "change_plan": [
         "Gostaria de mudar para um plano superior.",
         "Pretendo fazer o downgrade do meu plano actual.",
         "Quero alterar a minha subscrição para o plano anual.",
+        "Podem explicar-me as diferenças entre os planos disponíveis?",
+        "Estou a usar mais do que o meu plano permite — quero fazer upgrade.",
     ],
     "technical_issue": [
         "A aplicação não está a funcionar correctamente.",
         "Estou a ter problemas ao aceder à plataforma desde ontem.",
         "O serviço apresenta erros e não consigo completar as minhas tarefas.",
+        "A página carrega infinitamente e não consigo fazer nada.",
+        "Desde a última actualização o sistema deixou de funcionar.",
     ],
     "password_reset": [
         "Não consigo repor a palavra-passe.",
@@ -99,16 +109,22 @@ INTENT_MESSAGES = {
         "Preciso de falar com um responsável ou supervisor.",
         "Este problema já dura há demasiado tempo sem resolução — quero escalar.",
         "Não estou satisfeito com as respostas que tenho recebido e exijo uma solução.",
+        "Quero apresentar uma queixa formal e falar com a direcção.",
+        "Já contactei o suporte várias vezes sem resultado — exijo ser atendido por alguém com autoridade.",
     ],
     "booking_change": [
         "Preciso de alterar a data da minha reserva.",
         "Gostaria de mudar o destino ou o horário da minha viagem.",
         "Quero adicionar um passageiro à minha reserva.",
+        "Necessito de adiar a reserva para a semana seguinte — é possível?",
+        "Houve uma mudança de planos e preciso de modificar os detalhes da reserva.",
     ],
     "booking_cancellation": [
         "Pretendo cancelar a minha reserva.",
         "Devido a um imprevisto, necessito de cancelar a viagem marcada.",
         "Quero cancelar a minha reserva e saber se tenho direito a reembolso.",
+        "Precisei de cancelar a reserva — podem indicar-me o procedimento?",
+        "Por motivos pessoais, não vou conseguir comparecer. Como posso cancelar?",
     ],
     "payment_failure": [
         "O meu pagamento foi recusado mas não percebo porquê.",
@@ -119,6 +135,8 @@ INTENT_MESSAGES = {
         "Foi cobrado o mesmo valor duas vezes.",
         "Tenho uma cobrança repetida na fatura deste mês.",
         "Verifiquei que fui debitado em duplicado e quero que o valor seja devolvido.",
+        "Apareceram dois débitos iguais no meu extracto bancário.",
+        "O sistema processou o pagamento em duplicado — como posso ser reembolsado?",
     ],
 }
 
