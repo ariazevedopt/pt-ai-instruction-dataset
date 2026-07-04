@@ -85,10 +85,26 @@ def load_corrections(feedback_dir: Path = FEEDBACK_DIR) -> dict:
 def run(n=100, stats=False):
     console.rule("[bold blue]LusoSupport-PT Pipeline")
 
-    console.print(f"\n[1/5] Generating [bold]{n}[/bold] synthetic rows...")
+    existing = []
+    if os.path.exists(PROCESSED_PATH):
+        with open(PROCESSED_PATH, encoding="utf-8") as f:
+            existing = [json.loads(line) for line in f if line.strip()]
+
+    # Determine next available ID to avoid collisions with existing rows
+    start_id = 0
+    if existing:
+        import re as _re
+        nums = [
+            int(m.group(1))
+            for r in existing
+            if (m := _re.fullmatch(r"lusosupport_pt_(\d{6})", r.get("id", "")))
+        ]
+        start_id = max(nums) + 1 if nums else 0
+
+    console.print(f"\n[1/5] Generating [bold]{n}[/bold] synthetic rows (IDs from {start_id:06d})...")
     rows = []
     for i in tqdm(range(n), desc="  Generating", unit="row"):
-        rows.append(generate_row(i))
+        rows.append(generate_row(start_id + i))
 
     console.print(f"[2/5] Validating...")
     valid = [r for r in tqdm(rows, desc="  Validating", unit="row") if is_valid_row(r)[0]]
@@ -118,11 +134,6 @@ def run(n=100, stats=False):
 
     console.print(f"[5/5] Saving...")
     save_jsonl(unique_rows, INTERIM_PATH)
-
-    existing = []
-    if os.path.exists(PROCESSED_PATH):
-        with open(PROCESSED_PATH, encoding="utf-8") as f:
-            existing = [json.loads(line) for line in f if line.strip()]
 
     merged = deduplicate(existing + unique_rows)
     save_jsonl(merged, PROCESSED_PATH)
