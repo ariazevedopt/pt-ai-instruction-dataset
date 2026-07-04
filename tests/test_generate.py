@@ -35,24 +35,43 @@ def test_instruction_diversity():
     )
 
 
-def test_domain_label_appears_in_outputs():
-    """Domain label should appear in at least 1% of non-classification prose outputs."""
+def test_domain_label_fills_in_parametric_outputs():
+    """Domain labels must fill correctly when a parametric template is selected.
+
+    Only ~6 of ~80+ (task_type, intent) keys have {domain_label} templates.
+    This test directly verifies the filling mechanism on those keys rather
+    than relying on random sampling frequency.
+    """
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
+    from responses import get_output
     from templates import DOMAIN_LABELS
-    rows = _sample(300)
-    classification_types = {"intent_classification", "urgency_classification"}
-    prose_rows = [r for r in rows if r["task_type"] not in classification_types]
-    if not prose_rows:
-        return
-    hits = 0
-    for row in prose_rows:
-        label = DOMAIN_LABELS.get(row["domain"], "")
-        if label and label in row["output"]:
-            hits += 1
-    ratio = hits / len(prose_rows)
-    # Domain label should appear in ≥2% of prose outputs (only parametric templates contribute)
-    assert ratio >= 0.02, (
-        f"Domain label appeared in only {100*ratio:.1f}% of prose outputs — need ≥2%"
-    )
+    import random
+
+    parametric_pairs = [
+        ("response_generation", "refund_request"),
+        ("response_generation", "technical_issue"),
+        ("response_generation", "complaint"),
+        ("email_reply", "billing_question"),
+        ("next_action_suggestion", "escalation_request"),
+        ("summarization", "technical_issue"),
+    ]
+
+    for task_type, intent in parametric_pairs:
+        filled_with_label = False
+        for seed in range(30):
+            random.seed(seed)
+            result = get_output(task_type, intent, domain="telecom", agent_tone="empathetic")
+            assert "{" not in result and "}" not in result, (
+                f"Unfilled placeholder in ({task_type}, {intent}): {result!r}"
+            )
+            if "telecomunicações" in result:
+                filled_with_label = True
+                break
+        assert filled_with_label, (
+            f"No domain label found in 30 samples of ({task_type}, {intent}) with domain='telecom'. "
+            f"At least one parametric template should reference domain_label."
+        )
 
 
 def test_all_generated_rows_pass_validation():
