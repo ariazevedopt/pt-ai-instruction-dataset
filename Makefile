@@ -1,5 +1,5 @@
 # LusoSupport-PT — dataset pipeline shortcuts
-.PHONY: install generate validate dedupe export stats pipeline test clean
+.PHONY: install generate validate dedupe export stats pipeline test clean flag review review-random quality review-browser
 
 install:
 	pip install -r requirements.txt
@@ -59,6 +59,10 @@ review-random:
 
 quality:
 	cd scripts && python3 quality_report.py
+
+review-browser:
+	@echo "Starting browser review at http://localhost:8765 …"
+	cd scripts && python3 review_server.py --port 8765 --open
 
 test:
 	python3 -m pytest tests/ -v
