@@ -216,6 +216,8 @@ RESPONSE_TEMPLATES = {
         "Claro, podemos ajudá-lo/a a alterar o plano. Temos disponíveis as opções [Plano A], [Plano B] e [Plano C]. Qual prefere? A alteração é efectuada de imediato e o novo valor será cobrado no próximo ciclo de faturação.",
         "Agradecemos o contacto. A alteração de plano pode ser feita sem qualquer interrupção do serviço. Para avançar, pode indicar-nos qual o plano para o qual pretende mudar?",
         "Ficamos disponíveis para ajudar na mudança de plano. A alteração entra em vigor imediatamente. Quer que lhe expliquemos as diferenças entre os planos disponíveis antes de decidir?",
+        "Posso ajudá-lo/a a explorar as opções de plano disponíveis. Qual é a sua principal prioridade — reduzir o custo mensal, aumentar o armazenamento, ou adicionar utilizadores?",
+        "Antes de efectuarmos qualquer alteração, gostaria de apresentar as opções actuais para que possa escolher o plano mais adequado. Qual é a sua necessidade principal?",
     ],
 
     ("response_generation", "technical_issue"): [
@@ -232,6 +234,8 @@ RESPONSE_TEMPLATES = {
         "A reposição da palavra-passe é feita através do link que enviámos para o seu e-mail. Se não recebeu o e-mail, pode indicar-nos o endereço registado na conta para verificarmos a situação?",
         "Pode redefinir a palavra-passe directamente através do portal em 'Acesso à Conta' → 'Esqueci a palavra-passe'. Se o endereço de e-mail registado já não está activo, contacte-nos para verificação de identidade alternativa.",
         "Para sua segurança, o link de reposição de palavra-passe expira ao fim de 30 minutos. Se já expirou, pode solicitar um novo na página de login. Caso continue sem acesso, podemos verificar a conta e fazer o reset manualmente.",
+        "Para auxiliar com a recuperação da palavra-passe, pode confirmar o endereço de e-mail associado à conta? Por vezes, o e-mail de recuperação pode chegar à pasta de spam ou lixo.",
+        "Verificou a pasta de spam ou de lixo do seu e-mail? O e-mail de recuperação pode ter sido filtrado. Se confirmar o endereço registado, podemos reenviar de imediato.",
     ],
 
     ("response_generation", "account_access"): [
@@ -240,6 +244,8 @@ RESPONSE_TEMPLATES = {
         "Para resolvermos o problema de acesso com a maior brevidade, precisamos de verificar a sua identidade. Pode confirmar o endereço de e-mail e o número de telemóvel associados à conta?",
         "Compreendemos o transtorno causado pelo bloqueio de acesso. Após confirmação da sua identidade, procederemos ao desbloqueio imediato da conta. Pode fornecer o e-mail de registo e os últimos 4 dígitos do número de telemóvel?",
         "O acesso bloqueado pode dever-se a múltiplas tentativas falhadas ou a uma actualização de segurança. Vamos verificar a situação. Por favor confirme o endereço de e-mail e aguarde — o desbloqueio é efectuado em minutos.",
+        "Para melhor compreender a situação, pode descrever o que acontece quando tenta aceder à sua conta? Recebe alguma mensagem de erro específica?",
+        "Antes de prosseguirmos, precisamos de perceber em que passo está a encontrar dificuldade. Está a tentar aceder pelo site, aplicação, ou outro canal?",
     ],
 
     ("response_generation", "complaint"): [
