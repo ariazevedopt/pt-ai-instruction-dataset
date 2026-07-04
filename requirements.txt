@@ -1,3 +1,13 @@
+# Data processing & export
 pandas>=2.0.0
-# datasets>=2.0.0
-# pyarrow>=10.0.0
+pyarrow>=14.0.0        # Parquet export + Hugging Face datasets compatibility
+
+# Hugging Face publishing
+datasets>=2.14.0       # Load/push datasets to HF Hub; load_dataset() support
+
+# Developer experience
+tqdm>=4.65.0           # Progress bars for generation pipeline
+rich>=13.0.0           # Terminal tables and styled output (stats, pipeline)
+
+# Testing
+pytest>=7.4.0          # Test suite for pipeline scripts
