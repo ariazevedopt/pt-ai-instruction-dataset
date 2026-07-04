@@ -2,48 +2,63 @@ import json
 import random
 
 from config import *
+from metadata import (
+    derive_customer_tone,
+    derive_confidence,
+    derive_difficulty,
+    derive_escalation,
+    derive_subdomain,
+    pick_message,
+)
 from responses import get_output
-from scenarios import INTENT_MESSAGES, INTENT_DOMAINS
+from scenarios import INTENT_DOMAINS
 from templates import build_instruction
 from validate import is_valid_row
 
 
-def generate_output(task_type, intent, domain=None):
-    return get_output(task_type, intent, domain=domain)
+def generate_output(task_type, intent, domain=None, agent_tone=None):
+    return get_output(task_type, intent, domain=domain, agent_tone=agent_tone)
 
 
 def generate_row(i):
-    intent = random.choice(list(INTENT_MESSAGES.keys()))
-    message = random.choice(INTENT_MESSAGES[intent])
+    intent = random.choice(list(INTENT_DOMAINS.keys()))
+    customer_tone = derive_customer_tone(intent)
+    message = pick_message(intent, customer_tone)
 
     task = random.choice(TASK_TYPES)
-    customer_tone = random.choice(CUSTOMER_TONES)
     agent_tone = random.choice(AGENT_TONES)
 
     allowed_domains = INTENT_DOMAINS.get(intent, DOMAINS)
     domain = random.choice(allowed_domains)
+    channel = random.choice(CHANNELS)
+
+    difficulty = derive_difficulty(intent)
 
     return {
         "id": f"lusosupport_pt_{i:06d}",
         "language": "pt",
         "variant": "pt-PT",
         "domain": domain,
-        "subdomain": "placeholder",
+        "subdomain": derive_subdomain(intent, domain),
         "task_type": task,
         "customer_intent": intent,
         "customer_tone": customer_tone,
         "agent_tone": agent_tone,
-        "channel": random.choice(CHANNELS),
-        "difficulty": random.choice(DIFFICULTY_LEVELS),
-        "instruction": build_instruction(task, agent_tone),
+        "channel": channel,
+        "difficulty": difficulty,
+        "instruction": build_instruction(task, agent_tone, domain, channel),
         "input": f"Mensagem do cliente: {message}",
-        "output": generate_output(task, intent, domain=domain),
+        "output": generate_output(task, intent, domain=domain, agent_tone=agent_tone),
+        "intent_classification": {
+            "intent": intent,
+            "confidence": derive_confidence(difficulty),
+        },
         "metadata": {
-            "requires_escalation": False,
+            "requires_escalation": derive_escalation(intent, customer_tone),
             "contains_pii": False,
             "synthetic": True,
-            "source_type": "template_generated"
-        }
+            "source_type": "template_generated",
+        },
     }
 
 

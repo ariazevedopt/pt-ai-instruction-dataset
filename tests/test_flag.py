@@ -22,6 +22,11 @@ def _good_row(id_="lusosupport_pt_000100", domain="ecommerce",
         "variant": "pt-PT",
         "domain": domain,
         "task_type": task_type,
+        "customer_intent": "order_status",
+        "customer_tone": "calm",
+        "agent_tone": "professional",
+        "channel": "email",
+        "difficulty": "easy",
         "input": "Mensagem do cliente: A minha encomenda não chegou ainda.",
         "output": (
             "Lamentamos o sucedido. Para darmos seguimento à situação, "

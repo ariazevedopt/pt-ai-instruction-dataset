@@ -86,6 +86,7 @@ customer_intents:
   - complaint
   - escalation_request
   - booking_change
+  - booking_cancellation
   - payment_failure
   - duplicate_charge
 
