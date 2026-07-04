@@ -1,5 +1,5 @@
 # LusoSupport-PT — dataset pipeline shortcuts
-.PHONY: install generate validate dedupe export stats pipeline clean
+.PHONY: install generate validate dedupe export stats pipeline test clean
 
 install:
 	pip install -r requirements.txt
@@ -24,12 +24,13 @@ dedupe:
 		../datasets/processed/lusosupport_pt_v1.jsonl \
 		../datasets/processed/lusosupport_pt_v1.jsonl
 
-# Export to CSV and Alpaca JSONL
+# Export to CSV, Alpaca JSONL, and Parquet
 export:
 	cd scripts && python3 export_formats.py \
 		../datasets/processed/lusosupport_pt_v1.jsonl \
 		--csv ../datasets/processed/lusosupport_pt_v1.csv \
-		--alpaca ../datasets/processed/lusosupport_pt_v1_alpaca.jsonl
+		--alpaca ../datasets/processed/lusosupport_pt_v1_alpaca.jsonl \
+		--parquet ../datasets/processed/lusosupport_pt_v1.parquet
 
 # Print dataset statistics
 stats:
@@ -45,3 +46,7 @@ clean:
 	rm -f datasets/interim/generated.jsonl
 	rm -f datasets/processed/lusosupport_pt_v1.csv
 	rm -f datasets/processed/lusosupport_pt_v1_alpaca.jsonl
+	rm -f datasets/processed/lusosupport_pt_v1.parquet
+
+test:
+	python3 -m pytest tests/ -v
