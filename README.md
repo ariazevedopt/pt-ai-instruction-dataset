@@ -6,6 +6,27 @@ The project focuses on realistic support-related tasks written in **Portuguese f
 
 ---
 
+## Quick Start
+
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Run the full pipeline (generate → validate → deduplicate → save)
+make pipeline
+
+# Or run individual steps
+make generate    # generate 100 synthetic rows → datasets/interim/
+make validate    # validate datasets/processed/lusosupport_pt_v1.jsonl
+make stats       # print dataset composition stats
+make export      # export to CSV + Alpaca JSONL
+```
+
+The ready-to-use dataset is at `datasets/processed/lusosupport_pt_v1.jsonl`.  
+High-quality hand-crafted seed examples are in `datasets/raw/seed_examples.jsonl`.
+
+---
+
 ## Overview
 
 Many publicly available Portuguese datasets are either:
