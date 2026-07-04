@@ -49,8 +49,9 @@ def test_domain_label_appears_in_outputs():
         if label and label in row["output"]:
             hits += 1
     ratio = hits / len(prose_rows)
-    assert ratio >= 0.01, (
-        f"Domain label appeared in only {100*ratio:.1f}% of prose outputs — need ≥1%"
+    # Domain label should appear in ≥2% of prose outputs (only parametric templates contribute)
+    assert ratio >= 0.02, (
+        f"Domain label appeared in only {100*ratio:.1f}% of prose outputs — need ≥2%"
     )
 
 
