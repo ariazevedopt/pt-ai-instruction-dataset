@@ -55,9 +55,9 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, queria pedir o reembolso da encomenda, ok?",
-            "Oi, podem devolver o dinheiro da compra que fiz?",
-            "Tá, preciso do reembolso — como faço isso?",
-            "Oi, devolvi o artigo e quero o dinheiro de volta, pode ser?",
+            "Olá, podem devolver o dinheiro da compra que fiz?",
+            "Ok, preciso do reembolso — como faço isso?",
+            "Olá, devolvi o artigo e quero o dinheiro de volta, pode ser?",
         ],
     },
     "return_request": {
@@ -91,8 +91,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, quero devolver este produto — como faço?",
-            "Oi, não gostei do artigo e quero devolvê-lo.",
-            "Tá, o produto chegou errado — posso devolver?",
+            "Olá, não gostei do artigo e quero devolvê-lo.",
+            "Ok, o produto chegou errado — posso devolver?",
         ],
     },
     "order_status": {
@@ -124,8 +124,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, onde está a minha encomenda?",
-            "Oi, já fiz o pedido há uns dias — quando chega?",
-            "Tá, queria saber quando chega a minha encomenda.",
+            "Olá, já fiz o pedido há uns dias — quando chega?",
+            "Ok, queria saber quando chega a minha encomenda.",
         ],
     },
     "delivery_delay": {
@@ -156,7 +156,7 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, a encomenda ainda não chegou — o que se passa?",
-            "Oi, deveria ter recebido ontem mas ainda nada.",
+            "Olá, deveria ter recebido ontem mas ainda nada.",
             "Tá atrasado — quando chega mesmo?",
         ],
     },
@@ -188,8 +188,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, o produto chegou partido — o que faço?",
-            "Oi, recebi o artigo todo danificado.",
-            "Tá, chegou partido mesmo — podem trocar?",
+            "Olá, recebi o artigo todo danificado.",
+            "Ok, chegou partido mesmo — podem trocar?",
         ],
     },
     "billing_question": {
@@ -220,8 +220,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, não percebo a fatura — podem ajudar?",
-            "Oi, tenho uma dúvida sobre o que me cobraram.",
-            "Tá, há um valor esquisito na fatura.",
+            "Olá, tenho uma dúvida sobre o que me cobraram.",
+            "Ok, há um valor esquisito na fatura.",
         ],
     },
     "invoice_request": {
@@ -252,8 +252,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, podem mandar-me a fatura?",
-            "Oi, preciso da fatura para a contabilidade.",
-            "Tá, onde está a fatura do mês passado?",
+            "Olá, preciso da fatura para a contabilidade.",
+            "Ok, onde está a fatura do mês passado?",
         ],
     },
     "cancel_subscription": {
@@ -284,8 +284,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, quero cancelar a subscrição — como faço?",
-            "Oi, não quero continuar — como cancelo?",
-            "Tá, quero sair do plano.",
+            "Olá, não quero continuar — como cancelo?",
+            "Ok, quero sair do plano.",
         ],
     },
     "change_plan": {
@@ -316,8 +316,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, quero mudar de plano — como faço?",
-            "Oi, quero fazer upgrade do plano.",
-            "Tá, preciso de um plano maior.",
+            "Olá, quero fazer upgrade do plano.",
+            "Ok, preciso de um plano maior.",
         ],
     },
     "technical_issue": {
@@ -348,7 +348,7 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, o sistema está a dar erro — podem ver?",
-            "Oi, a aplicação não funciona bem.",
+            "Olá, a aplicação não funciona bem.",
             "Tá com bug — precisam de arranjar.",
         ],
     },
@@ -380,8 +380,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, esqueci a palavra-passe — como recupero?",
-            "Oi, não consigo entrar — preciso de nova palavra-passe.",
-            "Tá, preciso de repor a palavra-passe.",
+            "Olá, não consigo entrar — preciso de nova palavra-passe.",
+            "Ok, preciso de repor a palavra-passe.",
         ],
     },
     "account_access": {
@@ -412,8 +412,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, não consigo entrar na conta — ajudem-me?",
-            "Oi, a minha conta está bloqueada.",
-            "Tá, perdi o acesso — o que faço?",
+            "Olá, a minha conta está bloqueada.",
+            "Ok, perdi o acesso — o que faço?",
         ],
     },
     "complaint": {
@@ -444,8 +444,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, quero reclamar — como faço?",
-            "Oi, não estou nada satisfeito com o serviço.",
-            "Tá, quero queixar-me formalmente.",
+            "Olá, não estou nada satisfeito com o serviço.",
+            "Ok, quero queixar-me formalmente.",
         ],
     },
     "escalation_request": {
@@ -476,8 +476,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, quero falar com um supervisor.",
-            "Oi, preciso de escalar este problema.",
-            "Tá, quero falar com o chefe — isso não está resolvido.",
+            "Olá, preciso de escalar este problema.",
+            "Ok, quero falar com o chefe — isso não está resolvido.",
         ],
     },
     "booking_change": {
@@ -508,8 +508,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, precisei de mudar a reserva — como faço?",
-            "Oi, quero mudar a data da reserva.",
-            "Tá, mudei de planos — podem alterar a reserva?",
+            "Olá, quero mudar a data da reserva.",
+            "Ok, mudei de planos — podem alterar a reserva?",
         ],
     },
     "booking_cancellation": {
@@ -540,8 +540,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, quero cancelar a reserva — pode ser?",
-            "Oi, preciso de cancelar — como faço?",
-            "Tá, precisei de cancelar a reserva.",
+            "Olá, preciso de cancelar — como faço?",
+            "Ok, precisei de cancelar a reserva.",
         ],
     },
     "payment_failure": {
@@ -572,8 +572,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, o pagamento não passou — o que faço?",
-            "Oi, tentei pagar e deu erro.",
-            "Tá, o pagamento falhou — como resolvo?",
+            "Olá, tentei pagar e deu erro.",
+            "Ok, o pagamento falhou — como resolvo?",
         ],
     },
     "duplicate_charge": {
@@ -604,8 +604,8 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         ],
         "informal": [
             "Olá, cobrararam-me duas vezes — podem ver?",
-            "Oi, há uma cobrança dupla na conta.",
-            "Tá, fui cobrado duas vezes pelo mesmo.",
+            "Olá, há uma cobrança dupla na conta.",
+            "Ok, fui cobrado duas vezes pelo mesmo.",
         ],
     },
 }

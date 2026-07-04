@@ -14,7 +14,7 @@ INTENTS = [
     "complaint", "escalation_request", "booking_change", "booking_cancellation",
     "payment_failure", "duplicate_charge",
 ]
-BANNED = ["celular", "senha", "nota fiscal", "assinatura", "código de rastreio", "contato", "cadê"]
+BANNED = ["celular", "senha", "nota fiscal", "assinatura", "código de rastreio", "contato", "cadê", "oi,", "tá,"]
 
 
 def test_tone_messages_has_all_18_intents():
