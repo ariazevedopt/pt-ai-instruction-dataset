@@ -62,7 +62,7 @@ quality:
 
 review-browser:
 	@echo "Starting browser review at http://localhost:8765 …"
-	python3 scripts/review_server.py --port 8765 --open
+	cd scripts && python3 review_server.py --port 8765 --open
 
 test:
 	python3 -m pytest tests/ -v
