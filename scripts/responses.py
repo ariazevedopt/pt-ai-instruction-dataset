@@ -162,6 +162,8 @@ RESPONSE_TEMPLATES = {
         "Lamentamos a situação. Para avançarmos com o pedido de reembolso, pedimos que nos indique o número da encomenda e, se aplicável, uma fotografia do artigo com defeito. Assim que recebermos essa informação, processaremos o reembolso no prazo habitual.",
         "Agradecemos o seu contacto e pedimos desculpa pelo inconveniente. Para darmos início ao processo de reembolso, necessitamos do número da encomenda e da prova de compra. Após validação, o valor será devolvido ao meio de pagamento original.",
         "Compreendemos a sua situação e estamos disponíveis para ajudar. Pode indicar-nos o número da encomenda em questão? Com essa informação, verificaremos o estado do pedido e processaremos o reembolso com a maior brevidade possível.",
+        "Pedimos desculpa pelo sucedido. O processo de reembolso tem início imediato após confirmação dos dados. Pode partilhar connosco o número de referência da compra e o IBAN para devolução, caso o pagamento tenha sido por transferência?",
+        "Lamentamos que a situação não tenha sido resolvida anteriormente. Para tratarmos do reembolso de forma prioritária, pode confirmar o método de pagamento utilizado? Reembolsos para cartão são processados em 3 a 5 dias úteis.",
     ],
 
     ("response_generation", "return_request"): [
@@ -186,6 +188,8 @@ RESPONSE_TEMPLATES = {
         "Lamentamos que o artigo tenha chegado danificado. Para darmos seguimento à situação, pedimos que nos envie fotografias do dano e o número da encomenda. Com essa informação, processaremos a substituição ou reembolso com a maior brevidade.",
         "Pedimos desculpa pela situação. Receber um artigo danificado é inaceitável e queremos resolver o problema rapidamente. Por favor envie-nos uma fotografia do dano e o número da encomenda.",
         "Compreendemos a sua frustração. Para registar a ocorrência e avançar com a resolução, necessitamos do número da encomenda e de fotografias que documentem o estado em que o artigo chegou.",
+        "Lamentamos profundamente o sucedido. Ao recebermos as fotografias do artigo danificado, iremos determinar se o mais indicado é envio de substituição imediata ou reembolso integral. Qual prefere?",
+        "O dano ocorrido durante o transporte é da nossa responsabilidade. Para abrirmos o processo de reclamação junto da transportadora e garantirmos a sua compensação, precisamos do número de encomenda e de fotografias do artigo e da embalagem.",
     ],
 
     ("response_generation", "billing_question"): [
@@ -204,6 +208,8 @@ RESPONSE_TEMPLATES = {
         "Lamentamos que queira cancelar a sua subscrição. Para processarmos o cancelamento, podemos fazê-lo com efeitos imediatos ou no final do período em curso, conforme a sua preferência. Por favor confirme a opção desejada.",
         "Agradecemos o seu contacto. O cancelamento da subscrição pode ser processado de imediato. Confirma que pretende avançar? Note que continuará a ter acesso até ao final do período já pago.",
         "Compreendemos a sua decisão. Para concluir o cancelamento, precisamos apenas de confirmar a sua identidade. Pode indicar-nos o endereço de e-mail associado à conta?",
+        "O cancelamento foi registado. Antes de confirmarmos, gostaríamos de perceber o motivo para verificar se existe algo que possamos melhorar. Se ainda assim pretender cancelar, o serviço terminará no final do ciclo actual.",
+        "Lamentamos a sua decisão de cancelar. Para garantir que o processo corre sem problemas, confirme o e-mail da conta e se pretende cancelamento imediato ou no final do período de faturação. Não serão cobradas taxas de cancelamento.",
     ],
 
     ("response_generation", "change_plan"): [
@@ -216,24 +222,32 @@ RESPONSE_TEMPLATES = {
         "Lamentamos o inconveniente técnico que está a experienciar. Para ajudarmos a resolver o problema, pode descrever com mais detalhe o que está a acontecer? Qual a mensagem de erro que aparece, se existir?",
         "Agradecemos o contacto. Estamos a registar a ocorrência técnica. Para agilizar a resolução, pode indicar-nos: (1) qual o browser ou dispositivo que está a utilizar, e (2) quando começou o problema?",
         "Pedimos desculpa pelo inconveniente. Para diagnosticarmos o problema com maior precisão, pode tentar limpar a cache do browser e tentar novamente? Se o problema persistir, por favor descreva os passos que efectuou quando o erro ocorreu.",
+        "Estamos a investigar a falha técnica reportada. Para confirmar se é um problema generalizado ou específico da sua conta, pode indicar-nos o número de conta ou endereço de e-mail? Actualizaremos assim que tivermos mais informação.",
+        "Reconhecemos o problema técnico descrito e pedimos desculpa pelo impacto causado. A equipa técnica já foi notificada. Pode partilhar connosco capturas de ecrã do erro? Isso ajudará a agilizar o diagnóstico.",
     ],
 
     ("response_generation", "password_reset"): [
         "Para repor a sua palavra-passe, aceda à página de início de sessão e clique em 'Esqueceu a palavra-passe?'. Será enviado um e-mail de recuperação para o endereço associado à conta. Verifique também a pasta de spam.",
         "Agradecemos o contacto. Para redefinir a palavra-passe, enviámos um e-mail de recuperação para o endereço registado. Caso não o receba nos próximos 5 minutos, verifique a pasta de spam ou contacte-nos novamente.",
         "A reposição da palavra-passe é feita através do link que enviámos para o seu e-mail. Se não recebeu o e-mail, pode indicar-nos o endereço registado na conta para verificarmos a situação?",
+        "Pode redefinir a palavra-passe directamente através do portal em 'Acesso à Conta' → 'Esqueci a palavra-passe'. Se o endereço de e-mail registado já não está activo, contacte-nos para verificação de identidade alternativa.",
+        "Para sua segurança, o link de reposição de palavra-passe expira ao fim de 30 minutos. Se já expirou, pode solicitar um novo na página de login. Caso continue sem acesso, podemos verificar a conta e fazer o reset manualmente.",
     ],
 
     ("response_generation", "account_access"): [
         "Pedimos desculpa pelo problema no acesso. Para verificarmos a situação da sua conta, pode confirmar o endereço de e-mail associado? Verificaremos se a conta está activa e, se necessário, procederemos ao desbloqueio.",
         "Lamentamos o inconveniente. O problema de acesso pode estar relacionado com uma autenticação falhada ou com a conta temporariamente bloqueada por motivos de segurança. Pode indicar-nos o e-mail de registo?",
         "Para resolvermos o problema de acesso com a maior brevidade, precisamos de verificar a sua identidade. Pode confirmar o endereço de e-mail e o número de telemóvel associados à conta?",
+        "Compreendemos o transtorno causado pelo bloqueio de acesso. Após confirmação da sua identidade, procederemos ao desbloqueio imediato da conta. Pode fornecer o e-mail de registo e os últimos 4 dígitos do número de telemóvel?",
+        "O acesso bloqueado pode dever-se a múltiplas tentativas falhadas ou a uma actualização de segurança. Vamos verificar a situação. Por favor confirme o endereço de e-mail e aguarde — o desbloqueio é efectuado em minutos.",
     ],
 
     ("response_generation", "complaint"): [
         "Lamentamos profundamente a experiência negativa que vivenciou. A sua reclamação foi registada com prioridade e será analisada pela equipa responsável. Entraremos em contacto consigo nas próximas 24 horas com uma resposta.",
         "Agradecemos o seu feedback, ainda que lamentemos que a experiência não tenha sido satisfatória. Vamos analisar a situação com detalhe e tomar as medidas necessárias. Pode contar com uma resposta formal no prazo de 2 dias úteis.",
         "Compreendemos a sua insatisfação e pedimos desculpa pelo sucedido. A sua reclamação é importante para nós e será tratada com a devida seriedade. Um responsável da equipa entrará em contacto consigo brevemente.",
+        "A sua reclamação foi registada no nosso sistema com referência [número]. Partilhamos a sua insatisfação e iremos investigar o sucedido internamente. Receberá uma resposta fundamentada no prazo de 3 dias úteis.",
+        "Pedimos as nossas mais sinceras desculpas pela situação descrita. Reconhecemos que a experiência não foi a que esperava e que temos a responsabilidade de melhorar. A equipa de qualidade irá analisar o caso e contactá-lo/a brevemente.",
     ],
 
     ("response_generation", "escalation_request"): [
@@ -246,12 +260,16 @@ RESPONSE_TEMPLATES = {
         "Claro, podemos verificar a disponibilidade para a alteração da sua reserva. Por favor indique o número de reserva e as novas datas ou preferências pretendidas. Verificaremos as opções disponíveis e informaremos sobre eventuais custos adicionais.",
         "Agradecemos o contacto. Para processar a alteração da reserva, precisamos do número de reserva e dos novos dados pretendidos. Note que alterações podem estar sujeitas a taxas dependendo da tarifa contratada.",
         "Ficamos ao dispor para ajudar na alteração da sua reserva. Pode indicar-nos o número de reserva e o que pretende alterar (data, hora, número de participantes)?",
+        "Com certeza. Para verificar a disponibilidade e eventuais diferenças de preço, precisamos do número de reserva e das novas datas pretendidas. Responderemos com as opções disponíveis no prazo de 2 horas úteis.",
+        "Agradecemos o pedido de alteração. Para avançar, pode confirmar o número de reserva e descrever a alteração pretendida? Se a nova data implicar custos adicionais, informaremos previamente antes de qualquer cobrança.",
     ],
 
     ("response_generation", "booking_cancellation"): [
         "Lamentamos que necessite de cancelar a sua reserva. Para processarmos o cancelamento e verificarmos as condições de reembolso, pode indicar-nos o número de reserva? A política de reembolso varia conforme a tarifa contratada.",
         "Agradecemos o contacto. O cancelamento da reserva pode ser processado de imediato. Dependendo da tarifa e da antecedência, poderá ter direito a reembolso total ou parcial. Pode indicar-nos o número de reserva?",
         "Compreendemos que possa haver imprevistos. Para cancelar a reserva, necessitamos do número de reserva. Informaremos sobre as condições de cancelamento e eventuais reembolsos aplicáveis.",
+        "O cancelamento foi registado. De acordo com a nossa política, reservas canceladas com mais de 48 horas de antecedência têm direito a reembolso integral. Pode confirmar o número de reserva para verificarmos as condições específicas?",
+        "Lamentamos não o/a poder receber como planeado. Para processar o cancelamento, pedimos que confirme o número de reserva e o motivo, caso pretenda beneficiar de isenção de taxa por motivos de força maior.",
     ],
 
     ("response_generation", "payment_failure"): [
