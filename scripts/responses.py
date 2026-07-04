@@ -10,6 +10,7 @@ Structure:
 """
 import json
 import random
+from templates import DOMAIN_LABELS
 
 # ---------------------------------------------------------------------------
 # Metadata helpers for classification outputs
@@ -61,6 +62,33 @@ URGENCY_REASONS = {
     "low":    "O pedido não apresenta indicadores de urgência imediata.",
     "medium": "A situação requer atenção dentro do prazo normal de resposta.",
     "high":   "O cliente reporta um problema que afecta o acesso ou causa impacto financeiro directo.",
+}
+
+# ---------------------------------------------------------------------------
+# Tone-aware phrase modifiers for prose outputs
+# ---------------------------------------------------------------------------
+
+TONE_PHRASES: dict = {
+    "professional": {
+        "opener": "Agradecemos o seu contacto.",
+        "closer": "Ficamos ao dispor para qualquer esclarecimento adicional.",
+    },
+    "empathetic": {
+        "opener": "Lamentamos sinceramente a situação que nos descreve.",
+        "closer": "Estamos do seu lado e faremos tudo para resolver esta situação.",
+    },
+    "concise": {
+        "opener": "Recebemos o seu pedido.",
+        "closer": "Aguardamos o seu feedback.",
+    },
+    "reassuring": {
+        "opener": "Compreendemos a sua preocupação e queremos garantir-lhe que iremos resolver a situação.",
+        "closer": "Pode ficar tranquilo/a — o assunto está a ser tratado com prioridade.",
+    },
+    "formal": {
+        "opener": "Acusamos a recepção da sua comunicação.",
+        "closer": "Com os melhores cumprimentos e ao inteiro dispor de V. Exa.",
+    },
 }
 
 # Per-intent reason phrases used to build varied urgency_classification outputs.
@@ -164,6 +192,8 @@ RESPONSE_TEMPLATES = {
         "Compreendemos a sua situação e estamos disponíveis para ajudar. Pode indicar-nos o número da encomenda em questão? Com essa informação, verificaremos o estado do pedido e processaremos o reembolso com a maior brevidade possível.",
         "Pedimos desculpa pelo sucedido. O processo de reembolso tem início imediato após confirmação dos dados. Pode partilhar connosco o número de referência da compra e o IBAN para devolução, caso o pagamento tenha sido por transferência?",
         "Lamentamos que a situação não tenha sido resolvida anteriormente. Para tratarmos do reembolso de forma prioritária, pode confirmar o método de pagamento utilizado? Reembolsos para cartão são processados em 3 a 5 dias úteis.",
+        "{opener} Relativamente ao seu pedido de reembolso de {domain_label}, vamos analisar a situação com prioridade. Assim que verificarmos os detalhes, contactamos via e-mail com a resolução. {closer}",
+        "{opener} O seu pedido de reembolso em {domain_label} foi registado. Iremos verificar os registos de pagamento e, se confirmarmos a irregularidade, o valor será devolvido no prazo de 5 a 10 dias úteis. {closer}",
     ],
 
     ("response_generation", "return_request"): [
@@ -226,6 +256,8 @@ RESPONSE_TEMPLATES = {
         "Pedimos desculpa pelo inconveniente. Para diagnosticarmos o problema com maior precisão, pode tentar limpar a cache do browser e tentar novamente? Se o problema persistir, por favor descreva os passos que efectuou quando o erro ocorreu.",
         "Estamos a investigar a falha técnica reportada. Para confirmar se é um problema generalizado ou específico da sua conta, pode indicar-nos o número de conta ou endereço de e-mail? Actualizaremos assim que tivermos mais informação.",
         "Reconhecemos o problema técnico descrito e pedimos desculpa pelo impacto causado. A equipa técnica já foi notificada. Pode partilhar connosco capturas de ecrã do erro? Isso ajudará a agilizar o diagnóstico.",
+        "{opener} Reportámos o problema técnico na área de {domain_label} à nossa equipa especializada. Estamos a investigar a causa e entraremos em contacto assim que tivermos uma actualização. {closer}",
+        "{opener} Reconhecemos o problema em {domain_label} e pedimos desculpa pelo impacto causado. Pode tentar limpar a cache e reiniciar a sessão enquanto a nossa equipa trabalha numa solução definitiva. {closer}",
     ],
 
     ("response_generation", "password_reset"): [
@@ -254,6 +286,8 @@ RESPONSE_TEMPLATES = {
         "Compreendemos a sua insatisfação e pedimos desculpa pelo sucedido. A sua reclamação é importante para nós e será tratada com a devida seriedade. Um responsável da equipa entrará em contacto consigo brevemente.",
         "A sua reclamação foi registada no nosso sistema com referência [número]. Partilhamos a sua insatisfação e iremos investigar o sucedido internamente. Receberá uma resposta fundamentada no prazo de 3 dias úteis.",
         "Pedimos as nossas mais sinceras desculpas pela situação descrita. Reconhecemos que a experiência não foi a que esperava e que temos a responsabilidade de melhorar. A equipa de qualidade irá analisar o caso e contactá-lo/a brevemente.",
+        "{opener} A sua reclamação sobre {domain_label} foi registada formalmente no nosso sistema. Um responsável irá analisar o caso e contactá-lo/a no prazo de dois dias úteis. {closer}",
+        "{opener} Lamentamos a experiência que descreve em {domain_label}. O seu caso foi escalado para análise interna e receberá uma resposta formal com as medidas correctivas aplicadas. {closer}",
     ],
 
     ("response_generation", "escalation_request"): [
@@ -320,6 +354,7 @@ RESPONSE_TEMPLATES = {
     ("email_reply", "billing_question"): [
         "Exmo(a). Sr(a).,\n\nAgradecemos o seu contacto relativamente à fatura.\n\nEm resposta à sua dúvida, o valor faturado corresponde a [descrição dos itens]. Caso necessite de esclarecimentos adicionais ou identificar algum erro, não hesite em contactar-nos.\n\nCom os melhores cumprimentos,\n[Nome da Empresa]",
         "Caro/a cliente,\n\nAcusamos a recepção da sua questão sobre a fatura.\n\nConfirmamos que a fatura n.º [número] foi emitida correctamente e reflecte os serviços prestados no período [período]. Em caso de divergência, pedimos que nos indique o item em questão para verificarmos.\n\nAtenciosamente,\n[Nome da Empresa]",
+        "Caro/a cliente,\n\n{opener} Recebemos a sua questão sobre a fatura de {domain_label}.\n\nIremos verificar os registos de cobrança e responder em detalhe até ao próximo dia útil. Caso tenha o número de fatura disponível, peça que o inclua na resposta para agilizarmos a análise.\n\n{closer}\n[Equipa de Suporte]",
     ],
 
     ("email_reply", "invoice_request"): [
@@ -444,6 +479,7 @@ RESPONSE_TEMPLATES = {
         "O cliente reporta um problema técnico na plataforma que está a impedir o uso normal do serviço.",
         "O cliente está a experienciar erros no acesso ou funcionamento da aplicação e solicita suporte técnico.",
         "O cliente informa que o serviço está com falhas e pede assistência para resolver o problema.",
+        "O cliente reporta uma falha técnica em {domain_label} que impede o uso normal do serviço. O problema ocorre desde [data/hora indicada] e afecta [função específica descrita]. Requer análise técnica prioritária.",
     ],
 
     ("summarization", "password_reset"): [
@@ -656,6 +692,7 @@ RESPONSE_TEMPLATES = {
     ("next_action_suggestion", "escalation_request"): [
         "1. Reconhecer a insatisfação do cliente e pedir desculpa.\n2. Registar o pedido de escalamento com urgência máxima.\n3. Transferir para supervisor disponível de imediato.\n4. Confirmar ao cliente o nome e contacto do supervisor.",
         "1. Notificar o supervisor responsável da situação.\n2. Fornecer ao supervisor o histórico completo do caso.\n3. Confirmar ao cliente o tempo de resposta (máx. 4 horas).\n4. Monitorizar até à resolução.",
+        "1. Verificar o histórico completo de interacções do cliente em {domain_label}.\n2. Escalar o caso para supervisor de {domain_label} com sumário do problema.\n3. Contactar o cliente em menos de duas horas com confirmação do escalamento.\n4. Agendar chamada com o cliente para resolução directa.",
     ],
 
     ("next_action_suggestion", "booking_change"): [
@@ -772,17 +809,20 @@ RESPONSE_TEMPLATES = {
 }
 
 
-def get_output(task_type: str, intent: str, domain: str = None) -> str:
+def get_output(task_type: str, intent: str, domain: str = None, agent_tone: str = None) -> str:
     """Return a realistic PT-PT output for a given task_type and intent.
 
     Classification tasks return structured JSON.
-    All other tasks return a random choice from the template list.
+    Prose tasks return a randomly selected template with {domain_label} and
+    {opener}/{closer} placeholders filled from DOMAIN_LABELS and TONE_PHRASES.
 
     Args:
         task_type: One of the 8 task types defined in config.TASK_TYPES.
-        intent: One of the 18 customer intents defined in config.CUSTOMER_INTENTS.
-        domain: The row's domain (used in intent_classification output). Falls back
-                to INTENT_DOMAIN[intent] when not provided.
+        intent: One of the customer intents defined in config.CUSTOMER_INTENTS.
+        domain: The row's domain (used in intent_classification output and
+                {domain_label} substitution). Falls back to INTENT_DOMAIN[intent].
+        agent_tone: One of the 5 agent tones. Used to fill {opener}/{closer}
+                    in prose templates. Falls back to "professional".
     """
     if task_type == "intent_classification":
         urgency = INTENT_URGENCY.get(intent, "medium")
@@ -805,9 +845,27 @@ def get_output(task_type: str, intent: str, domain: str = None) -> str:
             "escalate": escalate,
         }, ensure_ascii=False)
 
+    # Prose tasks — pick a template and fill parametric placeholders
     key = (task_type, intent)
     templates = RESPONSE_TEMPLATES.get(key)
     if not templates:
         return f"[sem template para {task_type}/{intent}]"
 
-    return random.choice(templates)
+    template = random.choice(templates)
+
+    # Fill {domain_label}
+    resolved_domain = domain if domain else INTENT_DOMAIN.get(intent, "billing_accounts")
+    domain_label = DOMAIN_LABELS.get(resolved_domain, "serviços ao cliente")
+
+    # Fill {opener} and {closer}
+    resolved_tone = agent_tone if agent_tone else "professional"
+    tone_data = TONE_PHRASES.get(resolved_tone, TONE_PHRASES["professional"])
+    opener = tone_data["opener"]
+    closer = tone_data["closer"]
+
+    filled = template.format(
+        domain_label=domain_label,
+        opener=opener,
+        closer=closer,
+    )
+    return filled

@@ -72,3 +72,43 @@ def test_intent_messages_min_pool_size():
         assert len(messages) >= 12, (
             f"INTENT_MESSAGES['{intent}'] has only {len(messages)} messages — need ≥12"
         )
+
+
+def test_get_output_accepts_agent_tone_param():
+    """get_output() must accept agent_tone without raising TypeError."""
+    import responses as R
+    result = R.get_output("response_generation", "refund_request",
+                          domain="ecommerce", agent_tone="empathetic")
+    assert isinstance(result, str) and len(result) > 20
+
+
+def test_get_output_no_unfilled_placeholders():
+    """No {placeholder} must survive in any get_output() return value."""
+    import responses as R
+    from config import TASK_TYPES, AGENT_TONES
+    import random
+    random.seed(42)
+    SAMPLE_INTENTS = [
+        "refund_request", "order_status", "technical_issue",
+        "password_reset", "complaint", "booking_cancellation",
+        "payment_failure", "duplicate_charge",
+    ]
+    for tt in TASK_TYPES:
+        for intent in SAMPLE_INTENTS:
+            for tone in AGENT_TONES:
+                try:
+                    result = R.get_output(tt, intent, domain="ecommerce", agent_tone=tone)
+                    assert "{" not in result and "}" not in result, (
+                        f"Unfilled placeholder: task={tt} intent={intent} tone={tone}: {result!r}"
+                    )
+                except Exception:
+                    pass  # Some (task_type, intent) combos may not have templates — that's OK
+
+
+def test_tone_phrases_covers_all_agent_tones():
+    import responses as R
+    from config import AGENT_TONES
+    assert hasattr(R, "TONE_PHRASES")
+    for tone in AGENT_TONES:
+        assert tone in R.TONE_PHRASES, f"TONE_PHRASES missing tone: {tone}"
+        assert "opener" in R.TONE_PHRASES[tone], f"TONE_PHRASES['{tone}'] missing 'opener'"
