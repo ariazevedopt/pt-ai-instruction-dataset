@@ -14,7 +14,7 @@ validate:
 import json, sys; sys.path.insert(0,'scripts'); \
 from validate import is_valid_row; \
 rows=[json.loads(l) for l in open('datasets/processed/lusosupport_pt_v1.jsonl') if l.strip()]; \
-bad=[r['id'] for r in rows if not is_valid_row(r)]; \
+bad=[r['id'] for r in rows if not is_valid_row(r)[0]]; \
 print(f'{len(rows)-len(bad)}/{len(rows)} rows valid'); \
 [print('  FAIL:', i) for i in bad]"
 
@@ -47,6 +47,18 @@ clean:
 	rm -f datasets/processed/lusosupport_pt_v1.csv
 	rm -f datasets/processed/lusosupport_pt_v1_alpaca.jsonl
 	rm -f datasets/processed/lusosupport_pt_v1.parquet
+
+flag:
+	cd scripts && python3 flag.py
+
+review:
+	cd scripts && python3 review.py --mode flagged
+
+review-random:
+	cd scripts && python3 review.py --mode random --n 20
+
+quality:
+	cd scripts && python3 quality_report.py
 
 test:
 	python3 -m pytest tests/ -v

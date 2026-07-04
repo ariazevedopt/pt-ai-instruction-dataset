@@ -8,8 +8,8 @@ from templates import build_instruction
 from validate import is_valid_row
 
 
-def generate_output(task_type, intent):
-    return get_output(task_type, intent)
+def generate_output(task_type, intent, domain=None):
+    return get_output(task_type, intent, domain=domain)
 
 
 def generate_row(i):
@@ -20,11 +20,13 @@ def generate_row(i):
     customer_tone = random.choice(CUSTOMER_TONES)
     agent_tone = random.choice(AGENT_TONES)
 
+    domain = random.choice(DOMAINS)
+
     return {
         "id": f"lusosupport_pt_{i:06d}",
         "language": "pt",
         "variant": "pt-PT",
-        "domain": random.choice(DOMAINS),
+        "domain": domain,
         "subdomain": "placeholder",
         "task_type": task,
         "customer_intent": intent,
@@ -34,7 +36,7 @@ def generate_row(i):
         "difficulty": random.choice(DIFFICULTY_LEVELS),
         "instruction": build_instruction(task, agent_tone),
         "input": f"Mensagem do cliente: {message}",
-        "output": generate_output(task, intent),
+        "output": generate_output(task, intent, domain=domain),
         "metadata": {
             "requires_escalation": False,
             "contains_pii": False,
@@ -63,7 +65,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     data = generate_dataset(args.n)
-    valid = [r for r in data if is_valid_row(r)]
+    valid = [r for r in data if is_valid_row(r)[0]]
     save_jsonl(valid, args.out)
     print(f"Generated {len(data)} rows, {len(valid)} passed validation → {args.out}")
 

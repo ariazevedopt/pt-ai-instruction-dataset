@@ -659,19 +659,25 @@ RESPONSE_TEMPLATES = {
 }
 
 
-def get_output(task_type: str, intent: str) -> str:
+def get_output(task_type: str, intent: str, domain: str = None) -> str:
     """Return a realistic PT-PT output for a given task_type and intent.
 
     Classification tasks return structured JSON.
     All other tasks return a random choice from the template list.
+
+    Args:
+        task_type: One of the 8 task types defined in config.TASK_TYPES.
+        intent: One of the 18 customer intents defined in config.CUSTOMER_INTENTS.
+        domain: The row's domain (used in intent_classification output). Falls back
+                to INTENT_DOMAIN[intent] when not provided.
     """
     if task_type == "intent_classification":
         urgency = INTENT_URGENCY.get(intent, "medium")
-        domain = INTENT_DOMAIN.get(intent, "unknown")
+        resolved_domain = domain if domain else INTENT_DOMAIN.get(intent, "unknown")
         return json.dumps({
             "intent": intent,
             "urgency": urgency,
-            "domain": domain,
+            "domain": resolved_domain,
             "confidence": round(random.uniform(0.82, 0.99), 2),
         }, ensure_ascii=False)
 
