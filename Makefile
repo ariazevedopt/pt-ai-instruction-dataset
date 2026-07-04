@@ -14,7 +14,7 @@ validate:
 import json, sys; sys.path.insert(0,'scripts'); \
 from validate import is_valid_row; \
 rows=[json.loads(l) for l in open('datasets/processed/lusosupport_pt_v1.jsonl') if l.strip()]; \
-bad=[r['id'] for r in rows if not is_valid_row(r)]; \
+bad=[r['id'] for r in rows if not is_valid_row(r)[0]]; \
 print(f'{len(rows)-len(bad)}/{len(rows)} rows valid'); \
 [print('  FAIL:', i) for i in bad]"
 

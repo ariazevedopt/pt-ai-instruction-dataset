@@ -57,6 +57,14 @@ def load_exclusion_ids(feedback_dir: Path = FEEDBACK_DIR,
                     row_id = json.loads(line)["id"]
                     if row_id not in seed_ids:
                         excluded.add(row_id)
+    # Subtract approved rows from exclusions
+    approved_path = feedback_dir / "approved.jsonl"
+    if approved_path.exists():
+        for line in approved_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line:
+                row_id = json.loads(line)["id"]
+                excluded.discard(row_id)
     return excluded
 
 
@@ -77,7 +85,7 @@ def load_corrections(feedback_dir: Path = FEEDBACK_DIR) -> dict:
 def run(n=100, stats=False):
     console.rule("[bold blue]LusoSupport-PT Pipeline")
 
-    console.print(f"\n[1/4] Generating [bold]{n}[/bold] synthetic rows...")
+    console.print(f"\n[1/5] Generating [bold]{n}[/bold] synthetic rows...")
     rows = []
     for i in tqdm(range(n), desc="  Generating", unit="row"):
         rows.append(generate_row(i))
