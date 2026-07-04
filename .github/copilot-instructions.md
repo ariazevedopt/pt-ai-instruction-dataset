@@ -8,18 +8,28 @@ This is a **European Portuguese (pt-PT) customer support instruction dataset** f
 
 ## Running Scripts
 
-Scripts live in `scripts/` and are run from that directory:
+Use `make` from the repo root for all common tasks:
+
+```bash
+pip install -r requirements.txt   # pandas, pyarrow, datasets, tqdm, rich, pytest
+
+make test        # run pytest suite (validate + dedupe coverage)
+make pipeline    # generate → validate → deduplicate → save (tqdm progress + rich output)
+make stats       # rich table breakdown of dataset composition
+make export      # CSV + Alpaca JSONL + Parquet
+make validate    # validate processed dataset
+make dedupe      # deduplicate processed dataset in-place
+make clean       # remove generated export files
+```
+
+Or run individual scripts from `scripts/`:
 
 ```bash
 cd scripts
-python generate.py     # generate synthetic JSONL rows → ../datasets/interim/
-python validate.py     # validate a dataset file
-python dedupe.py       # deduplicate rows
-```
-
-Install dependencies first:
-```bash
-pip install -r requirements.txt
+python3 generate.py --n 100     # generate rows → ../datasets/interim/
+python3 pipeline.py --n 500 --stats
+python3 dedupe.py <input> <output>
+python3 export_formats.py <input> --csv out.csv --alpaca out.jsonl --parquet out.parquet
 ```
 
 ---
@@ -28,23 +38,30 @@ pip install -r requirements.txt
 
 ```
 scripts/        # dataset generation and processing pipeline
-  config.py     # single source of truth for all enum values (domains, task_types, intents, tones, channels, difficulty)
-  scenarios.py  # INTENT_MESSAGES dict: customer intent → sample pt-PT messages
-  templates.py  # build_instruction(task_type, agent_tone) → instruction strings
-  generate.py   # generate_row(), generate_dataset(n), save_jsonl()
-  validate.py   # is_valid_row() — validation rules applied before saving
-  dedupe.py     # deduplication (stub)
-  export_formats.py  # export helpers (stub)
+  config.py          # single source of truth for all enum values
+  scenarios.py       # INTENT_MESSAGES: customer intent → PT-PT sample messages (17 intents)
+  templates.py       # build_instruction(task_type, agent_tone) → instruction strings
+  generate.py        # generate_row(), generate_dataset(n), save_jsonl()
+  validate.py        # is_valid_row() — enforces language, structure, PT-PT vocabulary
+  dedupe.py          # SHA-256 fingerprint deduplication on instruction+input+output
+  export_formats.py  # to_csv(), to_parquet(), to_alpaca_jsonl(), print_stats() [rich]
+  pipeline.py        # end-to-end runner with tqdm + rich output
 
 datasets/
   raw/           # hand-crafted seed examples (seed_examples.jsonl)
   interim/       # script-generated drafts (generated.jsonl)
-  processed/     # cleaned, validated, release-ready (lusosupport_pt_v1.jsonl)
+  processed/     # release-ready: .jsonl, .csv, _alpaca.jsonl, .parquet
 
 docs/
-  schema.md      # full JSON schema documentation
-  taxonomy.yaml  # authoritative list of domains, subdomains, task_types, intents, tones, channels
-  examples.md    # annotated example rows
+  schema.md           # full JSON schema documentation
+  taxonomy.yaml       # authoritative enum definitions
+  examples.md         # annotated example rows
+  tech-stack.md       # tech choices and rationale
+  superpowers/specs/  # design specs and business plan
+
+tests/
+  test_validate.py    # pytest coverage for is_valid_row()
+  test_dedupe.py      # pytest coverage for deduplicate()
 ```
 
 Data flows: `raw` → `interim` → `processed`.
