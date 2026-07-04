@@ -6,9 +6,6 @@ from scenarios import INTENT_MESSAGES
 from templates import build_instruction
 from validate import is_valid_row
 
-dataset = generate_dataset(100)
-dataset = [r for r in dataset if is_valid_row(r)]
-
 
 def generate_output(task_type, intent):
     if task_type == "intent_classification":
@@ -67,7 +64,16 @@ def save_jsonl(rows, path):
 
 
 if __name__ == "__main__":
-    data = generate_dataset(50)
-    save_jsonl(data, "../data/interim/generated.jsonl")
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Generate synthetic LusoSupport-PT rows.")
+    parser.add_argument("--n", type=int, default=50, help="Number of rows to generate")
+    parser.add_argument("--out", default="../datasets/interim/generated.jsonl", help="Output path")
+    args = parser.parse_args()
+
+    data = generate_dataset(args.n)
+    valid = [r for r in data if is_valid_row(r)]
+    save_jsonl(valid, args.out)
+    print(f"Generated {len(data)} rows, {len(valid)} passed validation → {args.out}")
 
 
