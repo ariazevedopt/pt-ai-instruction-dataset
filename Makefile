@@ -62,6 +62,7 @@ quality:
 
 review-browser:
 	@echo "Starting browser review at http://localhost:8765 …"
+	@lsof -ti tcp:8765 | xargs kill -9 2>/dev/null || true
 	cd scripts && python3 review_server.py --port 8765 --open
 
 test:
