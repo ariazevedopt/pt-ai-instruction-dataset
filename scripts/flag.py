@@ -40,18 +40,22 @@ def _heuristic_flags(row: dict, bucket_outputs: dict) -> list:
     reasons = []
     task_type = row.get("task_type", "")
     output = row.get("output", "")
+    input_text = row.get("input", "")
     domain = row.get("domain", "")
     bucket_key = (domain, task_type)
 
-    # Heuristic 1: duplicate output within same domain × task_type bucket
-    if output in bucket_outputs[bucket_key]:
+    # Heuristic 1: duplicate (input, output) pair within same domain × task_type bucket.
+    # Different inputs mapping to the same output is legitimate training data (paraphrase
+    # invariance), so we only flag when both input AND output are identical.
+    pair_key = (input_text, output)
+    if pair_key in bucket_outputs[bucket_key]:
         reasons.append("duplicate_in_bucket")
     else:
-        bucket_outputs[bucket_key].add(output)
+        bucket_outputs[bucket_key].add(pair_key)
 
     if task_type in _TEXT_TASK_TYPES:
         # Heuristic 2: output-to-input length ratio < 0.5
-        input_len = len(row.get("input", ""))
+        input_len = len(input_text)
         if input_len > 0 and len(output) / input_len < 0.5:
             reasons.append("low_output_input_ratio")
 

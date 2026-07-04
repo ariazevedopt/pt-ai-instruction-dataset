@@ -63,6 +63,93 @@ URGENCY_REASONS = {
     "high":   "O cliente reporta um problema que afecta o acesso ou causa impacto financeiro directo.",
 }
 
+# Per-intent reason phrases used to build varied urgency_classification outputs.
+INTENT_URGENCY_REASON = {
+    "refund_request":       [
+        "O cliente aguarda a devolução de um valor pago indevidamente.",
+        "Existe impacto financeiro directo que requer acompanhamento dentro do prazo normal.",
+        "O cliente reporta uma cobrança incorrecta e espera resolução.",
+    ],
+    "return_request":       [
+        "O pedido de devolução não implica urgência imediata.",
+        "A devolução pode ser processada dentro do prazo habitual.",
+    ],
+    "order_status":         [
+        "O cliente aguarda informação sobre o estado da encomenda, sem urgência crítica.",
+        "A consulta de estado é de baixa prioridade e pode ser respondida no prazo normal.",
+    ],
+    "delivery_delay":       [
+        "O atraso na entrega cria transtorno mas não constitui emergência crítica.",
+        "O cliente aguarda actualização sobre o envio dentro do prazo acordado.",
+        "A situação requer acompanhamento para evitar escalada de insatisfação.",
+    ],
+    "damaged_item":         [
+        "O artigo danificado requer resolução dentro do prazo normal de reclamação.",
+        "O cliente reporta um produto com defeito e aguarda resposta sobre substituição.",
+        "A reclamação de dano exige atenção mas não tem carácter de emergência imediata.",
+    ],
+    "billing_question":     [
+        "A dúvida de faturação requer esclarecimento dentro do prazo de resposta habitual.",
+        "O cliente questiona um item da fatura — situação de prioridade média.",
+        "A questão de cobrança pode gerar insatisfação se não for respondida atempadamente.",
+    ],
+    "invoice_request":      [
+        "O pedido de fatura é de baixa urgência e pode ser processado no prazo normal.",
+        "A emissão de fatura não requer intervenção imediata.",
+    ],
+    "cancel_subscription":  [
+        "O pedido de cancelamento não requer intervenção urgente.",
+        "O cliente pretende encerrar o serviço — situação de baixa prioridade operacional.",
+    ],
+    "change_plan":          [
+        "A alteração de plano é uma operação de rotina sem urgência.",
+        "O pedido de mudança de plano pode ser tratado no prazo normal.",
+    ],
+    "technical_issue":      [
+        "O problema técnico está a impedir o uso do serviço e exige resolução urgente.",
+        "A falha reportada afecta a produtividade do cliente e requer resposta imediata.",
+        "O incidente técnico tem impacto directo na operação e deve ser escalado.",
+    ],
+    "password_reset":       [
+        "O cliente está bloqueado da conta e não consegue aceder ao serviço.",
+        "A impossibilidade de acesso constitui urgência e requer resposta imediata.",
+        "O bloqueio de conta impede o cliente de utilizar o serviço contratado.",
+    ],
+    "account_access":       [
+        "O acesso bloqueado afecta directamente a utilização do serviço.",
+        "O cliente não consegue aceder à conta — situação que requer resposta urgente.",
+        "A falha de autenticação impede o cliente de utilizar a plataforma.",
+    ],
+    "complaint":            [
+        "A reclamação formal indica elevada insatisfação e risco de perda do cliente.",
+        "O cliente está insatisfeito e exige resposta prioritária para evitar escalada.",
+        "A situação tem potencial de impacto reputacional se não for tratada com urgência.",
+    ],
+    "escalation_request":   [
+        "O cliente exige falar com um responsável — escalada imediata necessária.",
+        "A insistência do cliente em escalar indica falha no suporte de primeira linha.",
+        "A situação já ultrapassou o tempo aceitável de resolução e requer atenção directa.",
+    ],
+    "booking_change":       [
+        "A alteração de reserva tem prazo limitado e requer atenção dentro do tempo útil.",
+        "O pedido de modificação pode implicar custos adicionais se não for tratado atempadamente.",
+    ],
+    "booking_cancellation": [
+        "O cancelamento tem implicações de reembolso que requerem análise dentro do prazo.",
+        "A situação tem carácter de urgência moderada devido a possíveis custos de cancelamento.",
+    ],
+    "payment_failure":      [
+        "A falha de pagamento impede a conclusão da transacção e requer resolução urgente.",
+        "O cliente não consegue efectuar o pagamento — situação de alta prioridade.",
+        "O bloqueio de pagamento pode resultar em perda de serviço se não for resolvido.",
+    ],
+    "duplicate_charge":     [
+        "A cobrança duplicada constitui impacto financeiro directo e requer resolução urgente.",
+        "O cliente foi debitado indevidamente duas vezes — situação de alta prioridade.",
+        "A duplicação de cobrança pode implicar reembolso urgente e verificação de registo.",
+    ],
+}
+
 # ---------------------------------------------------------------------------
 # Text response templates
 # ---------------------------------------------------------------------------
@@ -274,9 +361,10 @@ RESPONSE_TEMPLATES = {
     # ── summarization ──────────────────────────────────────────────────────
 
     ("summarization", "refund_request"): [
-        "O cliente recebeu um artigo com defeito e solicita a devolução do produto e o respectivo reembolso.",
-        "O cliente efectuou uma compra e o artigo não correspondeu ao descrito. Pretende ser reembolsado na totalidade.",
-        "O cliente reporta um problema com a encomenda recebida e solicita o início do processo de reembolso.",
+        "O cliente solicita o reembolso de um valor considerado indevido ou incorrectamente cobrado.",
+        "O cliente reporta um problema com uma cobrança ou compra e pretende ser reembolsado na totalidade.",
+        "O cliente pede a devolução de um montante pago, indicando que o produto ou serviço não correspondeu ao esperado.",
+        "O cliente efectuou um pagamento indevido e solicita o respectivo reembolso.",
     ],
 
     ("summarization", "return_request"): [
@@ -292,9 +380,10 @@ RESPONSE_TEMPLATES = {
     ],
 
     ("summarization", "delivery_delay"): [
-        "O cliente reporta que a encomenda não chegou dentro do prazo previsto e solicita uma explicação para o atraso.",
+        "O cliente reporta que o envio não chegou dentro do prazo previsto e solicita uma explicação para o atraso.",
         "O cliente informa que o prazo de entrega foi ultrapassado e pede uma actualização sobre o estado do envio.",
-        "O cliente está preocupado com o atraso na entrega e pretende saber quando pode esperar receber a encomenda.",
+        "O cliente está preocupado com o atraso na entrega do equipamento ou encomenda e pretende saber quando pode esperar recebê-los.",
+        "O cliente aguarda uma entrega já em atraso e solicita contacto urgente para esclarecimento.",
     ],
 
     ("summarization", "damaged_item"): [
@@ -683,7 +772,8 @@ def get_output(task_type: str, intent: str, domain: str = None) -> str:
 
     if task_type == "urgency_classification":
         urgency = INTENT_URGENCY.get(intent, "medium")
-        reason = URGENCY_REASONS.get(urgency, "Urgência indeterminada.")
+        intent_reasons = INTENT_URGENCY_REASON.get(intent)
+        reason = random.choice(intent_reasons) if intent_reasons else URGENCY_REASONS.get(urgency, "Urgência indeterminada.")
         escalate = urgency == "high"
         return json.dumps({
             "urgency": urgency,
