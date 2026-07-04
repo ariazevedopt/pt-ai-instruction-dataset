@@ -131,142 +131,20 @@ Use `summarization` rows to train or evaluate a model that condenses customer me
 
 ## Integration Patterns
 
-### Load with the Hugging Face `datasets` library
+→ **[Full integration guide](integration.md)** — complete working code for every pattern listed below.
 
-```python
-from datasets import load_dataset
-
-# From a local JSONL file
-ds = load_dataset("json", data_files="datasets/processed/lusosupport_pt_v1.jsonl", split="train")
-
-# Filter by task type
-response_gen = ds.filter(lambda row: row["task_type"] == "response_generation")
-
-# Filter by domain
-ecommerce = ds.filter(lambda row: row["domain"] == "ecommerce")
-
-print(ds[0]["instruction"])
-print(ds[0]["input"])
-print(ds[0]["output"])
-```
-
----
-
-### Alpaca format (for LLaMA-Factory, Unsloth, Axolotl)
-
-Export to Alpaca format and use directly with any Alpaca-compatible trainer:
-
-```bash
-make export   # writes datasets/exports/lusosupport_pt_v1_alpaca.jsonl
-```
-
-Each row becomes:
-```json
-{
-  "instruction": "Responde ao cliente em português de Portugal...",
-  "input": "Mensagem do cliente: A encomenda não chegou.",
-  "output": "Lamentamos o sucedido. Para darmos seguimento..."
-}
-```
-
-Point your trainer at the file:
-```yaml
-# LLaMA-Factory dataset_info.json
-{
-  "lusosupport_pt": {
-    "file_name": "lusosupport_pt_v1_alpaca.jsonl",
-    "formatting": "alpaca"
-  }
-}
-```
-
----
-
-### OpenAI fine-tuning (chat format)
-
-Convert to OpenAI's chat format:
-
-```python
-import json
-
-def to_openai_chat(row):
-    return {
-        "messages": [
-            {"role": "system",  "content": row["instruction"]},
-            {"role": "user",    "content": row["input"]},
-            {"role": "assistant","content": row["output"]},
-        ]
-    }
-
-with open("datasets/processed/lusosupport_pt_v1.jsonl") as f_in, \
-     open("oai_finetune.jsonl", "w") as f_out:
-    for line in f_in:
-        row = json.loads(line)
-        f_out.write(json.dumps(to_openai_chat(row), ensure_ascii=False) + "\n")
-```
-
-Then upload and start a fine-tuning job:
-```bash
-openai api fine_tuning.jobs.create \
-  -t oai_finetune.jsonl \
-  -m gpt-4o-mini-2024-07-18
-```
-
----
-
-### Filtering for a specific use case
-
-```python
-import json
-from pathlib import Path
-
-rows = [json.loads(l) for l in Path("datasets/processed/lusosupport_pt_v1.jsonl").read_text().splitlines() if l.strip()]
-
-# Classification-only rows (for a triage model)
-classification_rows = [r for r in rows if r["task_type"] in ("intent_classification", "urgency_classification")]
-
-# High-difficulty rows (for evaluation / stress tests)
-hard_rows = [r for r in rows if r["difficulty"] == "hard"]
-
-# Rows requiring escalation (for escalation detection training)
-escalation_rows = [r for r in rows if r["metadata"]["requires_escalation"]]
-
-print(f"Classification rows: {len(classification_rows)}")
-print(f"Hard rows:           {len(hard_rows)}")
-print(f"Escalation rows:     {len(escalation_rows)}")
-```
-
----
-
-### LangChain / RAG integration
-
-```python
-from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAIEmbeddings
-from langchain.docstore.document import Document
-import json
-from pathlib import Path
-
-rows = [json.loads(l) for l in Path("datasets/processed/lusosupport_pt_v1.jsonl").read_text().splitlines() if l.strip()]
-
-# Use approved response_generation rows as grounding documents
-docs = [
-    Document(
-        page_content=row["input"],
-        metadata={"output": row["output"], "intent": row["customer_intent"], "domain": row["domain"]}
-    )
-    for row in rows
-    if row["task_type"] == "response_generation"
-]
-
-vectorstore = FAISS.from_documents(docs, OpenAIEmbeddings())
-
-# Retrieve the most relevant response template for a new customer message
-query = "A minha encomenda chegou com o produto partido."
-results = vectorstore.similarity_search(query, k=3)
-for r in results:
-    print(r.metadata["output"])
-```
+| Pattern | What it covers |
+|---|---|
+| [Loading with HuggingFace `datasets`](integration.md#1-loading-the-dataset) | Load, filter, train/val split |
+| [Unsloth fine-tuning (LLaMA / Mistral)](integration.md#2-fine-tuning-with-unsloth-llama--mistral) | QLoRA on consumer GPU, full training script + inference |
+| [LLaMA-Factory](integration.md#3-fine-tuning-with-llama-factory) | Config-driven multi-model training |
+| [OpenAI fine-tuning](integration.md#4-openai-fine-tuning-gpt-4o-mini) | Convert format, upload, train, monitor, use |
+| [Few-shot prompting](integration.md#5-few-shot-prompting-no-training) | Dynamic + semantic shot selection, no training cost |
+| [Intent classification pipeline](integration.md#6-intent-classification-pipeline) | Prompt-based or fine-tuned BERT classifier |
+| [RAG with LangChain + FAISS](integration.md#7-rag-with-langchain--faiss) | Full chain with domain filtering |
+| [RAG with ChromaDB (persistent)](integration.md#8-rag-with-chromadb-persistent) | On-disk index for production |
+| [Evaluation and benchmarking](integration.md#9-evaluation-and-benchmarking) | ROUGE, BERTScore, PT-PT compliance |
+| [Push to Hugging Face Hub](integration.md#10-pushing-to-hugging-face-hub) | Share dataset or fine-tuned model |
 
 ---
 
