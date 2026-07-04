@@ -36,7 +36,7 @@ def run(n=100, stats=False):
         rows.append(generate_row(i))
 
     console.print(f"[2/4] Validating...")
-    valid = [r for r in tqdm(rows, desc="  Validating", unit="row") if is_valid_row(r)]
+    valid = [r for r in tqdm(rows, desc="  Validating", unit="row") if is_valid_row(r)[0]]
     console.print(f"      [green]{len(valid)}/{len(rows)}[/green] rows passed validation")
 
     console.print(f"[3/4] Deduplicating...")
