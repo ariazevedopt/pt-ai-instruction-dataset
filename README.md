@@ -237,4 +237,170 @@ Each example is stored as a JSON object.
     "source_type": "manual_seed"
   }
 }
-``
+```
+
+### Field reference
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Unique row ID (`lusosupport_pt_NNNNNN` or `browser_generated_<ms>`) |
+| `language` | string | Always `"pt"` |
+| `variant` | string | Always `"pt-PT"` |
+| `domain` | string | Business domain (e.g. `ecommerce`, `travel`) |
+| `subdomain` | string | More specific area within the domain |
+| `task_type` | string | NLP task family (e.g. `response_generation`, `summarization`) |
+| `customer_intent` | string | What the customer wants (e.g. `refund_request`, `password_reset`) |
+| `customer_tone` | string | `calm`, `frustrated`, `formal`, `angry` |
+| `agent_tone` | string | `professional`, `empathetic`, `neutral` |
+| `channel` | string | `chat`, `email`, `web_form`, `phone_transcript` |
+| `difficulty` | string | `easy`, `medium`, `hard` |
+| `instruction` | string | System prompt / task instruction (PT-PT) |
+| `input` | string | Customer message, prefixed with `Mensagem do cliente:` |
+| `output` | string | Model-expected agent response or classification output |
+| `metadata` | object | `requires_escalation`, `contains_pii`, `synthetic`, `source_type` |
+
+---
+
+## Development workflow
+
+### Prerequisites
+
+```bash
+pip install -r requirements.txt   # installs faker, pandas, datasets
+```
+
+### Full pipeline
+
+```bash
+make pipeline      # generate → validate → deduplicate → save (datasets/processed/)
+```
+
+### Individual steps
+
+```bash
+make generate      # generate synthetic rows → datasets/interim/generated.jsonl
+make validate      # validate datasets/processed/lusosupport_pt_v1.jsonl (15 rules)
+make dedupe        # remove duplicate rows
+make stats         # print dataset composition breakdown
+make export        # export to CSV + Alpaca JSONL → datasets/exports/
+```
+
+### Quality loop
+
+```bash
+make flag          # scan for issues → datasets/feedback/flagged.jsonl
+make review        # interactive terminal review of flagged rows
+make review-random # interactive terminal review of random rows
+make quality       # rich quality report (flag reasons, weakest combos)
+```
+
+#### Feedback files
+
+| File | Purpose |
+|------|---------|
+| `datasets/feedback/flagged.jsonl` | Rows flagged by `make flag` for review |
+| `datasets/feedback/approved.jsonl` | Rows manually approved (excluded from future flagging) |
+| `datasets/feedback/rejected.jsonl` | Rows rejected (excluded from pipeline on next run) |
+| `datasets/feedback/browser_ratings.jsonl` | Unclear/browser-generated ratings |
+| `datasets/feedback/corrections.jsonl` | Corrected row inputs |
+
+### Browser review UI
+
+The easiest way to review and rate dataset rows:
+
+```bash
+make review-browser    # starts http://localhost:8765 and opens browser
+```
+
+**Browse tab** — sample random or flagged rows and rate them:
+
+| Rating | Meaning | Saved to |
+|--------|---------|----------|
+| ✅ Good | Correct PT-PT, on-topic, well-formed | `approved.jsonl` |
+| ❓ Unclear | Borderline — needs more thought | `browser_ratings.jsonl` |
+| ❌ Bad | Wrong domain/intent, bad PT-PT, stub output (comment required) | `rejected.jsonl` |
+
+**Generate & Test tab** — type a customer message + choose domain/task/intent → see what the system outputs → rate it.
+
+See [`docs/browser-review-guide.md`](docs/browser-review-guide.md) for the full guide.
+
+### After a review session
+
+```bash
+make flag       # refresh flagged list (approved rows excluded automatically)
+make pipeline   # rebuild processed dataset (rejected rows excluded)
+make quality    # check updated quality report
+```
+
+### Running tests
+
+```bash
+make test       # runs all tests (pytest)
+```
+
+### Clean build
+
+```bash
+make clean      # removes datasets/interim/ and datasets/exports/
+```
+
+---
+
+## Project structure
+
+```
+pt-ai-instruction-dataset/
+├── datasets/
+│   ├── raw/
+│   │   └── seed_examples.jsonl        # 64 hand-crafted seed rows
+│   ├── interim/
+│   │   └── generated.jsonl            # pipeline intermediate output
+│   ├── processed/
+│   │   └── lusosupport_pt_v1.jsonl    # clean final dataset
+│   ├── exports/
+│   │   ├── lusosupport_pt_v1.csv      # CSV export
+│   │   └── lusosupport_pt_v1_alpaca.jsonl  # Alpaca-format export
+│   └── feedback/
+│       ├── flagged.jsonl
+│       ├── approved.jsonl
+│       ├── rejected.jsonl
+│       ├── corrections.jsonl
+│       └── browser_ratings.jsonl
+├── scripts/
+│   ├── config.py           # domains, task types, intents
+│   ├── scenarios.py        # input message variants per intent
+│   ├── templates.py        # instruction templates
+│   ├── responses.py        # output templates (response_generation etc.)
+│   ├── generate.py         # row generation logic
+│   ├── validate.py         # 15-rule row validator
+│   ├── pipeline.py         # full pipeline orchestrator
+│   ├── flag.py             # automated quality scanner
+│   ├── review.py           # interactive terminal review tool
+│   ├── quality_report.py   # rich quality report
+│   └── review_server.py    # browser review UI server
+├── tests/                  # pytest test suite (54 tests)
+├── docs/
+│   └── browser-review-guide.md
+├── Makefile
+└── requirements.txt
+```
+
+---
+
+## Makefile reference
+
+| Target | Description |
+|--------|-------------|
+| `make pipeline` | Full generate → validate → dedupe → save cycle |
+| `make generate` | Generate synthetic rows |
+| `make validate` | Validate processed dataset |
+| `make dedupe` | Remove duplicates |
+| `make stats` | Dataset composition stats |
+| `make export` | Export to CSV + Alpaca JSONL |
+| `make flag` | Scan for quality issues |
+| `make review` | Interactive terminal review of flagged rows |
+| `make review-random` | Interactive terminal review of random rows |
+| `make quality` | Rich quality report |
+| `make review-browser` | Launch browser review UI at http://localhost:8765 |
+| `make test` | Run test suite |
+| `make clean` | Remove interim and export files |
