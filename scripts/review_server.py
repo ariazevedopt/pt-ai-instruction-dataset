@@ -266,14 +266,14 @@ function renderCard(row,controls,prefix){
     (controls?
     '<div class="rating-area">'+
       '<div class="rating-btns">'+
-        '<button class="btn-rate btn-good" onclick="selectRating(\'good\',\''+prefix+'\')">✅ Good</button>'+
-        '<button class="btn-rate btn-unclear" onclick="selectRating(\'unclear\',\''+prefix+'\')">❓ Unclear</button>'+
-        '<button class="btn-rate btn-bad" onclick="selectRating(\'bad\',\''+prefix+'\')">❌ Bad</button>'+
+        '<button class="btn-rate btn-good" onclick="selectRating(&apos;good&apos;,&apos;'+prefix+'&apos;)">✅ Good</button>'+
+        '<button class="btn-rate btn-unclear" onclick="selectRating(&apos;unclear&apos;,&apos;'+prefix+'&apos;)">❓ Unclear</button>'+
+        '<button class="btn-rate btn-bad" onclick="selectRating(&apos;bad&apos;,&apos;'+prefix+'&apos;)">❌ Bad</button>'+
         '<button class="btn-skip btn-rate" onclick="skipRow()">Skip →</button>'+
       '</div>'+
       '<div class="comment-row" id="'+prefix+'-comment">'+
         '<textarea id="'+prefix+'-txt" placeholder="Comment (required for Bad)…"></textarea>'+
-        '<button class="btn-confirm" id="'+prefix+'-confirm" onclick="confirmRating(\''+prefix+'\')">Confirm</button>'+
+        '<button class="btn-confirm" id="'+prefix+'-confirm" onclick="confirmRating(&apos;'+prefix+'&apos;)">Confirm</button>'+
       '</div>'+
     '</div>':'')+
     '</div>';
