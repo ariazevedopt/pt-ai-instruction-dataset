@@ -8,8 +8,8 @@ from templates import build_instruction
 from validate import is_valid_row
 
 
-def generate_output(task_type, intent, domain=None):
-    return get_output(task_type, intent, domain=domain)
+def generate_output(task_type, intent, domain=None, agent_tone=None):
+    return get_output(task_type, intent, domain=domain, agent_tone=agent_tone)
 
 
 def generate_row(i):
@@ -22,6 +22,7 @@ def generate_row(i):
 
     allowed_domains = INTENT_DOMAINS.get(intent, DOMAINS)
     domain = random.choice(allowed_domains)
+    channel = random.choice(CHANNELS)
 
     return {
         "id": f"lusosupport_pt_{i:06d}",
@@ -33,11 +34,11 @@ def generate_row(i):
         "customer_intent": intent,
         "customer_tone": customer_tone,
         "agent_tone": agent_tone,
-        "channel": random.choice(CHANNELS),
+        "channel": channel,
         "difficulty": random.choice(DIFFICULTY_LEVELS),
-        "instruction": build_instruction(task, agent_tone),
+        "instruction": build_instruction(task, agent_tone, domain, channel),
         "input": f"Mensagem do cliente: {message}",
-        "output": generate_output(task, intent, domain=domain),
+        "output": generate_output(task, intent, domain=domain, agent_tone=agent_tone),
         "metadata": {
             "requires_escalation": False,
             "contains_pii": False,
