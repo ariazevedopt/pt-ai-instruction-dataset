@@ -63,3 +63,12 @@ def test_instruction_templates_has_all_task_types():
     for tt in TASK_TYPES:
         assert tt in T.INSTRUCTION_TEMPLATES, f"INSTRUCTION_TEMPLATES missing task_type: {tt}"
         assert len(T.INSTRUCTION_TEMPLATES[tt]) >= 5, f"Need ≥5 templates for {tt}"
+
+
+def test_intent_messages_min_pool_size():
+    """Every intent must have at least 12 messages for adequate input diversity."""
+    import scenarios as S
+    for intent, messages in S.INTENT_MESSAGES.items():
+        assert len(messages) >= 12, (
+            f"INTENT_MESSAGES['{intent}'] has only {len(messages)} messages — need ≥12"
+        )
