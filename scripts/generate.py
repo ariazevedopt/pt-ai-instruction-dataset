@@ -65,7 +65,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     data = generate_dataset(args.n)
-    valid = [r for r in data if is_valid_row(r)]
+    valid = [r for r in data if is_valid_row(r)[0]]
     save_jsonl(valid, args.out)
     print(f"Generated {len(data)} rows, {len(valid)} passed validation → {args.out}")
 
