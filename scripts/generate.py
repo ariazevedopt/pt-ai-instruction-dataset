@@ -2,23 +2,14 @@ import json
 import random
 
 from config import *
+from responses import get_output
 from scenarios import INTENT_MESSAGES
 from templates import build_instruction
 from validate import is_valid_row
 
 
 def generate_output(task_type, intent):
-    if task_type == "intent_classification":
-        return json.dumps({
-            "intent": intent,
-            "urgency": "low",
-            "domain": "unknown"
-        })
-
-    if task_type == "response_generation":
-        return "Vamos analisar a situação. Pedimos que nos indique a referência do pedido."
-
-    return "Resposta gerada."
+    return get_output(task_type, intent)
 
 
 def generate_row(i):
