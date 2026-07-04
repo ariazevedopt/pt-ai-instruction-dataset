@@ -253,7 +253,7 @@ TONE_MESSAGES: dict[str, dict[str, list[str]]] = {
         "informal": [
             "Olá, podem mandar-me a fatura?",
             "Oi, preciso da fatura para a contabilidade.",
-            "Tá, cadê a fatura do mês passado?",
+            "Tá, onde está a fatura do mês passado?",
         ],
     },
     "cancel_subscription": {
