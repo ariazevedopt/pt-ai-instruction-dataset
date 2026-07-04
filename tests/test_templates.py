@@ -23,19 +23,36 @@ def test_build_instruction_no_unfilled_placeholders():
                 )
 
 
-def test_build_instruction_uses_domain_label():
-    # At least one template per task_type should embed the domain label
-    for tt in TASK_TYPES:
-        found = False
-        random.seed(0)
-        for _ in range(30):
-            result = T.build_instruction(tt, "professional", "telecom", "chat")
-            if "telecomunicações" in result:
-                found = True
-                break
-        # Not every task_type has domain in every template, so just check DOMAIN_LABELS exists
+def test_domain_labels_dict_values():
+    """Verify DOMAIN_LABELS dict has expected structure and values."""
     assert hasattr(T, "DOMAIN_LABELS")
     assert T.DOMAIN_LABELS["telecom"] == "telecomunicações"
+    assert T.DOMAIN_LABELS["ecommerce"] == "comércio electrónico"
+    assert T.DOMAIN_LABELS["subscriptions"] == "subscrições e planos"
+
+
+def test_some_instructions_embed_domain_label():
+    """Verify that some instructions sampled across all task types contain the domain label."""
+    # Domain label should appear in at least some instructions across all task types
+    # (Not every task_type template includes domain_label, so we just check the overall sampling)
+    random.seed(0)
+    domain = "telecom"
+    domain_label = "telecomunicações"
+    
+    found_count = 0
+    total_samples = 200
+    
+    for _ in range(total_samples):
+        task_type = random.choice(TASK_TYPES)
+        result = T.build_instruction(task_type, "professional", domain, "chat")
+        if domain_label in result:
+            found_count += 1
+    
+    # Assert that at least some instructions contain the domain label
+    assert found_count > 0, (
+        f"Expected at least some instructions to contain domain label '{domain_label}', "
+        f"but found 0 out of {total_samples} samples"
+    )
 
 
 def test_build_instruction_backward_compat_no_domain():
