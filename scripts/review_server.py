@@ -462,7 +462,24 @@ if __name__ == "__main__":
     # Always run relative to project root
     os.chdir(_ROOT)
 
-    server = HTTPServer(("", args.port), ReviewHandler)
+    # Free the port if already in use
+    try:
+        server = HTTPServer(("", args.port), ReviewHandler)
+    except OSError as exc:
+        if exc.errno != 48:  # 48 = Address already in use (macOS/BSD)
+            raise
+        import signal
+        import subprocess
+        result = subprocess.run(
+            ["lsof", "-ti", f"tcp:{args.port}"],
+            capture_output=True, text=True,
+        )
+        pids = [p for p in result.stdout.strip().split() if p.isdigit()]
+        for pid in pids:
+            os.kill(int(pid), signal.SIGTERM)
+        import time
+        time.sleep(0.5)
+        server = HTTPServer(("", args.port), ReviewHandler)
     url = f"http://localhost:{args.port}"
     print(f"Browser review → {url}  (Ctrl-C to stop)")
     if args.open:
