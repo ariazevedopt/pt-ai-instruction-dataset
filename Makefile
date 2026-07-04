@@ -48,5 +48,17 @@ clean:
 	rm -f datasets/processed/lusosupport_pt_v1_alpaca.jsonl
 	rm -f datasets/processed/lusosupport_pt_v1.parquet
 
+flag:
+	cd scripts && python3 flag.py
+
+review:
+	cd scripts && python3 review.py --mode flagged
+
+review-random:
+	cd scripts && python3 review.py --mode random --n 20
+
+quality:
+	cd scripts && python3 quality_report.py
+
 test:
 	python3 -m pytest tests/ -v
