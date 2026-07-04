@@ -1,5 +1,5 @@
 # LusoSupport-PT — dataset pipeline shortcuts
-.PHONY: install generate validate dedupe export stats pipeline test clean flag review review-random quality review-browser
+.PHONY: install generate validate dedupe export export-hf-lite stats pipeline test clean flag review review-random quality review-browser
 
 install:
 	pip install -r requirements.txt
@@ -31,6 +31,10 @@ export:
 		--csv ../datasets/processed/lusosupport_pt_v1.csv \
 		--alpaca ../datasets/processed/lusosupport_pt_v1_alpaca.jsonl \
 		--parquet ../datasets/processed/lusosupport_pt_v1.parquet
+
+# Export the free-tier HF Lite slice (~200 rows)
+export-hf-lite:
+	cd scripts && python3 export_hf_lite.py --n 200
 
 # Print dataset statistics
 stats:
