@@ -2,7 +2,7 @@
 import sys, os, random
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
-from generate import generate_dataset
+from generate import generate_dataset, generate_row
 
 
 def _sample(n=200, seed=42):
@@ -81,3 +81,41 @@ def test_all_generated_rows_pass_validation():
     for i, row in enumerate(rows):
         ok, reason = is_valid_row(row)
         assert ok, f"Row {i} failed validation: {reason} — {row}"
+
+
+# ── Phase 2: metadata correctness invariants ──────────────────────────────
+
+def test_customer_tone_always_valid():
+    """customer_tone must always be one of the 6 valid tones."""
+    from config import CUSTOMER_TONES
+    random.seed(77)
+    rows = generate_dataset(100)
+    for r in rows:
+        assert r["customer_tone"] in CUSTOMER_TONES, (
+            f"Invalid customer_tone: {r['customer_tone']!r}"
+        )
+
+
+def test_escalation_request_always_requires_escalation():
+    """All escalation_request rows must have requires_escalation == True."""
+    random.seed(88)
+    rows = [generate_row(i) for i in range(500)]
+    esc_rows = [r for r in rows if r["customer_intent"] == "escalation_request"]
+    assert len(esc_rows) > 0, "No escalation_request rows generated in 500 samples"
+    for r in esc_rows:
+        assert r["metadata"]["requires_escalation"] is True, (
+            f"escalation_request row has requires_escalation=False, tone={r['customer_tone']}"
+        )
+
+
+def test_intent_classification_confidence_in_range():
+    """intent_classification.confidence must be a float in [0.62, 0.99] for all rows."""
+    random.seed(99)
+    rows = generate_dataset(100)
+    for r in rows:
+        ic = r.get("intent_classification")
+        assert ic is not None, "Missing intent_classification field"
+        c = ic.get("confidence")
+        assert isinstance(c, float), f"confidence is not float: {c!r}"
+        assert 0.62 <= c <= 0.99, f"confidence out of range: {c}"
+        assert ic.get("intent") == r["customer_intent"], "intent_classification.intent mismatch"
