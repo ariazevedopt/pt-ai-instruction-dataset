@@ -3,7 +3,7 @@ import random
 
 from config import *
 from responses import get_output
-from scenarios import INTENT_MESSAGES
+from scenarios import INTENT_MESSAGES, INTENT_DOMAINS
 from templates import build_instruction
 from validate import is_valid_row
 
@@ -20,7 +20,8 @@ def generate_row(i):
     customer_tone = random.choice(CUSTOMER_TONES)
     agent_tone = random.choice(AGENT_TONES)
 
-    domain = random.choice(DOMAINS)
+    allowed_domains = INTENT_DOMAINS.get(intent, DOMAINS)
+    domain = random.choice(allowed_domains)
 
     return {
         "id": f"lusosupport_pt_{i:06d}",
