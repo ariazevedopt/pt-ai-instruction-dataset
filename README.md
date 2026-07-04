@@ -4,6 +4,9 @@
 
 The project focuses on realistic support-related tasks written in **Portuguese from Portugal**, with clean metadata and a format that is easy to reuse in model training, prototyping, and downstream NLP applications.
 
+→ **[Use cases, value & integration guide](docs/use-cases.md)** — fine-tuning, RAG, classification pipelines, code examples  
+→ **[Full integration guide](docs/integration.md)** — Unsloth, LLaMA-Factory, OpenAI, LangChain, ChromaDB, evaluation
+
 ---
 
 ## Quick Start
