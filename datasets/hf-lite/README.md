@@ -135,7 +135,7 @@ print(result)
 | **Premium Individual** | €39 | 5 163 | Personal / research / non-commercial |
 | **Commercial Licence** | €149 | 5 163 | Commercial use in products & APIs |
 
-👉 [Buy on Gumroad](https://gumroad.com) · [GitHub Sponsors](https://github.com/sponsors/ariazevedopt)
+👉 [Buy Individual Licence](https://ariazeved.gumroad.com/l/lusosupport-pt) · [Buy Commercial Licence](https://ariazeved.gumroad.com/l/lusosupport-pt-commercial) · [GitHub Sponsors](https://github.com/sponsors/ariazevedopt)
 
 ---
 
