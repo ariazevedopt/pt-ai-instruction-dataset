@@ -8,7 +8,8 @@ The project focuses on realistic support-related tasks written in **Portuguese f
 
 → **[Usage guide](docs/USAGE.md)** — start here if you bought or downloaded the dataset: file formats, loading snippets, licence recap  
 → **[Use cases, value & integration guide](docs/use-cases.md)** — fine-tuning, RAG, classification pipelines, code examples  
-→ **[Full integration guide](docs/integration.md)** — Unsloth, LLaMA-Factory, OpenAI, LangChain, ChromaDB, evaluation
+→ **[Full integration guide](docs/integration.md)** — Unsloth, LLaMA-Factory, OpenAI, LangChain, ChromaDB, evaluation  
+→ **[Datasheet](docs/datasheet.md)** — motivation, composition, collection, and recommended uses (Datasheets for Datasets)
 
 ---
 
@@ -19,10 +20,24 @@ The project focuses on realistic support-related tasks written in **Portuguese f
 | Tier | Price | Rows | Licence |
 |---|---|---|---|
 | 🆓 **[Lite (Hugging Face)](https://huggingface.co/datasets/ariazevedo/LusoSupport-PT)** | Free | 200 | CC BY 4.0 |
-| 💼 **[Premium Individual (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt)** | €39 → €59 | 5 163 | Personal / research |
-| 🏢 **[Commercial Licence (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial)** | €149 → €199 | 5 163 | Commercial use |
+| 💼 **[Premium Individual (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt)** | €39 → €59 | 5 149 | Personal / research |
+| 🏢 **[Commercial Licence (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial)** | €149 → €199 | 5 149 | Commercial use |
 
 ❤️ [Sponsor this project on GitHub](https://github.com/sponsors/ariazevedopt)
+
+---
+
+## Quality at a glance
+
+Every release is measured, not just asserted. The current **v1** dataset (`datasets/processed/lusosupport_pt_v1.jsonl`) ships with:
+
+- **5,149 validated rows** — 100% pass the `validate.py` rule set (language, structure, pt-PT vocabulary).
+- **8 domains × 8 task types × 18 customer intents**, plus 64 hand-crafted seed rows always merged in as a quality floor.
+- **Verified output diversity** — every task type clears a ≥40% unique-output ratio gate (currently **42–77%**), enforced by `scripts/quality_report.py`. Run `make quality` to reproduce the report.
+- **Zero pt-BR leakage** on the enforced banned-vocabulary list, and **zero placeholder metadata** (every row has a real `subdomain`).
+- **113 automated tests** (`make test`) covering validation, dedupe, generation, metadata, and templates.
+
+See the [CHANGELOG](CHANGELOG.md) for version history and the [project roadmap](docs/superpowers/specs/2026-08-07-project-roadmap.md) for what's planned next.
 
 ---
 
@@ -39,7 +54,8 @@ make pipeline
 make generate    # generate 100 synthetic rows → datasets/interim/
 make validate    # validate datasets/processed/lusosupport_pt_v1.jsonl
 make stats       # print dataset composition stats
-make export      # export to CSV + Alpaca JSONL
+make export      # export to CSV + Alpaca JSONL + Parquet
+make quality     # rich quality report incl. diversity gate
 ```
 
 The ready-to-use dataset is at `datasets/processed/lusosupport_pt_v1.jsonl`.  
@@ -286,7 +302,7 @@ Each example is stored as a JSON object.
 ### Prerequisites
 
 ```bash
-pip install -r requirements.txt   # installs faker, pandas, datasets
+pip install -r requirements.txt   # installs pandas, pyarrow, datasets, tqdm, rich, pytest
 ```
 
 ### Full pipeline
@@ -302,7 +318,7 @@ make generate      # generate synthetic rows → datasets/interim/generated.json
 make validate      # validate datasets/processed/lusosupport_pt_v1.jsonl (15 rules)
 make dedupe        # remove duplicate rows
 make stats         # print dataset composition breakdown
-make export        # export to CSV + Alpaca JSONL → datasets/exports/
+make export        # export to CSV + Alpaca JSONL + Parquet → datasets/processed/
 ```
 
 ### Quality loop
@@ -361,7 +377,7 @@ make test       # runs all tests (pytest)
 ### Clean build
 
 ```bash
-make clean      # removes datasets/interim/ and datasets/exports/
+make clean      # removes generated interim + export files
 ```
 
 ---
@@ -375,11 +391,14 @@ pt-ai-instruction-dataset/
 │   │   └── seed_examples.jsonl        # 64 hand-crafted seed rows
 │   ├── interim/
 │   │   └── generated.jsonl            # pipeline intermediate output
-│   ├── processed/
-│   │   └── lusosupport_pt_v1.jsonl    # clean final dataset
-│   ├── exports/
+│   ├── processed/                     # release-ready outputs
+│   │   ├── lusosupport_pt_v1.jsonl    # clean final dataset (5,149 rows)
 │   │   ├── lusosupport_pt_v1.csv      # CSV export
-│   │   └── lusosupport_pt_v1_alpaca.jsonl  # Alpaca-format export
+│   │   ├── lusosupport_pt_v1_alpaca.jsonl  # Alpaca-format export
+│   │   └── lusosupport_pt_v1.parquet  # Parquet export
+│   ├── hf-lite/
+│   │   ├── lusosupport_pt_lite.jsonl  # 200-row free HF sample
+│   │   └── README.md                  # HF dataset card
 │   └── feedback/
 │       ├── flagged.jsonl
 │       ├── approved.jsonl
@@ -387,20 +406,25 @@ pt-ai-instruction-dataset/
 │       ├── corrections.jsonl
 │       └── browser_ratings.jsonl
 ├── scripts/
-│   ├── config.py           # domains, task types, intents
-│   ├── scenarios.py        # input message variants per intent
-│   ├── templates.py        # instruction templates
-│   ├── responses.py        # output templates (response_generation etc.)
-│   ├── generate.py         # row generation logic
-│   ├── validate.py         # 15-rule row validator
-│   ├── pipeline.py         # full pipeline orchestrator
-│   ├── flag.py             # automated quality scanner
-│   ├── review.py           # interactive terminal review tool
-│   ├── quality_report.py   # rich quality report
-│   └── review_server.py    # browser review UI server
-├── tests/                  # pytest test suite (54 tests)
-├── docs/
-│   └── browser-review-guide.md
+│   ├── config.py               # domains, task types, intents (canonical enums)
+│   ├── scenarios.py            # input message variants per intent
+│   ├── templates.py            # instruction templates
+│   ├── responses.py            # output templates (opener/closer + domain-label subst.)
+│   ├── responses_expansion.py  # extra hand-written pt-PT output templates
+│   ├── metadata.py             # metadata derivation (subdomain, escalation, etc.)
+│   ├── generate.py             # row generation logic
+│   ├── validate.py             # row validator
+│   ├── dedupe.py               # SHA-256 fingerprint deduplication
+│   ├── pipeline.py             # full pipeline orchestrator (--fresh merges seeds)
+│   ├── export_formats.py       # CSV / Parquet / Alpaca export + stats
+│   ├── export_hf_lite.py       # 200-row HF Lite slice export
+│   ├── flag.py                 # automated quality scanner
+│   ├── review.py               # interactive terminal review tool
+│   ├── quality_report.py       # rich quality report (incl. diversity gate)
+│   └── review_server.py        # browser review UI server
+├── tests/                      # pytest test suite (113 tests)
+├── docs/                       # schema, taxonomy, usage, roadmap, launch guides
+├── CHANGELOG.md
 ├── Makefile
 └── requirements.txt
 ```
@@ -416,7 +440,8 @@ pt-ai-instruction-dataset/
 | `make validate` | Validate processed dataset |
 | `make dedupe` | Remove duplicates |
 | `make stats` | Dataset composition stats |
-| `make export` | Export to CSV + Alpaca JSONL |
+| `make export` | Export to CSV + Alpaca JSONL + Parquet |
+| `make export-hf-lite` | Export the 200-row free HF Lite slice |
 | `make flag` | Scan for quality issues |
 | `make review` | Interactive terminal review of flagged rows |
 | `make review-random` | Interactive terminal review of random rows |

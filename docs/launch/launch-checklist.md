@@ -50,7 +50,7 @@ Step-by-step guide to publish and launch the dataset.
 |---|---|
 | `datasets/hf-lite/lusosupport_pt_lite.jsonl` | 200-row free slice for HF |
 | `datasets/hf-lite/README.md` | HF dataset card |
-| `datasets/processed/lusosupport_pt_v1.jsonl` | Full 5,163-row dataset (Gumroad) |
+| `datasets/processed/lusosupport_pt_v1.jsonl` | Full 5,149-row dataset (Gumroad) |
 | `datasets/processed/lusosupport_pt_v1.csv` | CSV export |
 | `datasets/processed/lusosupport_pt_v1_alpaca.jsonl` | Alpaca JSONL export |
 | `datasets/processed/lusosupport_pt_v1.parquet` | Parquet export |

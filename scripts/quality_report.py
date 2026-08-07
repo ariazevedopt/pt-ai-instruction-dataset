@@ -34,11 +34,13 @@ def _load_jsonl(path: Path) -> list:
 DIVERSITY_THRESHOLD = 0.40
 
 
-def _check_output_diversity(rows: list) -> None:
+def _check_output_diversity(rows: list) -> bool:
     """Flag any task_type whose unique-output ratio falls below DIVERSITY_THRESHOLD.
 
     A low ratio means the same canned output text is being reused across many
     rows of that task_type, which hurts fine-tuning quality and buyer trust.
+
+    Returns True if all task_types meet the threshold, False otherwise.
     """
     by_task: dict = defaultdict(list)
     for r in rows:
@@ -74,6 +76,7 @@ def _check_output_diversity(rows: list) -> None:
             f"\n[green]✓ All task_types meet the {DIVERSITY_THRESHOLD:.0%} "
             f"unique-output diversity threshold.[/green]"
         )
+    return not any_below
 
 
 def run_report() -> None:
@@ -175,8 +178,12 @@ def run_report() -> None:
             "to populate feedback."
         )
 
-    _check_output_diversity(rows)
+    diversity_ok = _check_output_diversity(rows)
+    return diversity_ok
 
 
 if __name__ == "__main__":
-    run_report()
+    import sys
+
+    ok = run_report()
+    sys.exit(0 if ok else 1)

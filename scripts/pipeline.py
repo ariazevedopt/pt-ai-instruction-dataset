@@ -18,8 +18,8 @@ from rich.console import Console
 from rich.panel import Panel
 
 from dedupe import deduplicate
-from export_formats import print_stats, to_alpaca_jsonl, to_csv
-from generate import generate_row, generate_dataset, save_jsonl
+from export_formats import print_stats
+from generate import generate_row, save_jsonl
 from validate import is_valid_row
 
 INTERIM_PATH = "../datasets/interim/generated.jsonl"

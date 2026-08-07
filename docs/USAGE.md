@@ -9,8 +9,8 @@ A quick-start guide for anyone who has downloaded or purchased **LusoSupport-PT*
 | Tier | Source | Rows | Files |
 |---|---|---|---|
 | 🆓 Lite | [Hugging Face](https://huggingface.co/datasets/ariazevedo/LusoSupport-PT) | 200 | `lusosupport_pt_lite.jsonl` |
-| 💼 Individual | [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) | 5 163 | `lusosupport_pt_v1.jsonl`, `.csv`, `_alpaca.jsonl`, `.parquet`, `LICENCE-COMMERCIAL.md` |
-| 🏢 Commercial | [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial) | 5 163 | Same files as Individual |
+| 💼 Individual | [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) | 5 149 | `lusosupport_pt_v1.jsonl`, `.csv`, `_alpaca.jsonl`, `.parquet`, `LICENCE-COMMERCIAL.md` |
+| 🏢 Commercial | [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial) | 5 149 | Same files as Individual |
 
 All formats contain the **same rows** — pick whichever format suits your tooling:
 

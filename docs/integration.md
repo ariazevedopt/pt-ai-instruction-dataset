@@ -254,7 +254,7 @@ pip install -e ".[torch,metrics]"
 ```bash
 # From the pt-ai-instruction-dataset root:
 make export
-# Writes: datasets/exports/lusosupport_pt_v1_alpaca.jsonl
+# Writes: datasets/processed/lusosupport_pt_v1_alpaca.jsonl
 ```
 
 ### Register the dataset
@@ -262,7 +262,7 @@ make export
 Copy the Alpaca file into LLaMA-Factory's data directory and register it:
 
 ```bash
-cp datasets/exports/lusosupport_pt_v1_alpaca.jsonl /path/to/LLaMA-Factory/data/
+cp datasets/processed/lusosupport_pt_v1_alpaca.jsonl /path/to/LLaMA-Factory/data/
 
 # Add this block to /path/to/LLaMA-Factory/data/dataset_info.json:
 ```

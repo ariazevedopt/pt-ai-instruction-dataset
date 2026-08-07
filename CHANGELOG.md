@@ -1,0 +1,67 @@
+# Changelog
+
+All notable changes to **LusoSupport-PT** are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project uses dataset-style versioning: the dataset release version is
+tracked separately from tooling changes. The current dataset release is **v1**.
+
+## [Unreleased]
+
+### Added
+- `CHANGELOG.md` (this file) to track dataset and tooling history.
+- `.github/workflows/ci.yml` — CI that runs the test suite and dataset validation on every push and pull request.
+- `docs/datasheet.md` — a "Datasheet for Datasets" (Gebru et al.) describing motivation, composition, collection, and recommended uses.
+- `docs/superpowers/specs/2026-08-07-project-roadmap.md` — prioritised roadmap for future versions and companion products.
+- README "Quality at a glance" section with reproducible diversity/validation metrics.
+
+### Fixed
+- Corrected stale row-count references (5,163 → 5,149) across README, USAGE, HF card, launch templates, and the commercial licence.
+- Corrected stale test-count (54 → 113) and dependency list (`faker` → `pandas, pyarrow, datasets, tqdm, rich, pytest`) in the README.
+- Corrected stale export paths (`datasets/exports/` → `datasets/processed/`) in the README and integration guide.
+- Corrected the intent count (17 → 18) in the Copilot instructions.
+- Removed unused imports (`generate_dataset`, `to_csv`, `to_alpaca_jsonl`) from `scripts/pipeline.py`.
+
+## [1.0.0] — 2026-08-07 — Dataset quality overhaul
+
+### Fixed
+- **Placeholder subdomain bug:** 1,275 of 5,163 rows carried the literal string `subdomain: "placeholder"`. Every row now derives a real subdomain via `metadata.py`; 0 placeholder rows remain.
+- **Seed examples never merged:** the 64 hand-crafted rows in `datasets/raw/seed_examples.jsonl` were documented as an "always included quality floor" but were not actually present in the processed dataset. `pipeline.py --fresh` now merges all 64/64.
+- **Low output diversity:** unique-output ratio was 6–18% per task type. Added ~270 hand-written pt-PT templates (`scripts/responses_expansion.py`) plus a `{domain_label}` substitution retrofit. Unique-output ratio is now 42–77% across all 8 task types, enforced by a 40% gate in `scripts/quality_report.py`.
+
+### Added
+- `scripts/quality_report.py` output-diversity gate (`_check_output_diversity()`).
+- Regenerated all export formats (`.csv`, `.parquet`, `_alpaca.jsonl`) and the 200-row HF Lite sample.
+
+### Dataset
+- Final processed dataset: **5,149 rows** (post-dedup), 100% passing `validate.py`.
+
+## [0.4.0] — 2026-08-07 — Launch preparation (M4)
+
+### Added
+- Hugging Face Lite tier: 200-row free sample + dataset card (`datasets/hf-lite/`).
+- Commercial and personal-use licence texts (`LICENCE-COMMERCIAL.md`, CC BY 4.0 for Lite).
+- Gumroad product pages (Individual + Commercial) and pricing section in the README.
+- `docs/USAGE.md` buyer quick-start guide; launch checklist, announcement templates, and metrics-tracking docs under `docs/launch/`.
+- `.github/FUNDING.yml` for GitHub Sponsors.
+
+## [0.3.0] — 2026-07-04 — Validation hardening + scale (Phase 3)
+
+### Added
+- Scaled the processed dataset past 5,000 rows.
+- Hardened `validate.py` rule set and expanded the pytest suite.
+
+## [0.2.0] — 2026-07-04 — Metadata correctness + parametric diversity (Phase 1–2)
+
+### Added
+- Parametric instruction/input/output templates.
+- Tone derivation, escalation, subdomain, and confidence metadata.
+- Browser-based review UI (`make review-browser`) and full quality loop (`make flag` / `make review` / `make quality`).
+
+## [0.1.0] — 2026-05 — Foundations
+
+### Added
+- JSONL schema, folder structure, seed examples, and the initial Python generation pipeline.
+- Canonical enum taxonomy (`scripts/config.py`, `docs/taxonomy.yaml`).
+
+[Unreleased]: https://github.com/ariazevedopt/pt-ai-instruction-dataset/commits/main

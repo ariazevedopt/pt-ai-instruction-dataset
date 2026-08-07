@@ -30,7 +30,7 @@ tags:
 
 This **Lite** version contains **200 curated rows** — a representative free sample covering all 8 domains, 8 task types, and all 18 customer intents.
 
-The full dataset (5 163 rows) is available for purchase on [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) — see pricing below.
+The full dataset (5 149 rows) is available for purchase on [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) — see pricing below.
 
 🔥 **Early Adopter Pricing:** the first 50 buyers on each tier lock in the launch price. After that, prices rise to €59 / €199.
 
@@ -136,8 +136,8 @@ print(result)
 | Tier | Price | Rows | Licence |
 |---|---|---|---|
 | **Lite (this dataset)** | Free | 200 | CC BY 4.0 |
-| **Premium Individual** | €39 → €59 | 5 163 | Personal / research / non-commercial |
-| **Commercial Licence** | €149 → €199 | 5 163 | Commercial use in products & APIs |
+| **Premium Individual** | €39 → €59 | 5 149 | Personal / research / non-commercial |
+| **Commercial Licence** | €149 → €199 | 5 149 | Commercial use in products & APIs |
 
 👉 [Buy Individual Licence](https://ariazevedo.gumroad.com/l/lusosupport-pt) · [Buy Commercial Licence](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial) · [GitHub Sponsors](https://github.com/sponsors/ariazevedopt)
 
@@ -173,4 +173,5 @@ The full dataset is sold under separate commercial and personal-use licence agre
 - 📦 [GitHub Repository](https://github.com/ariazevedopt/pt-ai-instruction-dataset)
 - 🚀 [Usage Guide](https://github.com/ariazevedopt/pt-ai-instruction-dataset/blob/main/docs/USAGE.md) — file formats, loading snippets, licence recap
 - 📖 [Schema Documentation](https://github.com/ariazevedopt/pt-ai-instruction-dataset/blob/main/docs/schema.md)
+- 📋 [Datasheet](https://github.com/ariazevedopt/pt-ai-instruction-dataset/blob/main/docs/datasheet.md) — motivation, composition, recommended uses
 - 🔗 [Integration Guide](https://github.com/ariazevedopt/pt-ai-instruction-dataset/blob/main/docs/integration.md) — Unsloth, LLaMA-Factory, OpenAI, LangChain

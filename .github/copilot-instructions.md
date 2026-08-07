@@ -39,7 +39,7 @@ python3 export_formats.py <input> --csv out.csv --alpaca out.jsonl --parquet out
 ```
 scripts/        # dataset generation and processing pipeline
   config.py          # single source of truth for all enum values
-  scenarios.py       # INTENT_MESSAGES: customer intent → PT-PT sample messages (17 intents)
+  scenarios.py       # INTENT_MESSAGES: customer intent → PT-PT sample messages (18 intents)
   templates.py       # build_instruction(task_type, agent_tone) → instruction strings
   generate.py        # generate_row(), generate_dataset(n), save_jsonl()
   validate.py        # is_valid_row() — enforces language, structure, PT-PT vocabulary
