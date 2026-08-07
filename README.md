@@ -13,7 +13,7 @@ The project focuses on realistic support-related tasks written in **Portuguese f
 
 | Tier | Price | Rows | Licence |
 |---|---|---|---|
-| 🆓 **[Lite (Hugging Face)](https://huggingface.co/datasets/ariazevedopt/LusoSupport-PT)** | Free | 200 | CC BY 4.0 |
+| 🆓 **[Lite (Hugging Face)](https://huggingface.co/datasets/ariazevedo/LusoSupport-PT)** | Free | 200 | CC BY 4.0 |
 | 💼 **[Premium Individual (Gumroad)](https://gumroad.com/l/lusosupport-pt)** | €39 | 5 163 | Personal / research |
 | 🏢 **[Commercial Licence (Gumroad)](https://gumroad.com/l/lusosupport-pt-commercial)** | €149 | 5 163 | Commercial use |
 

@@ -70,7 +70,7 @@ Most Portuguese datasets are pt-BR or generic. This one is built specifically fo
 
 ```python
 from datasets import load_dataset
-ds = load_dataset("ariazevedopt/LusoSupport-PT", split="train")
+ds = load_dataset("ariazevedo/LusoSupport-PT", split="train")
 print(ds[0]["instruction"])  # pt-PT instruction
 print(ds[0]["output"])       # pt-PT agent response
 ```

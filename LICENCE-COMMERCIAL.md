@@ -44,7 +44,7 @@ You may **not**:
 
 When publishing results, papers, or products that use this dataset, please include:
 
-> Dataset: LusoSupport-PT by @ariazevedopt — https://huggingface.co/datasets/ariazevedopt/LusoSupport-PT
+> Dataset: LusoSupport-PT by @ariazevedo — https://huggingface.co/datasets/ariazevedo/LusoSupport-PT
 
 ---
 

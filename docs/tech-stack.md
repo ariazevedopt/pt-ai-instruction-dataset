@@ -29,7 +29,7 @@ Parquet is Hugging Face's **preferred storage format** for datasets. It's column
 ### `datasets` (Hugging Face) — HF publishing & loading
 The official library for interacting with the HF Hub. Used to:
 - Push the dataset to HF with `dataset.push_to_hub()`
-- Load it with `load_dataset("ariazevedopt/LusoSupport-PT")`
+- Load it with `load_dataset("ariazevedo/LusoSupport-PT")`
 - Add proper metadata, tags, and splits
 
 This is what makes the dataset work seamlessly for buyers who use the standard HF workflow.

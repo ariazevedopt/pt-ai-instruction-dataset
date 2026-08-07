@@ -91,7 +91,7 @@ Each row contains:
 ```python
 from datasets import load_dataset
 
-ds = load_dataset("ariazevedopt/LusoSupport-PT", split="train")
+ds = load_dataset("ariazevedo/LusoSupport-PT", split="train")
 print(ds[0])
 ```
 
@@ -144,7 +144,7 @@ print(result)
 This Lite version is released under **[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)**.  
 You are free to use, share, and adapt the data — provided you give appropriate credit.
 
-**Attribution:** `LusoSupport-PT by @ariazevedopt — https://huggingface.co/datasets/ariazevedopt/LusoSupport-PT`
+**Attribution:** `LusoSupport-PT by @ariazevedo — https://huggingface.co/datasets/ariazevedo/LusoSupport-PT`
 
 The full dataset is sold under separate commercial and personal-use licence agreements available at Gumroad.
 
@@ -157,7 +157,7 @@ The full dataset is sold under separate commercial and personal-use licence agre
   author    = {ariazevedopt},
   title     = {LusoSupport-PT: European Portuguese Customer Support Instruction Dataset},
   year      = {2026},
-  url       = {https://huggingface.co/datasets/ariazevedopt/LusoSupport-PT},
+  url       = {https://huggingface.co/datasets/ariazevedo/LusoSupport-PT},
   note      = {CC BY 4.0}
 }
 ```

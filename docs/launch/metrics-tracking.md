@@ -45,7 +45,7 @@ Add a new row to the table below each month.
 
 ## Where to find numbers
 
-- **HF downloads:** `https://huggingface.co/datasets/ariazevedopt/LusoSupport-PT` → Metrics tab
+- **HF downloads:** `https://huggingface.co/datasets/ariazevedo/LusoSupport-PT` → Metrics tab
 - **GitHub stars:** `https://github.com/ariazevedopt/pt-ai-instruction-dataset`
 - **Gumroad:** `https://app.gumroad.com/dashboard` → Products
 - **GitHub Sponsors:** `https://github.com/sponsors/dashboard`
