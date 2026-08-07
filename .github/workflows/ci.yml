@@ -30,6 +30,9 @@ jobs:
       - name: Run test suite
         run: make test
 
+      - name: Generate synthetic dataset for CI
+        run: cd scripts && python3 pipeline.py --n 300
+
       - name: Validate processed dataset
         run: make validate
 
