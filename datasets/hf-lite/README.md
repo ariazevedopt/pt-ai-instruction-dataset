@@ -24,11 +24,15 @@ tags:
 
 # LusoSupport-PT Lite
 
+🇵🇹 **The only purpose-built European Portuguese (pt-PT) customer support instruction dataset** — verified against the Hugging Face Hub, no direct competitor found.
+
 **LusoSupport-PT** is a structured **European Portuguese (pt-PT)** customer support instruction dataset for LLM fine-tuning, prompting experiments, and support automation.
 
 This **Lite** version contains **200 curated rows** — a representative free sample covering all 8 domains, 8 task types, and all 18 customer intents.
 
-The full dataset (5 163 rows) is available for purchase at [Gumroad](https://gumroad.com) — see pricing below.
+The full dataset (5 163 rows) is available for purchase on [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) — see pricing below.
+
+🔥 **Early Adopter Pricing:** the first 50 buyers on each tier lock in the launch price. After that, prices rise to €59 / €199.
 
 ---
 
@@ -132,8 +136,8 @@ print(result)
 | Tier | Price | Rows | Licence |
 |---|---|---|---|
 | **Lite (this dataset)** | Free | 200 | CC BY 4.0 |
-| **Premium Individual** | €39 | 5 163 | Personal / research / non-commercial |
-| **Commercial Licence** | €149 | 5 163 | Commercial use in products & APIs |
+| **Premium Individual** | €39 → €59 | 5 163 | Personal / research / non-commercial |
+| **Commercial Licence** | €149 → €199 | 5 163 | Commercial use in products & APIs |
 
 👉 [Buy Individual Licence](https://ariazevedo.gumroad.com/l/lusosupport-pt) · [Buy Commercial Licence](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial) · [GitHub Sponsors](https://github.com/sponsors/ariazevedopt)
 
