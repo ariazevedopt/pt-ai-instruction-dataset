@@ -29,7 +29,7 @@ Most Portuguese NLP datasets are either generic corpora, academic benchmarks, or
 **Formats**
 JSONL, CSV, Alpaca JSONL (fine-tuning ready), Parquet
 
-🔥 Early adopter pricing on the full dataset — first 50 buyers lock in €79/€249, then it rises to €99/€349.
+🔥 Early adopter pricing on the full dataset — first 50 buyers lock in €59/€229, then it rises to €79/€329.
 
 **Links**
 🤗 Free on HF: https://huggingface.co/datasets/ariazevedo/LusoSupport-PT
@@ -76,7 +76,7 @@ print(ds[0]["instruction"])  # pt-PT instruction
 print(ds[0]["output"])       # pt-PT agent response
 ```
 
-The full dataset (5,162 rows) is available at https://ariazevedo.gumroad.com/l/lusosupport-pt — 🔥 early adopter pricing for the first 50 buyers (€79/€249, rising to €99/€349 after).
+The full dataset (5,162 rows) is available at https://ariazevedo.gumroad.com/l/lusosupport-pt — 🔥 early adopter pricing for the first 50 buyers (€59/€229, rising to €79/€329 after).
 
 Feedback welcome — especially from anyone working on Portuguese NLP!
 ```
@@ -95,7 +95,7 @@ Key facts:
 ✅ Proper pt-PT (not pt-BR): palavra-passe, telemóvel, fatura, encomenda
 ✅ Fine-tuning ready: JSONL, CSV, Alpaca JSONL, Parquet
 ✅ Clean metadata: intent, tone, channel, difficulty, escalation flag
-🔥 Early adopter pricing: first 50 buyers lock in €79/€249 (rising to €99/€349 after)
+🔥 Early adopter pricing: first 50 buyers lock in €59/€229 (rising to €79/€329 after)
 
 Portuguese NLP has a real gap in European Portuguese resources. LusoSupport-PT is a small step toward closing it.
 

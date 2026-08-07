@@ -16,13 +16,13 @@ The project focuses on realistic support-related tasks written in **Portuguese f
 
 ## Get the Dataset
 
-🔥 **Early Adopter Pricing** — the first 50 buyers on each tier lock in the launch price below. After that, prices rise to €99 (Individual) / €349 (Commercial).
+🔥 **Early Adopter Pricing** — the first 50 buyers on each tier lock in the launch price below. After that, prices rise to €79 (Individual) / €329 (Commercial).
 
 | Tier | Price | Rows | Licence |
 |---|---|---|---|
 | 🆓 **[Lite (Hugging Face)](https://huggingface.co/datasets/ariazevedo/LusoSupport-PT)** | Free | 200 | CC BY 4.0 |
-| 💼 **[Premium Individual (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt)** | €79 → €99 | 5 162 | Personal / research |
-| 🏢 **[Commercial Licence (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial)** | €249 → €349 | 5 162 | Commercial use |
+| 💼 **[Premium Individual (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt)** | €59 → €79 | 5 162 | Personal / research |
+| 🏢 **[Commercial Licence (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial)** | €229 → €329 | 5 162 | Commercial use |
 
 ❤️ [Sponsor this project on GitHub](https://github.com/sponsors/ariazevedopt)
 

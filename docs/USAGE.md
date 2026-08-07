@@ -111,8 +111,8 @@ For full code walkthroughs (Unsloth training script, LangChain RAG, OpenAI fine-
 ## 5. Licence recap
 
 - **Lite (Hugging Face):** CC BY 4.0 — free use with attribution.
-- **Individual / Research (€79):** personal, research, and non-commercial internal use. Not for resale or redistribution as a data product.
-- **Commercial (€249):** all Individual uses, plus commercial software, SaaS APIs, consulting deliverables, and team/organisation use.
+- **Individual / Research (€59):** personal, research, and non-commercial internal use. Not for resale or redistribution as a data product.
+- **Commercial (€229):** all Individual uses, plus commercial software, SaaS APIs, consulting deliverables, and team/organisation use.
 
 Full terms: [`LICENCE-COMMERCIAL.md`](../LICENCE-COMMERCIAL.md) (paid tiers) or the CC BY 4.0 licence text (Lite tier).
 

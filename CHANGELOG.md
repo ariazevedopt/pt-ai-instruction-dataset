@@ -18,7 +18,7 @@ tracked separately from tooling changes. The current dataset release is **v1**.
 - A small set of intentional pt-BR-influenced customer message examples in `scripts/scenarios.py` (covering `celular`, `senha`, `nota fiscal`, `contato`) so the dataset demonstrates the agent responding in correct pt-PT to code-switched input.
 
 ### Changed
-- **Pricing:** Individual €39 → €79 (early adopter), €59 → €99 (standard); Commercial €149 → €249 (early adopter), €199 → €349 (standard) — aligned with market research on comparable verified-quality niche instruction datasets (€185–460).
+- **Pricing:** Individual €39 → €59 (early adopter), €79 (standard); Commercial €149 → €229 (early adopter), €329 (standard) — aligned with market research on comparable verified-quality niche instruction datasets (€185–460), adjusted down €20/tier from an initial higher proposal per user feedback. Both Gumroad listings updated live via API.
 - Dataset regenerated fresh: 5,149 → 5,162 rows (includes new pt-BR-code-switch example rows).
 
 ### Fixed

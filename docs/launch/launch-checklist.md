@@ -16,8 +16,8 @@ Step-by-step guide to publish and launch the dataset.
   5. Confirm dataset is accessible and renders correctly
 - [ ] **Set up Gumroad products** (issue #26)
   1. Go to https://app.gumroad.com → New Product
-  2. Individual (€79): upload `lusosupport_pt_v1.jsonl` + CSV + Alpaca JSONL + Parquet + `LICENCE-COMMERCIAL.md`
-  3. Commercial (€249): same files + `LICENCE-COMMERCIAL.md` commercial tier
+  2. Individual (€59): upload `lusosupport_pt_v1.jsonl` + CSV + Alpaca JSONL + Parquet + `LICENCE-COMMERCIAL.md`
+  3. Commercial (€229): same files + `LICENCE-COMMERCIAL.md` commercial tier
   4. Update Gumroad URLs in `datasets/hf-lite/README.md` and `README.md`
 - [ ] **Activate GitHub Sponsors** (issue #27)
   1. Go to https://github.com/sponsors
