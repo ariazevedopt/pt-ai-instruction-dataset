@@ -16,8 +16,8 @@ Step-by-step guide to publish and launch the dataset.
   5. Confirm dataset is accessible and renders correctly
 - [ ] **Set up Gumroad products** (issue #26)
   1. Go to https://app.gumroad.com → New Product
-  2. Individual (€39): upload `lusosupport_pt_v1.jsonl` + CSV + Alpaca JSONL + Parquet + `LICENCE-COMMERCIAL.md`
-  3. Commercial (€149): same files + `LICENCE-COMMERCIAL.md` commercial tier
+  2. Individual (€79): upload `lusosupport_pt_v1.jsonl` + CSV + Alpaca JSONL + Parquet + `LICENCE-COMMERCIAL.md`
+  3. Commercial (€249): same files + `LICENCE-COMMERCIAL.md` commercial tier
   4. Update Gumroad URLs in `datasets/hf-lite/README.md` and `README.md`
 - [ ] **Activate GitHub Sponsors** (issue #27)
   1. Go to https://github.com/sponsors
@@ -50,7 +50,7 @@ Step-by-step guide to publish and launch the dataset.
 |---|---|
 | `datasets/hf-lite/lusosupport_pt_lite.jsonl` | 200-row free slice for HF |
 | `datasets/hf-lite/README.md` | HF dataset card |
-| `datasets/processed/lusosupport_pt_v1.jsonl` | Full 5,149-row dataset (Gumroad) |
+| `datasets/processed/lusosupport_pt_v1.jsonl` | Full 5,162-row dataset (Gumroad) |
 | `datasets/processed/lusosupport_pt_v1.csv` | CSV export |
 | `datasets/processed/lusosupport_pt_v1_alpaca.jsonl` | Alpaca JSONL export |
 | `datasets/processed/lusosupport_pt_v1.parquet` | Parquet export |

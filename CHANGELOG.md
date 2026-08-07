@@ -13,9 +13,17 @@ tracked separately from tooling changes. The current dataset release is **v1**.
 - `.github/workflows/ci.yml` — CI that runs the test suite and dataset validation on every push and pull request.
 - `docs/datasheet.md` — a "Datasheet for Datasets" (Gebru et al.) describing motivation, composition, collection, and recommended uses.
 - `docs/superpowers/specs/2026-08-07-project-roadmap.md` — prioritised roadmap for future versions and companion products.
+- `docs/pt-pt-style-guide.md` — documents the pt-BR → pt-PT vocabulary policy: agent `output` always uses pt-PT terms; customer `input` may intentionally include pt-BR-influenced code-switching (resolves #55).
 - README "Quality at a glance" section with reproducible diversity/validation metrics.
+- A small set of intentional pt-BR-influenced customer message examples in `scripts/scenarios.py` (covering `celular`, `senha`, `nota fiscal`, `contato`) so the dataset demonstrates the agent responding in correct pt-PT to code-switched input.
+
+### Changed
+- **Pricing:** Individual €39 → €79 (early adopter), €59 → €99 (standard); Commercial €149 → €249 (early adopter), €199 → €349 (standard) — aligned with market research on comparable verified-quality niche instruction datasets (€185–460).
+- Dataset regenerated fresh: 5,149 → 5,162 rows (includes new pt-BR-code-switch example rows).
 
 ### Fixed
+- **Banned-vocabulary false positives (#55):** removed `assinatura` and `código de rastreio` from the banned pt-BR word list — both are standard European Portuguese, not pt-BR-exclusive. The list is now `celular`, `senha`, `nota fiscal`, `contato`.
+- **Banned-vocabulary scope:** the banned list is now enforced only on agent `output`, never on customer `input`. Real pt-PT speakers sometimes use pt-BR-influenced vocabulary; the dataset should teach a model to understand it while always responding in correct pt-PT.
 - Corrected stale row-count references (5,163 → 5,149) across README, USAGE, HF card, launch templates, and the commercial licence.
 - Corrected stale test-count (54 → 113) and dependency list (`faker` → `pandas, pyarrow, datasets, tqdm, rich, pytest`) in the README.
 - Corrected stale export paths (`datasets/exports/` → `datasets/processed/`) in the README and integration guide.

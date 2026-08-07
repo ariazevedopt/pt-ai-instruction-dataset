@@ -9,8 +9,8 @@ A quick-start guide for anyone who has downloaded or purchased **LusoSupport-PT*
 | Tier | Source | Rows | Files |
 |---|---|---|---|
 | 🆓 Lite | [Hugging Face](https://huggingface.co/datasets/ariazevedo/LusoSupport-PT) | 200 | `lusosupport_pt_lite.jsonl` |
-| 💼 Individual | [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) | 5 149 | `lusosupport_pt_v1.jsonl`, `.csv`, `_alpaca.jsonl`, `.parquet`, `LICENCE-COMMERCIAL.md` |
-| 🏢 Commercial | [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial) | 5 149 | Same files as Individual |
+| 💼 Individual | [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) | 5 162 | `lusosupport_pt_v1.jsonl`, `.csv`, `_alpaca.jsonl`, `.parquet`, `LICENCE-COMMERCIAL.md` |
+| 🏢 Commercial | [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial) | 5 162 | Same files as Individual |
 
 All formats contain the **same rows** — pick whichever format suits your tooling:
 
@@ -111,8 +111,8 @@ For full code walkthroughs (Unsloth training script, LangChain RAG, OpenAI fine-
 ## 5. Licence recap
 
 - **Lite (Hugging Face):** CC BY 4.0 — free use with attribution.
-- **Individual / Research (€39):** personal, research, and non-commercial internal use. Not for resale or redistribution as a data product.
-- **Commercial (€149):** all Individual uses, plus commercial software, SaaS APIs, consulting deliverables, and team/organisation use.
+- **Individual / Research (€79):** personal, research, and non-commercial internal use. Not for resale or redistribution as a data product.
+- **Commercial (€249):** all Individual uses, plus commercial software, SaaS APIs, consulting deliverables, and team/organisation use.
 
 Full terms: [`LICENCE-COMMERCIAL.md`](../LICENCE-COMMERCIAL.md) (paid tiers) or the CC BY 4.0 licence text (Lite tier).
 

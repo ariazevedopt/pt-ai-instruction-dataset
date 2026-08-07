@@ -2,7 +2,7 @@
 
 **Version 1.0 — 2026**
 
-This Commercial Licence governs use of the **LusoSupport-PT Full Dataset** (5 149+ rows) purchased via Gumroad.
+This Commercial Licence governs use of the **LusoSupport-PT Full Dataset** (5 162+ rows) purchased via Gumroad.
 
 ---
 
@@ -18,12 +18,12 @@ Subject to the terms below and payment of the applicable fee, the licensor (@ari
 
 ## 2. Permitted Uses
 
-**Individual / Research Licence (€39)**
+**Individual / Research Licence (€79)**
 - Personal projects and research (academic or independent)
 - Non-commercial prototyping and evaluation
 - Internal business use (not for resale or redistribution as a data product)
 
-**Commercial Licence (€149)**
+**Commercial Licence (€249)**
 - All Individual / Research uses, plus:
 - Incorporation into commercial software products, SaaS APIs, or consulting deliverables
 - Use by teams and organisations of any size

@@ -147,18 +147,27 @@ def test_stub_output_fails():
     assert reason2 == "output_stub"
 
 
-# ── rule 13: pt-BR banned words ───────────────────────────────────────────────
+# ── rule 19: pt-BR banned words (output only, strict) ────────────────────────
 def test_banned_ptbr_words_fail():
     for word, phrase in [
         ("celular", "Ligue para o seu celular agora. Vamos resolver a sua questão com urgência absoluta."),
         ("senha", "Redefina a sua senha aqui através deste link seguro. Procederemos à recuperação."),
         ("nota fiscal", "Enviamos a nota fiscal por e-mail em anexo. Encontrará todos os detalhes no documento."),
-        ("assinatura", "A sua assinatura foi cancelada conforme solicitado. Confirmaremos via e-mail hoje."),
-        ("código de rastreio", "Utilize o código de rastreio para acompanhar a encomenda em tempo real no nosso site."),
+        ("contato", "Agradecemos o contato. Iremos verificar a situação e responderemos em breve, certamente."),
     ]:
         ok, reason = is_valid_row(_row(output=phrase))
         assert ok is False, f"banned word '{word}' should fail"
         assert reason.startswith("pt_br_vocab"), f"reason should be pt_br_vocab, got {reason}"
+
+
+def test_ptpt_terms_previously_misflagged_now_pass():
+    # "assinatura" and "código de rastreio" are standard European Portuguese,
+    # not pt-BR — they must NOT be flagged (regression test for issue #55).
+    ok, _ = is_valid_row(_row(
+        output="A sua assinatura foi renovada com sucesso. Pode consultar o código de rastreio "
+               "da encomenda na sua área de cliente para acompanhar a entrega."
+    ))
+    assert ok is True
 
 
 def test_ptpt_vocabulary_passes():
@@ -287,15 +296,17 @@ def test_valid_difficulty_passes():
         assert ok is True, f"difficulty={d} should pass"
 
 
-# ── rule 13: PT-BR vocabulary in input ───────────────────────────────────────
-def test_banned_ptbr_words_in_input_fail():
+# ── rule 13: PT-BR-influenced vocabulary in customer INPUT is allowed ────────
+# (design decision, issue #55): the dataset intentionally contains some rows
+# where the customer uses a pt-BR-influenced term; the agent OUTPUT must
+# still use the correct pt-PT equivalent (enforced separately, see above).
+def test_ptbr_words_in_input_allowed():
     for word, phrase in [
         ("celular", "Mensagem do cliente: O meu celular não recebe chamadas desde ontem à tarde."),
         ("senha", "Mensagem do cliente: Esqueci a minha senha e não consigo entrar na conta."),
     ]:
         ok, reason = is_valid_row(_row(input=phrase))
-        assert ok is False, f"banned input word '{word}' should fail"
-        assert reason.startswith("pt_br_vocab_input"), f"reason should be pt_br_vocab_input, got {reason}"
+        assert ok is True, f"input word '{word}' should be allowed, got reason={reason}"
 
 def test_clean_input_passes():
     ok, _ = is_valid_row(_row(

@@ -22,14 +22,25 @@ _MIN_OUTPUT_LEN = {
 }
 _DEFAULT_MIN_OUTPUT_LEN = 30
 
-# PT-BR banned vocabulary
+# PT-BR banned vocabulary — enforced on agent OUTPUT only (see Rule 19).
+# These are terms with a distinct pt-PT equivalent that a European Portuguese
+# support agent should always use. Customer INPUT is deliberately NOT checked
+# against this list (see Rule 13 note below): real pt-PT speakers sometimes
+# use pt-BR-influenced vocabulary (media/app exposure, code-switching), and
+# the dataset intentionally includes some such rows so a fine-tuned model
+# learns to recognise the term and still respond with the correct pt-PT
+# equivalent. See docs/pt-pt-style-guide.md for the full pt-BR → pt-PT map
+# and the rationale (resolves issue #55).
+#
+# NOTE: "assinatura" and "código de rastreio" were previously included here
+# but are NOT pt-BR-exclusive — both are standard European Portuguese
+# (e.g. "assinatura de um serviço", "código de rastreio da encomenda" is the
+# term used by CTT). They were removed as false positives.
 _BANNED_WORDS = [
-    "celular",
-    "senha",
-    "nota fiscal",
-    "assinatura",
-    "código de rastreio",
-    "contato",       # PT-PT uses "contacto"
+    "celular",     # pt-PT: telemóvel
+    "senha",       # pt-PT: palavra-passe
+    "nota fiscal", # pt-PT: fatura
+    "contato",     # pt-PT: contacto
 ]
 
 
@@ -92,11 +103,11 @@ def is_valid_row(row: dict) -> tuple:
     if len(input_text) < 30:
         return False, "input_too_short"
 
-    # Rule 13 — PT-BR vocabulary in input
-    input_lower = input_text.lower()
-    for word in _BANNED_WORDS:
-        if word in input_lower:
-            return False, f"pt_br_vocab_input:{word}"
+    # Rule 13 — PT-BR vocabulary is intentionally NOT banned in customer input.
+    # Real customers may use pt-BR-influenced terms (e.g. "celular", "senha");
+    # the dataset includes some such rows on purpose so the agent OUTPUT (Rule 19,
+    # always strict) demonstrates understanding the term and replying with the
+    # correct pt-PT equivalent. See docs/pt-pt-style-guide.md.
 
     output = row.get("output", "")
 

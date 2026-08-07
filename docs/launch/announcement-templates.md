@@ -19,7 +19,7 @@ I just published LusoSupport-PT, and as far as I can tell it's the only purpose-
 Most Portuguese NLP datasets are either generic corpora, academic benchmarks, or heavily pt-BR. LusoSupport-PT targets European Portuguese (Portugal) specifically — different vocabulary, register, and tone from Brazilian Portuguese.
 
 **What's in it**
-- 200 free rows on Hugging Face (full dataset: 5,149 rows)
+- 200 free rows on Hugging Face (full dataset: 5,162 rows)
 - 8 domains: e-commerce, SaaS, telecoms, utilities, travel, marketplace, subscriptions, billing
 - 8 task types: response generation, email reply, summarisation, intent classification, urgency classification, rewrite, next-action suggestion, FAQ answer
 - 18 customer intents × 6 tones × 4 channels
@@ -29,12 +29,12 @@ Most Portuguese NLP datasets are either generic corpora, academic benchmarks, or
 **Formats**
 JSONL, CSV, Alpaca JSONL (fine-tuning ready), Parquet
 
-🔥 Early adopter pricing on the full dataset — first 50 buyers lock in €39/€149, then it rises to €59/€199.
+🔥 Early adopter pricing on the full dataset — first 50 buyers lock in €79/€249, then it rises to €99/€349.
 
 **Links**
 🤗 Free on HF: https://huggingface.co/datasets/ariazevedo/LusoSupport-PT
 💻 GitHub: https://github.com/ariazevedopt/pt-ai-instruction-dataset
-💼 Full dataset (5,149 rows): https://ariazevedo.gumroad.com/l/lusosupport-pt
+💼 Full dataset (5,162 rows): https://ariazevedo.gumroad.com/l/lusosupport-pt
 
 Happy to answer questions about the generation pipeline or the pt-PT design choices.
 ```
@@ -76,7 +76,7 @@ print(ds[0]["instruction"])  # pt-PT instruction
 print(ds[0]["output"])       # pt-PT agent response
 ```
 
-The full dataset (5,149 rows) is available at https://ariazevedo.gumroad.com/l/lusosupport-pt — 🔥 early adopter pricing for the first 50 buyers (€39/€149, rising to €59/€199 after).
+The full dataset (5,162 rows) is available at https://ariazevedo.gumroad.com/l/lusosupport-pt — 🔥 early adopter pricing for the first 50 buyers (€79/€249, rising to €99/€349 after).
 
 Feedback welcome — especially from anyone working on Portuguese NLP!
 ```
@@ -91,11 +91,11 @@ Feedback welcome — especially from anyone working on Portuguese NLP!
 
 Key facts:
 ✅ 200 rows FREE on Hugging Face
-✅ Full dataset: 5,149 rows across 8 domains and 8 task types
+✅ Full dataset: 5,162 rows across 8 domains and 8 task types
 ✅ Proper pt-PT (not pt-BR): palavra-passe, telemóvel, fatura, encomenda
 ✅ Fine-tuning ready: JSONL, CSV, Alpaca JSONL, Parquet
 ✅ Clean metadata: intent, tone, channel, difficulty, escalation flag
-🔥 Early adopter pricing: first 50 buyers lock in €39/€149 (rising to €59/€199 after)
+🔥 Early adopter pricing: first 50 buyers lock in €79/€249 (rising to €99/€349 after)
 
 Portuguese NLP has a real gap in European Portuguese resources. LusoSupport-PT is a small step toward closing it.
 
