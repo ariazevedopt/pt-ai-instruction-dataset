@@ -31,6 +31,51 @@ def _load_jsonl(path: Path) -> list:
     return entries
 
 
+DIVERSITY_THRESHOLD = 0.40
+
+
+def _check_output_diversity(rows: list) -> None:
+    """Flag any task_type whose unique-output ratio falls below DIVERSITY_THRESHOLD.
+
+    A low ratio means the same canned output text is being reused across many
+    rows of that task_type, which hurts fine-tuning quality and buyer trust.
+    """
+    by_task: dict = defaultdict(list)
+    for r in rows:
+        by_task[r.get("task_type", "?")].append(r.get("output", ""))
+
+    table = Table(title="Output diversity by task_type", show_lines=True)
+    table.add_column("task_type", style="cyan")
+    table.add_column("Rows", justify="right")
+    table.add_column("Unique outputs", justify="right")
+    table.add_column("Ratio", justify="right")
+    table.add_column("Status")
+
+    any_below = False
+    for task, outputs in sorted(by_task.items()):
+        total = len(outputs)
+        unique = len(set(outputs))
+        ratio = unique / total if total else 0
+        below = ratio < DIVERSITY_THRESHOLD
+        any_below = any_below or below
+        status = "[red]⚠ below threshold[/red]" if below else "[green]✓ ok[/green]"
+        table.add_row(task, str(total), str(unique), f"{ratio:.0%}", status)
+
+    console.print()
+    console.print(table)
+    if any_below:
+        console.print(
+            f"\n[yellow]⚠ One or more task_types are below the "
+            f"{DIVERSITY_THRESHOLD:.0%} unique-output threshold.[/yellow] "
+            f"Expand RESPONSE_TEMPLATES in scripts/responses.py for the flagged task_type(s)."
+        )
+    else:
+        console.print(
+            f"\n[green]✓ All task_types meet the {DIVERSITY_THRESHOLD:.0%} "
+            f"unique-output diversity threshold.[/green]"
+        )
+
+
 def run_report() -> None:
     rows = _load_jsonl(PROCESSED_PATH)
     flagged = _load_jsonl(FEEDBACK_DIR / "flagged.jsonl")
@@ -129,6 +174,8 @@ def run_report() -> None:
             "Run [bold]make flag[/bold] then [bold]make review[/bold] "
             "to populate feedback."
         )
+
+    _check_output_diversity(rows)
 
 
 if __name__ == "__main__":

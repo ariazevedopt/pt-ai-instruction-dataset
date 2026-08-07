@@ -82,11 +82,26 @@ def load_corrections(feedback_dir: Path = FEEDBACK_DIR) -> dict:
     return corrections
 
 
-def run(n=100, stats=False):
+def load_seed_rows(seeds_path: Path = SEEDS_PATH) -> list:
+    """Return the full seed row objects (the permanent quality floor)."""
+    if not seeds_path.exists():
+        return []
+    rows = []
+    for line in seeds_path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line:
+            rows.append(json.loads(line))
+    return rows
+
+
+def run(n=100, stats=False, fresh=False):
     console.rule("[bold blue]LusoSupport-PT Pipeline")
 
     existing = []
-    if os.path.exists(PROCESSED_PATH):
+    if fresh:
+        console.print("[yellow]--fresh: regenerating processed dataset from scratch "
+                       "(ignoring previously accumulated rows)[/yellow]")
+    elif os.path.exists(PROCESSED_PATH):
         with open(PROCESSED_PATH, encoding="utf-8") as f:
             existing = [json.loads(line) for line in f if line.strip()]
 
@@ -135,12 +150,14 @@ def run(n=100, stats=False):
     console.print(f"[5/5] Saving...")
     save_jsonl(unique_rows, INTERIM_PATH)
 
-    merged = deduplicate(existing + unique_rows)
+    seed_rows = load_seed_rows()
+    merged = deduplicate(seed_rows + existing + unique_rows)
     save_jsonl(merged, PROCESSED_PATH)
 
     console.print(Panel(
         f"[bold]Interim[/bold]   → {INTERIM_PATH} ([cyan]{len(unique_rows)}[/cyan] rows)\n"
-        f"[bold]Processed[/bold] → {PROCESSED_PATH} ([cyan]{len(merged)}[/cyan] rows total)",
+        f"[bold]Processed[/bold] → {PROCESSED_PATH} ([cyan]{len(merged)}[/cyan] rows total, "
+        f"[cyan]{len(seed_rows)}[/cyan] seed rows included)",
         title="✅ Done", border_style="green"
     ))
 
@@ -152,6 +169,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run the full LusoSupport-PT generation pipeline.")
     parser.add_argument("--n", type=int, default=100, help="Rows to generate (default: 100)")
     parser.add_argument("--stats", action="store_true", help="Print dataset stats after run")
+    parser.add_argument("--fresh", action="store_true",
+                        help="Regenerate the processed dataset from scratch instead of "
+                             "accumulating on top of existing rows")
     args = parser.parse_args()
 
-    run(n=args.n, stats=args.stats)
+    run(n=args.n, stats=args.stats, fresh=args.fresh)
