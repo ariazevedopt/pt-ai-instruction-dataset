@@ -4,6 +4,7 @@
 
 The project focuses on realistic support-related tasks written in **Portuguese from Portugal**, with clean metadata and a format that is easy to reuse in model training, prototyping, and downstream NLP applications.
 
+→ **[Usage guide](docs/USAGE.md)** — start here if you bought or downloaded the dataset: file formats, loading snippets, licence recap  
 → **[Use cases, value & integration guide](docs/use-cases.md)** — fine-tuning, RAG, classification pipelines, code examples  
 → **[Full integration guide](docs/integration.md)** — Unsloth, LLaMA-Factory, OpenAI, LangChain, ChromaDB, evaluation
 
@@ -14,8 +15,8 @@ The project focuses on realistic support-related tasks written in **Portuguese f
 | Tier | Price | Rows | Licence |
 |---|---|---|---|
 | 🆓 **[Lite (Hugging Face)](https://huggingface.co/datasets/ariazevedo/LusoSupport-PT)** | Free | 200 | CC BY 4.0 |
-| 💼 **[Premium Individual (Gumroad)](https://ariazeved.gumroad.com/l/lusosupport-pt)** | €39 | 5 163 | Personal / research |
-| 🏢 **[Commercial Licence (Gumroad)](https://ariazeved.gumroad.com/l/lusosupport-pt-commercial)** | €149 | 5 163 | Commercial use |
+| 💼 **[Premium Individual (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt)** | €39 | 5 163 | Personal / research |
+| 🏢 **[Commercial Licence (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial)** | €149 | 5 163 | Commercial use |
 
 ❤️ [Sponsor this project on GitHub](https://github.com/sponsors/ariazevedopt)
 

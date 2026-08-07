@@ -33,7 +33,7 @@ JSONL, CSV, Alpaca JSONL (fine-tuning ready), Parquet
 **Links**
 🤗 Free on HF: [HF_URL]
 💻 GitHub: https://github.com/ariazevedopt/pt-ai-instruction-dataset
-💼 Full dataset (5,163 rows): https://ariazeved.gumroad.com/l/lusosupport-pt
+💼 Full dataset (5,163 rows): https://ariazevedo.gumroad.com/l/lusosupport-pt
 
 Happy to answer questions about the generation pipeline or the pt-PT design choices.
 ```
@@ -75,7 +75,7 @@ print(ds[0]["instruction"])  # pt-PT instruction
 print(ds[0]["output"])       # pt-PT agent response
 ```
 
-The full dataset (5,163 rows) is available at https://ariazeved.gumroad.com/l/lusosupport-pt
+The full dataset (5,163 rows) is available at https://ariazevedo.gumroad.com/l/lusosupport-pt
 
 Feedback welcome — especially from anyone working on Portuguese NLP!
 ```
@@ -99,7 +99,7 @@ Portuguese NLP has a real gap in European Portuguese resources. LusoSupport-PT i
 
 🤗 Free on Hugging Face: [HF_URL]
 💻 GitHub: https://github.com/ariazevedopt/pt-ai-instruction-dataset
-💼 Full dataset: https://ariazeved.gumroad.com/l/lusosupport-pt
+💼 Full dataset: https://ariazevedo.gumroad.com/l/lusosupport-pt
 
 #NLP #MachineLearning #Portuguese #FineTuning #OpenSource #LLM #DataScience
 ```

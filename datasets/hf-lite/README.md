@@ -135,7 +135,7 @@ print(result)
 | **Premium Individual** | €39 | 5 163 | Personal / research / non-commercial |
 | **Commercial Licence** | €149 | 5 163 | Commercial use in products & APIs |
 
-👉 [Buy Individual Licence](https://ariazeved.gumroad.com/l/lusosupport-pt) · [Buy Commercial Licence](https://ariazeved.gumroad.com/l/lusosupport-pt-commercial) · [GitHub Sponsors](https://github.com/sponsors/ariazevedopt)
+👉 [Buy Individual Licence](https://ariazevedo.gumroad.com/l/lusosupport-pt) · [Buy Commercial Licence](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial) · [GitHub Sponsors](https://github.com/sponsors/ariazevedopt)
 
 ---
 
@@ -167,5 +167,6 @@ The full dataset is sold under separate commercial and personal-use licence agre
 ## Related Links
 
 - 📦 [GitHub Repository](https://github.com/ariazevedopt/pt-ai-instruction-dataset)
+- 🚀 [Usage Guide](https://github.com/ariazevedopt/pt-ai-instruction-dataset/blob/main/docs/USAGE.md) — file formats, loading snippets, licence recap
 - 📖 [Schema Documentation](https://github.com/ariazevedopt/pt-ai-instruction-dataset/blob/main/docs/schema.md)
 - 🔗 [Integration Guide](https://github.com/ariazevedopt/pt-ai-instruction-dataset/blob/main/docs/integration.md) — Unsloth, LLaMA-Factory, OpenAI, LangChain
