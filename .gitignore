@@ -21,11 +21,17 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Data artifacts
-data/interim/*
-data/processed/*
-!data/interim/.gitkeep
-!data/processed/.gitkeep
+# Data artifacts (paid/private dataset content — never publish these)
+datasets/raw/*
+datasets/interim/*
+datasets/processed/*
+datasets/feedback/*
+!datasets/raw/.gitkeep
+!datasets/interim/.gitkeep
+!datasets/interim/.keep
+!datasets/processed/.gitkeep
+!datasets/feedback/.gitkeep
+# datasets/hf-lite/ stays tracked: it mirrors the free public HF sample
 
 # Logs
 *.log
