@@ -9,7 +9,10 @@ tracked separately from tooling changes. The current dataset release is **v1.1**
 ## [1.1] - 2026-08-09
 
 ### Changed
-- Scaled the dataset from 5,162 to 10,831 rows (issue #51, item 1a).
+- Scaled the dataset from 5,162 to 10,828 rows (issue #51, item 1a). Note: the
+  final published count is 10,828, not the 10,831 figure originally quoted
+  from an earlier simulation run — legitimate run-to-run variance in
+  `generate.py`; all docs/product pages now reference the true 10,828 figure.
 - Added `scripts/responses_expansion_v2.py`: a second wave of hand-written pt-PT
   templates (4 more per (task_type, intent) cell for email_reply,
   response_generation, faq_answer, next_action_suggestion,
@@ -20,8 +23,28 @@ tracked separately from tooling changes. The current dataset release is **v1.1**
   from ~3-4 to >=5 messages per (intent, tone) cell.
 - Re-exported all formats (CSV, Alpaca JSONL, Parquet) and refreshed the
   free 200-row Hugging Face Lite sample.
+- Updated Gumroad Individual (`vkjsx`) and Commercial product files/description
+  to the v1.1 (10,828-row) dataset; both custom landing pages (`landing.html`,
+  `landing-commercial.html`) refreshed with current stats, "Who this is built
+  for" and "Integrate in minutes" sections, and republished live.
+- **Privatized the content-generation modules** (`scripts/scenarios.py`,
+  `templates.py`, `responses.py`, `responses_expansion.py`,
+  `responses_expansion_v2.py`, and their dedicated tests): these are no
+  longer distributed with the public repo and have been scrubbed from all
+  git history (history rewritten and force-pushed), since they contain the
+  hand-tuned pt-PT message/response content that is the dataset's actual
+  commercial value. Pipeline tooling (validate, dedupe, export, quality
+  report, schema) remains fully open source. See `NOTICE.md`.
+- Fixed a data-exposure issue on the Hugging Face repo: the full paid
+  10,828-row dataset (`processed/lusosupport_pt_v1.{jsonl,csv,parquet}`,
+  `_alpaca.jsonl`) had been accidentally uploaded alongside the free sample
+  and was publicly downloadable — removed, along with a stale duplicate
+  `hf-lite/` sample folder; only the canonical 200-row free sample remains.
 
 ### Added
+- `NOTICE.md` — clarifies that the Apache-2.0 licence covers pipeline
+  tooling only, not the (private) content-generation modules or the sold
+  dataset itself.
 - `scripts/simulate_scale.py` — dry-run calibration tool to check the
   diversity gate before committing to a real generation run at a new scale.
 

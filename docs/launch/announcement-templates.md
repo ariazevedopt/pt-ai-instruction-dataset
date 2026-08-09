@@ -19,7 +19,7 @@ I just published LusoSupport-PT, and as far as I can tell it's the only purpose-
 Most Portuguese NLP datasets are either generic corpora, academic benchmarks, or heavily pt-BR. LusoSupport-PT targets European Portuguese (Portugal) specifically — different vocabulary, register, and tone from Brazilian Portuguese.
 
 **What's in it**
-- 200 free rows on Hugging Face (full dataset: 5,162 rows)
+- 200 free rows on Hugging Face (full dataset: 10,828 rows)
 - 8 domains: e-commerce, SaaS, telecoms, utilities, travel, marketplace, subscriptions, billing
 - 8 task types: response generation, email reply, summarisation, intent classification, urgency classification, rewrite, next-action suggestion, FAQ answer
 - 18 customer intents × 6 tones × 4 channels
@@ -34,7 +34,7 @@ JSONL, CSV, Alpaca JSONL (fine-tuning ready), Parquet
 **Links**
 🤗 Free on HF: https://huggingface.co/datasets/ariazevedo/LusoSupport-PT
 💻 GitHub: https://github.com/ariazevedopt/pt-ai-instruction-dataset
-💼 Full dataset (5,162 rows): https://ariazevedo.gumroad.com/l/lusosupport-pt
+💼 Full dataset (10,828 rows): https://ariazevedo.gumroad.com/l/lusosupport-pt
 
 Happy to answer questions about the generation pipeline or the pt-PT design choices.
 ```
@@ -76,7 +76,7 @@ print(ds[0]["instruction"])  # pt-PT instruction
 print(ds[0]["output"])       # pt-PT agent response
 ```
 
-The full dataset (5,162 rows) is available at https://ariazevedo.gumroad.com/l/lusosupport-pt — 🔥 early adopter pricing for the first 50 buyers (€59/€229, rising to €79/€329 after).
+The full dataset (10,828 rows) is available at https://ariazevedo.gumroad.com/l/lusosupport-pt — 🔥 early adopter pricing for the first 50 buyers (€59/€229, rising to €79/€329 after).
 
 Feedback welcome — especially from anyone working on Portuguese NLP!
 ```
@@ -91,7 +91,7 @@ Feedback welcome — especially from anyone working on Portuguese NLP!
 
 Key facts:
 ✅ 200 rows FREE on Hugging Face
-✅ Full dataset: 5,162 rows across 8 domains and 8 task types
+✅ Full dataset: 10,828 rows across 8 domains and 8 task types
 ✅ Proper pt-PT (not pt-BR): palavra-passe, telemóvel, fatura, encomenda
 ✅ Fine-tuning ready: JSONL, CSV, Alpaca JSONL, Parquet
 ✅ Clean metadata: intent, tone, channel, difficulty, escalation flag
