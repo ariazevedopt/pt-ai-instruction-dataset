@@ -46,3 +46,4 @@ dist/
 
 # Hugging Face / cache
 .cache/
+.worktrees/
