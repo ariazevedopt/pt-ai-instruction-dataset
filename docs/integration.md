@@ -42,7 +42,7 @@ print(ds)
 # Dataset({features: ['id', 'language', 'variant', 'domain', 'subdomain',
 #   'task_type', 'customer_intent', 'customer_tone', 'agent_tone',
 #   'channel', 'difficulty', 'instruction', 'input', 'output', 'metadata'],
-#   num_rows: 1275})
+#   num_rows: 10828})
 ```
 
 ### Train / validation split
@@ -51,8 +51,8 @@ Most trainers need a validation set. Split 90/10:
 
 ```python
 split = ds.train_test_split(test_size=0.1, seed=42)
-train_ds = split["train"]   # ~1147 rows
-eval_ds  = split["test"]    # ~128 rows
+train_ds = split["train"]   # ~9745 rows
+eval_ds  = split["test"]    # ~1083 rows
 
 print(f"Train: {len(train_ds)}  Eval: {len(eval_ds)}")
 ```

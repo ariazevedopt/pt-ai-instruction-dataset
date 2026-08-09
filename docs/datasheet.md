@@ -6,7 +6,7 @@ to document the motivation, composition, collection process, and recommended use
 researchers who need to assess the dataset's fitness for a given purpose.
 
 - **Dataset:** LusoSupport-PT
-- **Version:** v1.1 (10,831 rows)
+- **Version:** v1.1 (10,828 rows)
 - **Language:** Portuguese — European variant (`pt-PT`)
 - **Licence:** CC BY 4.0 (Lite/200-row sample) · commercial/personal licences for the full dataset (see [`LICENCE-COMMERCIAL.md`](../LICENCE-COMMERCIAL.md))
 - **Maintainer:** @ariazevedopt (GitHub) / @ariazevedo (Hugging Face)
@@ -35,7 +35,7 @@ instruction-tuning row: an `instruction`, an `input` (a customer message plus op
 context), and an `output` (the target agent response or a structured classification).
 
 **How many instances are there?**
-- **10,831** rows in the full processed dataset (`datasets/processed/lusosupport_pt_v1.jsonl`).
+- **10,828** rows in the full processed dataset (`datasets/processed/lusosupport_pt_v1.jsonl`).
 - **200** rows in the free HF Lite sample (`datasets/hf-lite/lusosupport_pt_lite.jsonl`).
 - **64** hand-crafted seed rows (`datasets/raw/seed_examples.jsonl`) are always merged into the full dataset as a quality floor.
 

@@ -20,7 +20,7 @@ LusoSupport-PT addresses all three: it is **pt-PT first**, **support-domain focu
 
 ## What the Dataset Covers
 
-**1,275 rows** across 8 domains, 8 task types, and 18 customer intents.
+**10,828 rows** across 8 domains, 8 task types, and 18 customer intents.
 
 ### Domains
 
@@ -200,7 +200,6 @@ The dataset includes a built-in human review workflow (`make review-browser`) wi
 - Multi-turn conversation format
 - Bilingual PT-PT ↔ EN pairs
 - Industry-specific vertical slices (healthcare admin, insurance, banking)
-- Larger scale (10k+ rows) with broader intent coverage
 - Model evaluation benchmarks built on top of this dataset
 
 ---
