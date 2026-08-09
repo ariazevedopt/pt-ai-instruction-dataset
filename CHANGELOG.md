@@ -4,7 +4,26 @@ All notable changes to **LusoSupport-PT** are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project uses dataset-style versioning: the dataset release version is
-tracked separately from tooling changes. The current dataset release is **v1**.
+tracked separately from tooling changes. The current dataset release is **v1.1**.
+
+## [1.1] - 2026-08-09
+
+### Changed
+- Scaled the dataset from 5,162 to 10,831 rows (issue #51, item 1a).
+- Added `scripts/responses_expansion_v2.py`: a second wave of hand-written pt-PT
+  templates (4 more per (task_type, intent) cell for email_reply,
+  response_generation, faq_answer, next_action_suggestion,
+  rewrite_professional, summarization) and 5 more urgency_classification
+  reason variants per intent, to keep every task_type above the 40%
+  unique-output diversity gate at the larger scale.
+- Expanded `TONE_MESSAGES` customer-message pools in `scripts/scenarios.py`
+  from ~3-4 to >=5 messages per (intent, tone) cell.
+- Re-exported all formats (CSV, Alpaca JSONL, Parquet) and refreshed the
+  free 200-row Hugging Face Lite sample.
+
+### Added
+- `scripts/simulate_scale.py` — dry-run calibration tool to check the
+  diversity gate before committing to a real generation run at a new scale.
 
 ## [Unreleased]
 

@@ -21,8 +21,8 @@ The project focuses on realistic support-related tasks written in **Portuguese f
 | Tier | Price | Rows | Licence |
 |---|---|---|---|
 | 🆓 **[Lite (Hugging Face)](https://huggingface.co/datasets/ariazevedo/LusoSupport-PT)** | Free | 200 | CC BY 4.0 |
-| 💼 **[Premium Individual (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt)** | €59 → €79 | 5 162 | Personal / research |
-| 🏢 **[Commercial Licence (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial)** | €229 → €329 | 5 162 | Commercial use |
+| 💼 **[Premium Individual (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt)** | €59 → €79 | 10 831 | Personal / research |
+| 🏢 **[Commercial Licence (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial)** | €229 → €329 | 10 831 | Commercial use |
 
 ❤️ [Sponsor this project on GitHub](https://github.com/sponsors/ariazevedopt)
 
@@ -30,9 +30,9 @@ The project focuses on realistic support-related tasks written in **Portuguese f
 
 ## Quality at a glance
 
-Every release is measured, not just asserted. The current **v1** dataset (`datasets/processed/lusosupport_pt_v1.jsonl`) ships with:
+Every release is measured, not just asserted. The current **v1.1** dataset (`datasets/processed/lusosupport_pt_v1.jsonl`) ships with:
 
-- **5,162 validated rows** — 100% pass the `validate.py` rule set (language, structure, pt-PT vocabulary).
+- **10,831 validated rows** — 100% pass the `validate.py` rule set (language, structure, pt-PT vocabulary).
 - **8 domains × 8 task types × 18 customer intents**, plus 64 hand-crafted seed rows always merged in as a quality floor.
 - **Verified output diversity** — every task type clears a ≥40% unique-output ratio gate (currently **42–77%**), enforced by `scripts/quality_report.py`. Run `make quality` to reproduce the report.
 - **Zero pt-BR leakage** on the enforced banned-vocabulary list, and **zero placeholder metadata** (every row has a real `subdomain`).
@@ -393,7 +393,7 @@ pt-ai-instruction-dataset/
 │   ├── interim/
 │   │   └── generated.jsonl            # pipeline intermediate output
 │   ├── processed/                     # release-ready outputs
-│   │   ├── lusosupport_pt_v1.jsonl    # clean final dataset (5,162 rows)
+│   │   ├── lusosupport_pt_v1.jsonl    # clean final dataset (10,831 rows)
 │   │   ├── lusosupport_pt_v1.csv      # CSV export
 │   │   ├── lusosupport_pt_v1_alpaca.jsonl  # Alpaca-format export
 │   │   └── lusosupport_pt_v1.parquet  # Parquet export
