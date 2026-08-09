@@ -30,11 +30,21 @@ jobs:
       - name: Run test suite
         run: make test
 
-      - name: Generate synthetic dataset for CI
-        run: cd scripts && python3 pipeline.py --n 300
-
-      - name: Validate processed dataset
-        run: make validate
-
-      - name: Dataset quality report (diversity gate)
-        run: cd scripts && python3 quality_report.py
+      # The full generation pipeline (pipeline.py, quality_report.py) depends
+      # on proprietary content modules (scripts/scenarios.py, templates.py,
+      # responses.py, responses_expansion*.py) that are intentionally not
+      # distributed with this public repo — see NOTICE.md. They contain the
+      # dataset's actual message/response content and are validated locally
+      # by the maintainer before each release. Public CI instead validates
+      # the tooling against the tracked free sample (datasets/hf-lite/).
+      - name: Validate free sample dataset
+        run: |
+          cd scripts && python3 -c "
+          import json, sys; sys.path.insert(0, '.')
+          from validate import is_valid_row
+          rows = [json.loads(l) for l in open('../datasets/hf-lite/lusosupport_pt_lite.jsonl') if l.strip()]
+          bad = [r['id'] for r in rows if not is_valid_row(r)[0]]
+          print(f'{len(rows) - len(bad)}/{len(rows)} rows valid')
+          [print('  FAIL:', i) for i in bad]
+          sys.exit(1 if bad else 0)
+          "

@@ -4,11 +4,17 @@ import sys
 import os
 from pathlib import Path
 from datetime import datetime, timezone
+import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
 # Patch working directory so relative paths in review_server resolve
 os.chdir(Path(__file__).parent.parent)
+
+# review_server.py imports responses.py/templates.py (proprietary content
+# modules not distributed with the public repo — see NOTICE.md) to build
+# preview rows for review. Skip gracefully when absent, e.g. in CI.
+pytest.importorskip("responses", reason="proprietary content module not present")
 
 from review_server import (
     load_rows, load_reviewed_ids, sample_row,

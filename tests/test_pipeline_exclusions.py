@@ -3,8 +3,15 @@ import json
 import os
 import sys
 from pathlib import Path
+import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
+
+# pipeline.py imports generate.py, which depends on proprietary content
+# modules (scenarios.py, responses.py, templates.py) not distributed with
+# the public repo (see NOTICE.md). Skip gracefully when absent, e.g. in CI.
+pytest.importorskip("scenarios", reason="proprietary content module not present")
+
 from pipeline import load_seed_ids, load_exclusion_ids, load_corrections
 
 

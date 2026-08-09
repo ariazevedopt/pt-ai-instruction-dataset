@@ -1,6 +1,12 @@
 """Tests for generate.py diversity invariants (Phase 1 — issue #44)."""
 import sys, os, random
+import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
+
+# generate.py depends on proprietary content modules (scenarios.py,
+# responses.py, templates.py) that are not distributed with the public
+# repo (see NOTICE.md). Skip gracefully when they're absent, e.g. in CI.
+pytest.importorskip("scenarios", reason="proprietary content module not present")
 
 from generate import generate_dataset, generate_row
 
