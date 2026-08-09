@@ -2,7 +2,7 @@
 
 **Version 1.0 — 2026**
 
-This Commercial Licence governs use of the **LusoSupport-PT Full Dataset** (5 162+ rows) purchased via Gumroad.
+This Commercial Licence governs use of the **LusoSupport-PT Full Dataset** (10 828+ rows) purchased via Gumroad.
 
 ---
 
