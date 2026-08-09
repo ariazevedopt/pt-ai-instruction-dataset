@@ -47,3 +47,16 @@ dist/
 # Hugging Face / cache
 .cache/
 .worktrees/
+
+# Proprietary content-generation modules (the actual dataset "recipe":
+# customer message variety, response variety, instruction phrasings).
+# These are what make the paid dataset worth buying — kept private,
+# not distributed with the open-source pipeline/tooling. See NOTICE.md.
+scripts/scenarios.py
+scripts/responses.py
+scripts/responses_expansion.py
+scripts/responses_expansion_v2.py
+scripts/templates.py
+tests/test_scenarios_tones.py
+tests/test_responses_expansion_v2.py
+tests/test_templates.py

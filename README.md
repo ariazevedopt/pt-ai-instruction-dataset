@@ -62,6 +62,14 @@ make quality     # rich quality report incl. diversity gate
 The ready-to-use dataset is at `datasets/processed/lusosupport_pt_v1.jsonl`.  
 High-quality hand-crafted seed examples are in `datasets/raw/seed_examples.jsonl`.
 
+> **Note:** `make generate` / `make pipeline` require a handful of proprietary
+> content modules (`scripts/scenarios.py`, `templates.py`, `responses.py`,
+> `responses_expansion*.py`) that are **not included** in this public repo.
+> They contain the actual message/response variety that makes the dataset
+> valuable and are kept private — see [`NOTICE.md`](NOTICE.md). Everything
+> else (validation, deduplication, export, quality reporting, schema) is
+> fully open source and runnable as-is.
+
 ---
 
 ## Overview
@@ -408,10 +416,11 @@ pt-ai-instruction-dataset/
 │       └── browser_ratings.jsonl
 ├── scripts/
 │   ├── config.py               # domains, task types, intents (canonical enums)
-│   ├── scenarios.py            # input message variants per intent
-│   ├── templates.py            # instruction templates
-│   ├── responses.py            # output templates (opener/closer + domain-label subst.)
-│   ├── responses_expansion.py  # extra hand-written pt-PT output templates
+│   ├── scenarios.py            # ⚠ proprietary, not distributed — see NOTICE.md
+│   ├── templates.py            # ⚠ proprietary, not distributed — see NOTICE.md
+│   ├── responses.py            # ⚠ proprietary, not distributed — see NOTICE.md
+│   ├── responses_expansion.py  # ⚠ proprietary, not distributed — see NOTICE.md
+│   ├── responses_expansion_v2.py # ⚠ proprietary, not distributed — see NOTICE.md
 │   ├── metadata.py             # metadata derivation (subdomain, escalation, etc.)
 │   ├── generate.py             # row generation logic
 │   ├── validate.py             # row validator

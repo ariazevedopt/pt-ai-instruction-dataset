@@ -49,7 +49,7 @@ Covers `validate.py` and `dedupe.py` — the two functions that define dataset c
 
 **Why not an LLM API?** Calling OpenAI/Anthropic at generation time adds per-run costs, requires API key management, produces non-reproducible results, and introduces a runtime dependency. For a dataset product, **reproducibility and cost control matter more than marginal output quality**.
 
-**The approach:** `scenarios.py` provides realistic PT-PT input messages per intent. `templates.py` builds the instruction string. A `responses.py` module (in progress, see issue #21) will provide 5-10 realistic PT-PT output variants per `(task_type, intent)` combination, sampled randomly.
+**The approach:** `scenarios.py` provides realistic PT-PT input messages per intent. `templates.py` builds the instruction string. `responses.py` and `responses_expansion*.py` provide realistic PT-PT output variants per `(task_type, intent)` combination, sampled randomly. **These content modules are proprietary and not included in this public repo** — see [`NOTICE.md`](../NOTICE.md).
 
 This is sufficient for a paid product because:
 - Outputs are hand-written by a human (higher trust than generated)
