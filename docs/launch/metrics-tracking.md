@@ -25,7 +25,7 @@ Add a new row to the table below each month.
 
 | Month | HF Downloads | HF Likes | GH Stars | Gumroad Ind. | Gumroad Com. | Sponsors | Notes |
 |---|---|---|---|---|---|---|---|
-| 2026-08 | 62 | 1 | 2 | ? | ? | ? | launch month; HF downloads/likes and GH stars pulled from HF API + `gh` on 2026-08-28 (up from 29 downloads/1 like on 2026-08-09). Gumroad/Sponsors figures require dashboard access — update manually. |
+| 2026-08 | 62 | 1 | 2 | 0 | 0 | ? | launch month; HF downloads/likes and GH stars pulled from HF API + `gh` on 2026-08-28 (up from 29 downloads/1 like on 2026-08-09). Gumroad sales confirmed 0 on both tiers. Sponsors figure requires dashboard access — update manually. |
 | 2026-09 | | | | | | | |
 | 2026-10 | | | | | | | |
 
