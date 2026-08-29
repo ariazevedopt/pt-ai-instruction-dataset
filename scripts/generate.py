@@ -16,8 +16,8 @@ from templates import build_instruction
 from validate import is_valid_row
 
 
-def generate_output(task_type, intent, domain=None, agent_tone=None):
-    return get_output(task_type, intent, domain=domain, agent_tone=agent_tone)
+def generate_output(task_type, intent, domain=None, agent_tone=None, message=None):
+    return get_output(task_type, intent, domain=domain, agent_tone=agent_tone, message=message)
 
 
 def generate_row(i):
@@ -48,7 +48,7 @@ def generate_row(i):
         "difficulty": difficulty,
         "instruction": build_instruction(task, agent_tone, domain, channel),
         "input": f"Mensagem do cliente: {message}",
-        "output": generate_output(task, intent, domain=domain, agent_tone=agent_tone),
+        "output": generate_output(task, intent, domain=domain, agent_tone=agent_tone, message=message),
         "intent_classification": {
             "intent": intent,
             "confidence": derive_confidence(difficulty),
