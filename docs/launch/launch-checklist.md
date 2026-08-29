@@ -60,3 +60,4 @@ Step-by-step guide to publish and launch the dataset.
 | `LICENCE-COMMERCIAL.md` | Commercial licence (Gumroad) |
 | `docs/launch/announcement-templates.md` | Reddit / HF / LinkedIn post copy |
 | `docs/launch/metrics-tracking.md` | Monthly metrics log |
+| `docs/launch/stage0-outreach-leads.md` | Named lead list + status tracker for Stage-0 buyer outreach (issue #58) |
