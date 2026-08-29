@@ -15,12 +15,17 @@ researchers who need to assess the dataset's fitness for a given purpose.
 
 ## 1. Motivation
 
+> **Project evolution:** this dataset launched as a standalone pt-PT instruction dataset and has since been repositioned as the customer-support specialization layer for [AMALIA](https://amaliallm.pt/), Portugal's open-source, government-backed pt-PT LLM. See the [pivot strategy doc](superpowers/specs/2026-08-28-amalia-pivot-strategy.md) for the full rationale. Everything below still applies unchanged — the dataset itself, its composition, and its licensing are unaffected by the positioning shift.
+
 **For what purpose was the dataset created?**
 To provide a purpose-built, structured **European Portuguese (pt-PT)** customer-support
 instruction dataset for LLM fine-tuning, prompting, evaluation, and support-automation
 workflows. Publicly available Portuguese datasets are typically generic corpora,
 academic benchmarks, or Brazilian-Portuguese-oriented (`pt-BR`); none combine
-support-domain focus, instruction formatting, and enforced pt-PT vocabulary.
+support-domain focus, instruction formatting, and enforced pt-PT vocabulary. Since this
+dataset was created, AMALIA (a general-purpose, open-source LLM built for European
+Portuguese) has launched — but its own instruction-tuning data is not support-domain
+specific, which is the gap this dataset was built to fill and continues to fill.
 
 **Who created it and who funded it?**
 Created and maintained by @ariazevedopt as an independent, self-funded project.

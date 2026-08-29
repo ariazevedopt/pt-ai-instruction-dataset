@@ -8,8 +8,8 @@ A quick-start guide for anyone who has downloaded or purchased **LusoSupport-PT*
 
 | Tier | Source | Rows | Files |
 |---|---|---|---|
-| 🆓 Lite | [Hugging Face](https://huggingface.co/datasets/ariazevedo/LusoSupport-PT) | 200 | `lusosupport_pt_lite.jsonl` |
-| 💼 Individual | [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) | 10 828 | `lusosupport_pt_v1.jsonl`, `.csv`, `_alpaca.jsonl`, `.parquet`, `LICENCE-COMMERCIAL.md` |
+| 🆓 Lite | [Hugging Face](https://huggingface.co/datasets/ariazevedo/LusoSupport-PT) | 200 | `lusosupport_pt_lite.jsonl`, `lusosupport_pt_lite_amalia_chat.jsonl` |
+| 💼 Individual | [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) | 10 828 | `lusosupport_pt_v1.jsonl`, `.csv`, `_alpaca.jsonl`, `_amalia_chat.jsonl`, `.parquet`, `LICENCE-COMMERCIAL.md` |
 | 🏢 Commercial | [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial) | 10 828 | Same files as Individual |
 
 All formats contain the **same rows** — pick whichever format suits your tooling:
@@ -18,7 +18,8 @@ All formats contain the **same rows** — pick whichever format suits your tooli
 |---|---|
 | `.jsonl` | Python, Hugging Face `datasets`, most ML pipelines |
 | `.csv` | Excel, Google Sheets, pandas, spreadsheet review |
-| `_alpaca.jsonl` | Instruction fine-tuning frameworks expecting `{instruction, input, output}` (Unsloth, LLaMA-Factory, Axolotl) |
+| `_alpaca.jsonl` | Instruction fine-tuning frameworks expecting `{instruction, input, output}` (Unsloth, LLaMA-Factory, Axolotl) — for models using a plain Alpaca-style prompt template |
+| `_amalia_chat.jsonl` | Fine-tuning [AMALIA](https://amaliallm.pt/) or any other ChatML-style chat model — `{"messages": [{"role": "system"/"user"/"assistant", "content": ...}]}`, ready for `tokenizer.apply_chat_template()`. See [`docs/integration.md` §2](integration.md#2-fine-tuning-amalia-for-customer-support). |
 | `.parquet` | Large-scale/columnar processing (Spark, DuckDB, polars) |
 
 ---

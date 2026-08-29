@@ -56,6 +56,16 @@ LusoSupport-PT addresses all three: it is **pt-PT first**, **support-domain focu
 
 ## Use Cases
 
+### 0. Specializing AMALIA for customer support
+
+AMALIA (amaliallm.pt) is Portugal's open-source, government-and-university-backed LLM, trained from the ground up on European Portuguese. It's fluent in pt-PT out of the box — but its own instruction-tuning data is general-purpose (conversational assistance, not customer-support-specific). LusoSupport-PT is built to close exactly that gap: fine-tune AMALIA on this dataset to get a model that handles support tickets, tone, escalation, and the 18 customer intents covered here, on top of AMALIA's native pt-PT fluency.
+
+**What you get:** AMALIA's language quality plus support-domain competence — response drafting, intent/urgency classification, and next-action suggestions in the register a Portuguese support team actually uses.
+
+**Who benefits:** Teams already building on AMALIA (or considering it) who need a support-ready variant rather than the general base model. See `docs/integration.md#2-fine-tuning-amalia-for-customer-support` for a full walkthrough.
+
+---
+
 ### 1. Fine-tuning an LLM for PT-PT customer support
 
 Train or fine-tune a language model to handle support queries in European Portuguese. The dataset provides instruction-input-output triples in Alpaca format, ready for frameworks like LLaMA-Factory, Unsloth, Axolotl, or OpenAI fine-tuning.

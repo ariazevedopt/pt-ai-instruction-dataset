@@ -7,15 +7,16 @@ This guide covers each integration pattern in full detail: prerequisites, comple
 ## Table of Contents
 
 1. [Loading the dataset](#1-loading-the-dataset)
-2. [Fine-tuning with Unsloth (LLaMA / Mistral)](#2-fine-tuning-with-unsloth-llama--mistral)
-3. [Fine-tuning with LLaMA-Factory](#3-fine-tuning-with-llama-factory)
-4. [OpenAI fine-tuning (gpt-4o-mini)](#4-openai-fine-tuning-gpt-4o-mini)
-5. [Few-shot prompting (no training)](#5-few-shot-prompting-no-training)
-6. [Intent classification pipeline](#6-intent-classification-pipeline)
-7. [RAG with LangChain + FAISS](#7-rag-with-langchain--faiss)
-8. [RAG with ChromaDB (persistent)](#8-rag-with-chromadb-persistent)
-9. [Evaluation and benchmarking](#9-evaluation-and-benchmarking)
-10. [Pushing to Hugging Face Hub](#10-pushing-to-hugging-face-hub)
+2. [Fine-tuning AMALIA for Customer Support](#2-fine-tuning-amalia-for-customer-support)
+3. [Fine-tuning with Unsloth (LLaMA / Mistral)](#3-fine-tuning-with-unsloth-llama--mistral)
+4. [Fine-tuning with LLaMA-Factory](#4-fine-tuning-with-llama-factory)
+5. [OpenAI fine-tuning (gpt-4o-mini)](#5-openai-fine-tuning-gpt-4o-mini)
+6. [Few-shot prompting (no training)](#6-few-shot-prompting-no-training)
+7. [Intent classification pipeline](#7-intent-classification-pipeline)
+8. [RAG with LangChain + FAISS](#8-rag-with-langchain--faiss)
+9. [RAG with ChromaDB (persistent)](#9-rag-with-chromadb-persistent)
+10. [Evaluation and benchmarking](#10-evaluation-and-benchmarking)
+11. [Pushing to Hugging Face Hub](#11-pushing-to-hugging-face-hub)
 
 ---
 
@@ -90,7 +91,106 @@ print(row["customer_intent"])  # e.g. "refund_request"
 
 ---
 
-## 2. Fine-tuning with Unsloth (LLaMA / Mistral)
+## 2. Fine-tuning AMALIA for Customer Support
+
+[AMALIA](https://amaliallm.pt/) is Portugal's open-source, government-and-university-backed LLM for European Portuguese (9B params, EuroLLM-derived, 32k context). Its base and SFT checkpoints are published on Hugging Face under the `amalia-llm` org. This section fine-tunes AMALIA's SFT checkpoint on LusoSupport-PT using the same Unsloth/QLoRA workflow shown in Section 3, adapted to AMALIA's chat template.
+
+> **Important — AMALIA uses a ChatML-style chat template, not a flat Alpaca template.** AMALIA's tokenizer defines `<|im_start|>`/`<|im_end|>` special tokens and expects `system`/`user`/`assistant` role-tagged turns (confirmed from `amalia-llm/AMALIA-9B-0626-SFT`'s `tokenizer_config.json`, and consistent with the `amalia-llm/AMALIA-LLM-0626-SFT-Dataset` SFT data mix, which is itself stored as role/content conversation turns). Feeding it a hand-written `"### Instrução:\n...\n\n### Resposta:\n..."` string — the convention used for the generic Unsloth/LLaMA-Factory walkthroughs in Sections 3–4 — does not match what AMALIA was post-trained on, and risks fighting the model's existing chat behaviour instead of building on it. Use `tokenizer.apply_chat_template()` with role/content messages instead, as shown below.
+
+### Prerequisites
+
+```bash
+pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+pip install datasets
+```
+
+### Step 1 — Get the dataset in AMALIA's chat format
+
+Both the free Hugging Face Lite sample and the paid Gumroad tiers now ship a `_amalia_chat.jsonl` file alongside the usual `.jsonl`/`.csv`/`_alpaca.jsonl`/`.parquet` exports — `lusosupport_pt_lite_amalia_chat.jsonl` (200 rows, free) or `lusosupport_pt_v1_amalia_chat.jsonl` (10,828 rows, paid tiers). If you already have one of these, skip straight to the training script below.
+
+If you're working from the raw `instruction`/`input`/`output` JSONL (e.g. after regenerating rows yourself, or from an older download), the same file can be produced with the `to_amalia_chat_jsonl()` helper in `scripts/export_formats.py`. LusoSupport-PT's own `instruction`/`input`/`output` row format is preserved as the source of truth (nothing about the dataset schema or generation pipeline changes); this exporter converts each row into a `messages` array — `system` = `instruction`, `user` = `input`, `assistant` = `output` — leaving the actual `<|im_start|>`/`<|im_end|>` templating to the tokenizer:
+
+```bash
+cd scripts
+python3 export_formats.py ../datasets/processed/lusosupport_pt_v1.jsonl \
+  --amalia-chat ../datasets/processed/lusosupport_pt_v1_amalia_chat.jsonl
+```
+
+This writes one JSON object per line: `{"messages": [{"role": "system", "content": ...}, {"role": "user", "content": ...}, {"role": "assistant", "content": ...}]}`.
+
+### Full training script
+
+```python
+# train_amalia.py
+from unsloth import FastLanguageModel
+from datasets import load_dataset
+from trl import SFTTrainer
+from transformers import TrainingArguments
+
+# ── 1. Load the AMALIA-chat-format dataset and load AMALIA's own tokenizer ──
+ds = load_dataset(
+    "json",
+    data_files="datasets/processed/lusosupport_pt_v1_amalia_chat.jsonl",
+    split="train",
+)
+
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name="amalia-llm/AMALIA-9B-0626-SFT",
+    max_seq_length=4096,
+    load_in_4bit=True,
+)
+
+# ── 2. Apply AMALIA's own chat template (adds <|im_start|>/<|im_end|>, etc.) ─
+def format_row(row):
+    return {
+        "text": tokenizer.apply_chat_template(
+            row["messages"], tokenize=False, add_generation_prompt=False
+        )
+    }
+
+ds = ds.map(format_row)
+
+# ── 3. Add LoRA adapters ──────────────────────────────────────────────────────
+model = FastLanguageModel.get_peft_model(
+    model,
+    r=16,
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
+    lora_alpha=16,
+    lora_dropout=0,
+    bias="none",
+)
+
+# ── 4. Train ───────────────────────────────────────────────────────────────────
+trainer = SFTTrainer(
+    model=model,
+    tokenizer=tokenizer,
+    train_dataset=ds,
+    dataset_text_field="text",
+    max_seq_length=4096,
+    args=TrainingArguments(
+        per_device_train_batch_size=2,
+        gradient_accumulation_steps=4,
+        num_train_epochs=3,
+        learning_rate=2e-4,
+        output_dir="amalia-customer-support",
+    ),
+)
+trainer.train()
+
+# ── 5. Save ────────────────────────────────────────────────────────────────────
+model.save_pretrained("amalia-customer-support")
+tokenizer.save_pretrained("amalia-customer-support")
+```
+
+### Notes
+
+- Verify the exact checkpoint name against AMALIA's current Hugging Face listing before running — `amalia-llm/AMALIA-9B-0626-SFT` is the checkpoint published as of the 2026-07-01 launch; the org may publish newer dated checkpoints later.
+- Loading `tokenizer.apply_chat_template()` from AMALIA's own checkpoint means the template stays correct automatically even if AMALIA revises its chat format in a future release — do not hardcode `<|im_start|>`/`<|im_end|>` text directly.
+- This walkthrough is illustrative and untested end-to-end in this repository (no GPU fine-tuning has been run as part of this docs update — see the gated spike tracked in issue #64, which does not start until Stage-0 buyer validation confirms demand).
+
+---
+
+## 3. Fine-tuning with Unsloth (LLaMA / Mistral)
 
 Unsloth is the fastest way to fine-tune LLaMA and Mistral models locally on consumer GPUs. It uses 4-bit quantisation (QLoRA) and achieves 2–5× faster training than vanilla Hugging Face.
 
@@ -237,7 +337,7 @@ print(tokenizer.batch_decode(outputs)[0])
 
 ---
 
-## 3. Fine-tuning with LLaMA-Factory
+## 4. Fine-tuning with LLaMA-Factory
 
 LLaMA-Factory is a multi-model, multi-method training framework with a web UI. It supports LLaMA, Mistral, Qwen, Gemma, and many more.
 
@@ -335,7 +435,7 @@ llamafactory-cli train examples/train_lora/llama3_lora_sft.yaml
 
 ---
 
-## 4. OpenAI Fine-tuning (gpt-4o-mini)
+## 5. OpenAI Fine-tuning (gpt-4o-mini)
 
 ### Prerequisites
 
@@ -476,7 +576,7 @@ print(response.choices[0].message.content)
 
 ---
 
-## 5. Few-shot Prompting (No Training)
+## 6. Few-shot Prompting (No Training)
 
 Use the dataset as a prompt library. No GPU, no training cost — just pick good examples and inject them.
 
@@ -573,7 +673,7 @@ for s in shots:
 
 ---
 
-## 6. Intent Classification Pipeline
+## 7. Intent Classification Pipeline
 
 Use the `intent_classification` rows to build an automatic triage system that reads incoming customer messages and routes them.
 
@@ -709,7 +809,7 @@ print(result)
 
 ---
 
-## 7. RAG with LangChain + FAISS
+## 8. RAG with LangChain + FAISS
 
 Build a retrieval-augmented support assistant that grounds its answers in known-good PT-PT responses.
 
@@ -836,7 +936,7 @@ retriever = vectorstore.as_retriever(
 
 ---
 
-## 8. RAG with ChromaDB (Persistent)
+## 9. RAG with ChromaDB (Persistent)
 
 ChromaDB stores the index on disk — useful for production deployments where you don't want to rebuild the index on every startup.
 
@@ -912,7 +1012,7 @@ for doc, score in results:
 
 ---
 
-## 9. Evaluation and Benchmarking
+## 10. Evaluation and Benchmarking
 
 Use the dataset as a reference set to measure how well a model handles PT-PT support.
 
@@ -995,7 +1095,7 @@ print(f"PT-PT compliance: {ptpt_compliance_rate(predictions):.1%}")
 
 ---
 
-## 10. Pushing to Hugging Face Hub
+## 11. Pushing to Hugging Face Hub
 
 Share your fine-tuned model or the dataset itself on the Hugging Face Hub.
 
