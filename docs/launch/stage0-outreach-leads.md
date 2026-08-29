@@ -74,6 +74,28 @@ Status legend: `not contacted` / `sent` / `replied` / `call booked` / `pilot int
 
 ---
 
+## Buyer-side communities to observe (Week 1 checklist item)
+
+Per issue #58's Week-1 item "Identify 2-3 buyer-side communities and observe (don't post yet)" —
+join/follow these, read recent threads for real pain points before posting anything, and only post
+the single problem-framed message (Week-2 item) once you've observed active discussion:
+
+| Community | Type | Why | Status |
+|---|---|---|---|
+| **APCC — Associação Portuguesa de Contact Centers** ([apcc.pt](https://www.apcc.pt), geral@apcc.pt, +351 213 193 188) | Trade association | The official body for PT contact-centre/CX industry — members are Category 1 buyers (BPOs, in-house support orgs). Check for member directory, events, or a LinkedIn presence to observe first. | not yet observed |
+| **Startup Lisboa** ([startuplisboa.com](https://www.startuplisboa.com)) | Startup hub/community | Hosts PT SaaS/AI startups (Category 2/3 buyer pool); has community events and a team page for warm intro paths. | not yet observed |
+| **r/PORTUGAL** (Reddit) | General PT forum | Active PT tech/business discussion; useful for observing sentiment and, per Week-2, one problem-framed (not promotional) post — follow subreddit self-promotion rules strictly. | not yet observed |
+| Support Driven (Slack, global CX community) | Slack community | Large CX/support professional community with international reach; check for a Portuguese/EU channel before posting anything. | not yet observed |
+| CX Accelerator (Slack) | Slack community | CX-technology-focused community; has members from Portugal/Brazil per prior research — verify presence of active PT discussion. | not yet observed |
+
+**Note:** only APCC and Startup Lisboa are PT-specific and directly buyer-adjacent — prioritise
+observing those two first. Reddit r/PORTUGAL is the one to use for the single Week-2
+problem-framed post, since it explicitly allows transparent business posts if not spammy. The two
+Slack communities are broader CX communities (not PT-exclusive) — worth a quick check for a
+Lusophone channel before investing time there.
+
+---
+
 ## How to use this list
 
 1. Fill in a named person (LinkedIn profile or public email) for each row before sending — do not
