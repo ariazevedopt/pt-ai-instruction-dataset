@@ -10,7 +10,7 @@ fill in named contacts (person, not just company) before sending, and log replie
 detail (e.g., "vi que lançaram X" / "notei que usam Y para suporte"). Track outcomes here so the
 Week-2 decision gate (issue #58) has real data.
 
-Status legend: `not contacted` / `sent` / `replied` / `call booked` / `pilot interest` / `paid` / `no response` / `not interested`
+Status legend: `not contacted` / `tagged in LinkedIn/HF post` / `sent` / `replied` / `call booked` / `pilot interest` / `paid` / `no response` / `not interested`
 
 ---
 
@@ -18,7 +18,7 @@ Status legend: `not contacted` / `sent` / `replied` / `call booked` / `pilot int
 
 | # | Organisation | Why relevant | Contact target | Status |
 |---|---|---|---|---|
-| 1 | Conectys (Lisbon) | AI-enhanced multichannel CX platform (BlueTweak), already positions itself on AI+CX | Head of AI/Innovation or CX Ops lead | not contacted |
+| 1 | Conectys (Lisbon) | AI-enhanced multichannel CX platform (BlueTweak), already positions itself on AI+CX | Head of AI/Innovation or CX Ops lead | tagged in LinkedIn/HF post |
 | 2 | Connecta Group (Lisbon) | Large-scale back-office/call-centre outsourcing | Head of Operations | not contacted |
 | 3 | YOURVOICE (Lisbon) | Call centre + sales outsourcing, innovation-focused messaging | Innovation/Tech lead | not contacted |
 | 4 | Pluricall (Lisbon) | Long-standing PT call-centre outsourcer | Operations Director | not contacted |
@@ -35,21 +35,21 @@ Status legend: `not contacted` / `sent` / `replied` / `call booked` / `pilot int
 
 | # | Organisation | Why relevant | Contact target | Status |
 |---|---|---|---|---|
-| 13 | Codacy (Lisbon) | Dev-tool SaaS with a support/success function, technical buyer | Head of Customer Success | not contacted |
-| 14 | Infraspeak (Porto) | Facilities-management SaaS with AI/IoT — support-heavy vertical (maintenance tickets) | Head of Support/CS | not contacted |
-| 15 | Talkdesk (Lisbon/Coimbra R&D) | Already in the CCaaS/contact-centre-AI space — potential partner or informed prospect | Product/AI lead (PT office) | not contacted |
+| 13 | Codacy (Lisbon) | Dev-tool SaaS with a support/success function, technical buyer | Head of Customer Success | tagged in LinkedIn/HF post |
+| 14 | Infraspeak (Porto) | Facilities-management SaaS with AI/IoT — support-heavy vertical (maintenance tickets) | Head of Support/CS | tagged in LinkedIn/HF post |
+| 15 | Talkdesk (Lisbon/Coimbra R&D) | Already in the CCaaS/contact-centre-AI space — potential partner or informed prospect | Product/AI lead (PT office) | tagged in LinkedIn/HF post |
 | 16 | Sensei Tech (Lisbon) | AI-powered retail — customer-facing AI experience | Head of AI | not contacted |
 | 17 | Reckon.ai (Porto) | AI-powered retail shopping experience — adjacent support/CX use case | Founder/CTO | not contacted |
 | 18 | Nutrium (Braga) | Consumer SaaS with a support team, PT-first product | Head of Customer Support | not contacted |
-| 19 | PHC Software (Porto/Lisbon) | Large PT ERP/business-software vendor with a support org | Head of Customer Support | not contacted |
+| 19 | PHC Software (Porto/Lisbon) | Large PT ERP/business-software vendor with a support org | Head of Customer Support | tagged in LinkedIn/HF post |
 | 20 | Primavera BSS (Braga) | PT business-management software, large support team | Head of Support Operations | not contacted |
 
 ## Category 3 — AI consultancies / ML delivery shops (could resell/integrate a fine-tune)
 
 | # | Organisation | Why relevant | Contact target | Status |
 |---|---|---|---|---|
-| 21 | Digiton (Lisbon/Porto) | Builds production AI agents/automation for B2B — natural reseller/integration partner | Founder/AI lead | not contacted |
-| 22 | Simmple (Lisbon) | AI consulting + intelligent automation | Founder | not contacted |
+| 21 | Digiton (Lisbon/Porto) | Builds production AI agents/automation for B2B — natural reseller/integration partner | Founder/AI lead | tagged in LinkedIn/HF post |
+| 22 | Simmple (Lisbon) | AI consulting + intelligent automation | Founder | tagged in LinkedIn/HF post |
 | 23 | Closer Consulting (Lisbon) | BI/ML/advanced analytics consultancy, enterprise clients | Head of ML/Data Science | not contacted |
 | 24 | AiTecServ (Lisbon) | Data science/ML consultancy | Founder/Lead consultant | not contacted |
 | 25 | Intelligent Algorithms (Lisbon) | ML consultancy | Founder | not contacted |

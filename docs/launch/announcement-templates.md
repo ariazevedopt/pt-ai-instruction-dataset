@@ -195,9 +195,9 @@ the closest real equivalent on this platform.
 
 - [ ] AMALIA HF org/community post published
 - [ ] PT gov-tech / dissemination-channel LinkedIn post published
-- [ ] Tagged LinkedIn post (§4) published with verified @-mentions
+- [x] Tagged LinkedIn post (§4) published with verified @-mentions
 - [ ] Reddit r/PORTUGAL name-checked post (§5) published
-- [ ] Hugging Face name-checked post (§6) published
+- [x] Hugging Face name-checked post (§6) published
 - [ ] Direct outreach messages sent to the Stage-0 buyer list (issue #58) using the DM template
 - [ ] All links (HF, GitHub, Gumroad) verified live before posting
 - [ ] Replies tracked in `docs/launch/metrics-tracking.md` (AMALIA outreach replies row)
