@@ -1,20 +1,24 @@
 # LusoSupport-PT
 
-🇵🇹 **The only purpose-built European Portuguese (pt-PT) customer support instruction dataset.** Verified against the Hugging Face Hub — every other pt-PT/pt-BR dataset we found is a generic NLP corpus (Wikipedia, OSCAR, intent-classification benchmarks); none are support-domain, instruction-formatted, or pt-PT-vocabulary-enforced like this one.
+> **Project evolution:** LusoSupport-PT launched as a standalone pt-PT instruction dataset. Since AMALIA (Portugal's open-source, government-backed pt-PT LLM) launched in July 2026, the project has repositioned around specializing AMALIA for customer support — the dataset below is preserved and still available, now as the training material behind that specialization. See [the pivot strategy doc](docs/superpowers/specs/2026-08-28-amalia-pivot-strategy.md) for the full rationale.
+
+🇵🇹 **AMALIA already speaks fluent European Portuguese. LusoSupport-PT specializes it for customer support.** AMALIA (amaliallm.pt) is Portugal's open-source, government-and-university-backed LLM, trained from the ground up on European Portuguese — but its own instruction-tuning data is general-purpose, not support-domain. LusoSupport-PT is the customer-support specialization layer: a structured, richly annotated pt-PT instruction dataset built to fine-tune AMALIA (or any other model) into a production-ready support agent.
 
 **LusoSupport-PT** is a structured **European Portuguese (pt-PT)** customer support and business operations instruction dataset designed for LLM fine-tuning, prompting experiments, evaluation, and support automation workflows.
 
-The project focuses on realistic support-related tasks written in **Portuguese from Portugal**, with clean metadata and a format that is easy to reuse in model training, prototyping, and downstream NLP applications.
+The project focuses on realistic support-related tasks written in **Portuguese from Portugal**, with clean metadata and a format that is easy to reuse in model training, prototyping, and downstream NLP applications. Everything in this repository — the dataset, its pipeline, and this documentation — works the same whether you're fine-tuning AMALIA specifically or any other pt-PT-capable model.
 
 → **[Usage guide](docs/USAGE.md)** — start here if you bought or downloaded the dataset: file formats, loading snippets, licence recap  
-→ **[Use cases, value & integration guide](docs/use-cases.md)** — fine-tuning, RAG, classification pipelines, code examples  
-→ **[Full integration guide](docs/integration.md)** — Unsloth, LLaMA-Factory, OpenAI, LangChain, ChromaDB, evaluation  
+→ **[Use cases, value & integration guide](docs/use-cases.md)** — fine-tuning (including AMALIA), RAG, classification pipelines, code examples  
+→ **[Full integration guide](docs/integration.md)** — AMALIA, Unsloth, LLaMA-Factory, OpenAI, LangChain, ChromaDB, evaluation  
 → **[Datasheet](docs/datasheet.md)** — motivation, composition, collection, and recommended uses (Datasheets for Datasets)  
 → **[pt-PT Style Guide](docs/pt-pt-style-guide.md)** — vocabulary policy: why customer input may include pt-BR terms while agent output never does
 
 ---
 
-## Get the Dataset
+## Get the Dataset (the AMALIA fine-tuning material)
+
+This is the training data — use it to fine-tune AMALIA yourself, or any other pt-PT-capable model. (A ready-to-use AMALIA customer-support checkpoint is on the roadmap; see the [pivot strategy doc](docs/superpowers/specs/2026-08-28-amalia-pivot-strategy.md#6-project-board-actions) for status.)
 
 🔥 **Early Adopter Pricing** — the first 50 buyers on each tier lock in the launch price below. After that, prices rise to €79 (Individual) / €329 (Commercial).
 
@@ -404,9 +408,11 @@ pt-ai-instruction-dataset/
 │   │   ├── lusosupport_pt_v1.jsonl    # clean final dataset (10,828 rows)
 │   │   ├── lusosupport_pt_v1.csv      # CSV export
 │   │   ├── lusosupport_pt_v1_alpaca.jsonl  # Alpaca-format export
+│   │   ├── lusosupport_pt_v1_amalia_chat.jsonl  # AMALIA/ChatML chat-format export
 │   │   └── lusosupport_pt_v1.parquet  # Parquet export
 │   ├── hf-lite/
 │   │   ├── lusosupport_pt_lite.jsonl  # 200-row free HF sample
+│   │   ├── lusosupport_pt_lite_amalia_chat.jsonl  # 200-row sample, AMALIA/ChatML format
 │   │   └── README.md                  # HF dataset card
 │   └── feedback/
 │       ├── flagged.jsonl

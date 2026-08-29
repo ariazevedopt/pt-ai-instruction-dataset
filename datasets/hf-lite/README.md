@@ -24,13 +24,15 @@ tags:
 
 # LusoSupport-PT Lite
 
-🇵🇹 **The only purpose-built European Portuguese (pt-PT) customer support instruction dataset** — verified against the Hugging Face Hub, no direct competitor found.
+> **Project evolution:** LusoSupport-PT launched as a standalone pt-PT instruction dataset. Since AMALIA (Portugal's open-source, government-backed pt-PT LLM) launched in July 2026, the project has repositioned around specializing AMALIA for customer support — this dataset is preserved and still available, now as the training material behind that specialization. See [the pivot strategy doc](https://github.com/ariazevedopt/pt-ai-instruction-dataset/blob/main/docs/superpowers/specs/2026-08-28-amalia-pivot-strategy.md) for the full rationale.
 
-**LusoSupport-PT** is a structured **European Portuguese (pt-PT)** customer support instruction dataset for LLM fine-tuning, prompting experiments, and support automation.
+🇵🇹 **AMALIA already speaks fluent European Portuguese — LusoSupport-PT specializes it for customer support.** AMALIA (amaliallm.pt) is Portugal's open-source, government-and-university-backed LLM built for European Portuguese; its own instruction data is general-purpose, not support-domain. LusoSupport-PT fills that gap.
+
+**LusoSupport-PT** is a structured **European Portuguese (pt-PT)** customer support instruction dataset for LLM fine-tuning (AMALIA or any other model), prompting experiments, and support automation.
 
 This **Lite** version contains **200 curated rows** — a representative free sample covering all 8 domains, 8 task types, and all 18 customer intents.
 
-The full dataset (5 162 rows) is available for purchase on [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) — see pricing below.
+The full dataset (10,828 rows) is available for purchase on [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) — see pricing below.
 
 🔥 **Early Adopter Pricing:** the first 50 buyers on each tier lock in the launch price. After that, prices rise to €79 / €329.
 
@@ -114,6 +116,22 @@ alpaca = [
     for r in rows
 ]
 ```
+
+### Fine-tuning AMALIA (ChatML format)
+
+This repo also ships `lusosupport_pt_lite_amalia_chat.jsonl` — the same 200 rows pre-converted to the `messages`/role-content format AMALIA (and other ChatML-style chat models) expect:
+
+```python
+import json
+
+with open("lusosupport_pt_lite_amalia_chat.jsonl") as f:
+    rows = [json.loads(l) for l in f]
+
+print(rows[0]["messages"])
+# [{"role": "system", ...}, {"role": "user", ...}, {"role": "assistant", ...}]
+```
+
+Feed each row's `messages` list into `tokenizer.apply_chat_template()` at training time — see the full walkthrough in [`docs/integration.md` §2](https://github.com/ariazevedopt/pt-ai-instruction-dataset/blob/main/docs/integration.md#2-fine-tuning-amalia-for-customer-support) in the GitHub repo.
 
 ### Intent classification example
 
