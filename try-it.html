@@ -132,7 +132,151 @@
     document.getElementById('tab-btn-try').classList.toggle('active', name === 'try');
     document.getElementById('tab-btn-browse').setAttribute('aria-selected', name === 'browse');
     document.getElementById('tab-btn-try').setAttribute('aria-selected', name === 'try');
+    if (name === 'browse') renderBrowseTab();
+    if (name === 'try') renderTryTab();
   }
+
+  // --- Domain labels (mirrors scripts/templates.py DOMAIN_LABELS) ---
+  const DOMAIN_LABELS = {
+    ecommerce:        'Comércio electrónico',
+    subscriptions:    'Subscrições e planos',
+    saas:             'Software e plataformas digitais',
+    telecom:          'Telecomunicações',
+    utilities:        'Serviços de utilidade pública',
+    travel:           'Viagens e reservas',
+    marketplace:      'Marketplace',
+    billing_accounts: 'Faturação e contas',
+  };
+  const DOMAINS = Object.keys(DOMAIN_LABELS);
+
+  const TASK_TYPE_LABELS = {
+    response_generation:     'Resposta ao cliente',
+    email_reply:             'Resposta por e-mail',
+    summarization:           'Resumo',
+    intent_classification:   'Classificação de intenção',
+    urgency_classification:  'Classificação de urgência',
+    rewrite_professional:    'Reescrita profissional',
+    next_action_suggestion:  'Sugestão de próxima ação',
+    faq_answer:              'Resposta a pergunta frequente',
+  };
+
+  // --- Dataset loading (fetched once, cached in memory) ---
+  let ALL_ROWS = null;
+  let loadRowsPromise = null;
+  function loadRows() {
+    if (loadRowsPromise) return loadRowsPromise;
+    loadRowsPromise = fetch('datasets/hf-lite/lusosupport_pt_lite.jsonl')
+      .then(function (resp) {
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        return resp.text();
+      })
+      .then(function (text) {
+        ALL_ROWS = text
+          .split('\n')
+          .filter(function (line) { return line.trim().length > 0; })
+          .map(function (line) { return JSON.parse(line); });
+        return ALL_ROWS;
+      })
+      .catch(function (err) {
+        ALL_ROWS = [];
+        console.error('Failed to load lusosupport_pt_lite.jsonl:', err);
+        return ALL_ROWS;
+      });
+    return loadRowsPromise;
+  }
+
+  // --- Browse tab state ---
+  let browseFilterDomain = '';
+  let browseFilterTaskType = '';
+  let browseIndex = 0;
+
+  function browseFilteredRows() {
+    if (!ALL_ROWS) return [];
+    return ALL_ROWS.filter(function (row) {
+      var domainOk = !browseFilterDomain || row.domain === browseFilterDomain;
+      var taskOk = !browseFilterTaskType || row.task_type === browseFilterTaskType;
+      return domainOk && taskOk;
+    });
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function renderBrowseTab() {
+    var container = document.getElementById('browse-tab');
+    if (!ALL_ROWS) {
+      container.innerHTML = '<p class="text-slate-500 dark:text-slate-400">A carregar exemplos…</p>';
+      return;
+    }
+    if (ALL_ROWS.length === 0) {
+      container.innerHTML = '<p class="text-pt-red">Não foi possível carregar os exemplos. Tente novamente mais tarde.</p>';
+      return;
+    }
+    var rows = browseFilteredRows();
+    if (browseIndex >= rows.length) browseIndex = 0;
+    var row = rows[browseIndex];
+
+    var domainOptions = '<option value="">Todos os domínios</option>' + DOMAINS.map(function (d) {
+      var sel = d === browseFilterDomain ? ' selected' : '';
+      return '<option value="' + d + '"' + sel + '>' + escapeHtml(DOMAIN_LABELS[d]) + '</option>';
+    }).join('');
+
+    var taskOptions = '<option value="">Todos os tipos de tarefa</option>' + Object.keys(TASK_TYPE_LABELS).map(function (t) {
+      var sel = t === browseFilterTaskType ? ' selected' : '';
+      return '<option value="' + t + '"' + sel + '>' + escapeHtml(TASK_TYPE_LABELS[t]) + '</option>';
+    }).join('');
+
+    var body;
+    if (!row) {
+      body = '<p class="mt-6 text-slate-500 dark:text-slate-400">Nenhum exemplo corresponde a estes filtros.</p>';
+    } else {
+      body =
+        '<div class="mt-6 code-card rounded-xl p-5 font-mono text-sm overflow-x-auto">' +
+          '<div><span class="code-key">domínio:</span> ' + escapeHtml(DOMAIN_LABELS[row.domain] || row.domain) + '</div>' +
+          '<div><span class="code-key">instrução:</span> <span class="code-str-instr">' + escapeHtml(row.instruction) + '</span></div>' +
+          '<div class="mt-2"><span class="code-key">cliente:</span> <span class="code-str-instr">' + escapeHtml(row.input) + '</span></div>' +
+          '<div class="mt-2"><span class="code-key">resposta:</span> <span class="code-str-out">' + escapeHtml(row.output) + '</span></div>' +
+        '</div>' +
+        '<div class="mt-4 flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">' +
+          '<span>Exemplo ' + (browseIndex + 1) + ' de ' + rows.length + '</span>' +
+          '<div class="flex gap-2">' +
+            '<button type="button" class="focus-ring px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800" onclick="browseStep(-1)">&larr; Anterior</button>' +
+            '<button type="button" class="focus-ring px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800" onclick="browseStep(1)">Seguinte &rarr;</button>' +
+          '</div>' +
+        '</div>';
+    }
+
+    container.innerHTML =
+      '<div class="flex flex-wrap gap-3">' +
+        '<select id="browse-domain-filter" class="focus-ring border border-slate-300 dark:border-slate-700 dark:bg-slate-900 rounded px-3 py-2 text-sm" onchange="onBrowseFilterChange()">' + domainOptions + '</select>' +
+        '<select id="browse-tasktype-filter" class="focus-ring border border-slate-300 dark:border-slate-700 dark:bg-slate-900 rounded px-3 py-2 text-sm" onchange="onBrowseFilterChange()">' + taskOptions + '</select>' +
+      '</div>' +
+      body;
+  }
+
+  function onBrowseFilterChange() {
+    browseFilterDomain = document.getElementById('browse-domain-filter').value;
+    browseFilterTaskType = document.getElementById('browse-tasktype-filter').value;
+    browseIndex = 0;
+    renderBrowseTab();
+  }
+
+  function browseStep(delta) {
+    var rows = browseFilteredRows();
+    if (rows.length === 0) return;
+    browseIndex = (browseIndex + delta + rows.length) % rows.length;
+    renderBrowseTab();
+  }
+
+  function renderTryTab() {}
+
+  // Kick off data load and initial render on page load.
+  loadRows().then(renderBrowseTab);
 </script>
 
 </body>
