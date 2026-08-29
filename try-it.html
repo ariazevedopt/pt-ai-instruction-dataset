@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Try It — LusoSupport-PT Live Sample Browser</title>
+<meta name="description" content="Browse real rows from the free LusoSupport-PT Lite dataset and try your own pt-PT customer message against real examples — validate the product before you buy." />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          pt: { green: '#0B7A3B', red: '#C8102E', gold: '#F2C230' },
+        },
+        fontFamily: {
+          sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          mono: ['SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root { color-scheme: light dark; }
+  html { scrollbar-gutter: stable; }
+  body { font-feature-settings: "kern" 1; }
+  .flag-stripe {
+    background: linear-gradient(90deg, #0B7A3B 0%, #0B7A3B 40%, #C8102E 40%, #C8102E 100%);
+  }
+  .code-card { background: #1E1E2E; color: #E8E8F0; }
+  .code-key { color: #7DD3FC; }
+  .code-str-instr { color: #E8E8F0; }
+  .code-str-out { color: #A6E3A1; }
+  .focus-ring:focus-visible { outline: 3px solid #0B7A3B; outline-offset: 2px; }
+  .dark .focus-ring:focus-visible { outline-color: #4ADE80; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .tab-btn { border-bottom: 3px solid transparent; }
+  .tab-btn.active { border-bottom-color: #0B7A3B; color: #0B7A3B; }
+  .dark .tab-btn.active { border-bottom-color: #4ADE80; color: #4ADE80; }
+</style>
+</head>
+<body>
+<div id="page-root" class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 antialiased min-h-screen">
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-pt-green focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">Skip to content</a>
+
+<header class="sticky top-0 z-40 backdrop-blur bg-white/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800">
+  <div class="flag-stripe h-1 w-full"></div>
+  <nav class="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center justify-between" aria-label="Primary">
+    <a href="landing.html" class="flex items-center gap-2 font-bold text-lg focus-ring rounded">
+      <span aria-hidden="true">🇵🇹</span>
+      <span>LusoSupport<span class="text-pt-green">-PT</span></span>
+    </a>
+    <div class="flex items-center gap-3 sm:gap-5">
+      <a href="https://huggingface.co/datasets/ariazevedo/LusoSupport-PT" target="_blank" rel="noopener" class="hidden sm:inline text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-pt-green dark:hover:text-green-400 focus-ring rounded">Free sample</a>
+      <a href="https://github.com/ariazevedopt/pt-ai-instruction-dataset" target="_blank" rel="noopener" class="hidden sm:inline text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-pt-green dark:hover:text-green-400 focus-ring rounded">GitHub</a>
+      <button id="theme-toggle" type="button" aria-label="Toggle dark mode" class="focus-ring w-9 h-9 rounded-full flex items-center justify-center border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+        <svg id="icon-sun" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.36 6.36l-.7-.7M6.34 6.34l-.7-.7m12.02 0l-.7.7M6.34 17.66l-.7.7M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        <svg id="icon-moon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
+      <a data-gumroad-action="buy" href="landing.html#pricing" class="focus-ring text-sm font-semibold bg-pt-green hover:bg-green-800 text-white px-4 py-2 rounded-full transition cursor-pointer">Buy now</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main" class="max-w-4xl mx-auto px-5 sm:px-8 py-12">
+
+  <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Try LusoSupport-PT</h1>
+  <p class="mt-3 text-slate-600 dark:text-slate-300 max-w-2xl">
+    Browse real rows from the free 200-row Lite sample, or type your own pt-PT
+    customer message and see a real matching example from the dataset — no
+    signup, no download required.
+  </p>
+
+  <div class="mt-8 flex gap-6 border-b border-slate-200 dark:border-slate-800" role="tablist" aria-label="Try It sections">
+    <button id="tab-btn-browse" type="button" role="tab" aria-selected="true" aria-controls="browse-tab" class="tab-btn active focus-ring pb-3 font-semibold text-sm" onclick="showTab('browse')">Browse sample rows</button>
+    <button id="tab-btn-try" type="button" role="tab" aria-selected="false" aria-controls="try-tab" class="tab-btn focus-ring pb-3 font-semibold text-sm text-slate-500 dark:text-slate-400" onclick="showTab('try')">Try it yourself</button>
+  </div>
+
+  <div id="browse-tab" class="tab-panel active mt-6" role="tabpanel" aria-labelledby="tab-btn-browse"></div>
+  <div id="try-tab" class="tab-panel mt-6" role="tabpanel" aria-labelledby="tab-btn-try"></div>
+
+  <p class="mt-10 text-sm text-slate-500 dark:text-slate-400">
+    Loved what you saw? <a href="https://huggingface.co/datasets/ariazevedo/LusoSupport-PT" target="_blank" rel="noopener" class="font-semibold text-pt-green dark:text-green-400 hover:underline focus-ring rounded">Download the free sample on Hugging Face</a>
+    or <a href="landing.html#pricing" class="font-semibold text-pt-green dark:text-green-400 hover:underline focus-ring rounded">get the full 10,828-row dataset</a>.
+  </p>
+
+</main>
+
+<footer class="border-t border-slate-200 dark:border-slate-800 mt-16">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+    <span>&copy; 2026 LusoSupport-PT</span>
+    <div class="flex gap-5">
+      <a href="https://huggingface.co/datasets/ariazevedo/LusoSupport-PT" target="_blank" rel="noopener" class="hover:text-pt-green dark:hover:text-green-400 focus-ring rounded">Hugging Face</a>
+      <a href="https://github.com/ariazevedopt/pt-ai-instruction-dataset" target="_blank" rel="noopener" class="hover:text-pt-green dark:hover:text-green-400 focus-ring rounded">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<script>
+  // --- Dark mode toggle (same behaviour as landing.html) ---
+  (function () {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (stored === 'dark' || (!stored && prefersDark)) root.classList.add('dark');
+    const sun = document.getElementById('icon-sun');
+    const moon = document.getElementById('icon-moon');
+    function syncIcons() {
+      const isDark = root.classList.contains('dark');
+      sun.classList.toggle('hidden', !isDark);
+      moon.classList.toggle('hidden', isDark);
+    }
+    syncIcons();
+    document.getElementById('theme-toggle').addEventListener('click', function () {
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+      syncIcons();
+    });
+  })();
+
+  // --- Tab switcher ---
+  function showTab(name) {
+    document.getElementById('browse-tab').classList.toggle('active', name === 'browse');
+    document.getElementById('try-tab').classList.toggle('active', name === 'try');
+    document.getElementById('tab-btn-browse').classList.toggle('active', name === 'browse');
+    document.getElementById('tab-btn-try').classList.toggle('active', name === 'try');
+    document.getElementById('tab-btn-browse').setAttribute('aria-selected', name === 'browse');
+    document.getElementById('tab-btn-try').setAttribute('aria-selected', name === 'try');
+  }
+</script>
+
+</body>
+</html>
