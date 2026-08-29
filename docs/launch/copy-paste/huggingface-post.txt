@@ -1,0 +1,28 @@
+TITLE (HF Post short intro / first line):
+🇵🇹 LusoSupport-PT — validating a pt-PT customer-support dataset for AMALIA fine-tuning
+
+BODY:
+Depois do lançamento do AMALIA, o modelo LLM português open-source, construí o LusoSupport-PT: um dataset de instruções em pt-PT (10.828 linhas, 8 domínios, 8 tipos de tarefa, 18 intenções de cliente) pensado para especializar modelos como o AMALIA em apoio ao cliente — respostas a tickets, classificação de urgência, deteção de escalonamento, tudo no registo que uma equipa portuguesa realmente usa.
+
+Já partilhei isto com equipas como a Conectys, Infraspeak, Codacy, Talkdesk, Digiton.AI, PHC Software e Simmple.ai para perceber se resolve um problema real. Estou a abrir a mesma pergunta aqui: se trabalhas em apoio ao cliente em português (ou constróis sobre o AMALIA), seria útil como dataset para fine-tuning próprio ou como base para um modelo já especializado?
+
+🤗 Amostra gratuita (200 linhas): https://huggingface.co/datasets/ariazevedo/LusoSupport-PT
+💻 GitHub (pipeline + guia de integração AMALIA): https://github.com/ariazevedopt/pt-ai-instruction-dataset
+💼 Dataset completo: https://ariazevedo.gumroad.com/l/lusosupport-pt
+
+---
+IMPORTANT NOTES BEFORE POSTING:
+1. Hugging Face has NO @mention/tagging feature on Posts or discussions — typing "@CompanyName"
+   is just plain text, it will not link to or notify anyone. This is a platform limitation, not a
+   missing step. The post above name-checks the companies in plain text instead (same approach as
+   the Reddit post), which is the closest real equivalent.
+2. None of the 7 tagged LinkedIn companies (Conectys, Infraspeak, Codacy, Talkdesk, Digiton.AI,
+   PHC Software, Simmple.ai) currently have a Hugging Face org or user account (checked via the HF
+   API - all return 404), so there is no profile to link to even manually.
+3. Where to post: https://huggingface.co/posts (click "New post"), or as a Community post on the
+   dataset page itself (huggingface.co/datasets/ariazevedo/LusoSupport-PT -> Community tab) if you
+   prefer to keep it attached to the dataset directly.
+4. I do not have posting access to your Hugging Face account - publish this yourself by copying
+   the BODY text above into a new post.
+5. After posting, log it as done on issue #57 (promotion) and #58 (Stage-0 outreach, if you
+   consider this part of the community-observation/posting checklist item).

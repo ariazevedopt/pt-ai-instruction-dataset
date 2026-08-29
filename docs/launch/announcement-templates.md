@@ -169,12 +169,35 @@ isto. Amostra gratuita: https://huggingface.co/datasets/ariazevedo/LusoSupport-P
 
 ---
 
+## 6. Hugging Face post — name-checked leads (no native mention/tagging feature)
+
+**Where:** `huggingface.co/posts` (new post) or the dataset's own Community tab
+(`huggingface.co/datasets/ariazevedo/LusoSupport-PT` → Community). Follow-up to the LinkedIn post
+(§4) — same 7 companies, name-checked in plain text.
+
+**Important:** Hugging Face has no `@mention`/tagging feature on Posts or discussions at all —
+typing `@CompanyName` is plain text, it does not link to or notify anyone, regardless of whether
+the company has an HF account. Checked via the HF API: none of the 7 LinkedIn-tagged companies
+(Conectys, Infraspeak, Codacy, Talkdesk, Digiton.AI, PHC Software, Simmple.ai) currently have an HF
+org/user account either, so there's no profile to link to even manually. Name-checking in text is
+the closest real equivalent on this platform.
+
+**Post:** see the ready-to-paste version in `docs/launch/copy-paste/huggingface-post.txt`.
+
+**Posting checklist for this specific post:**
+- [ ] Publish via the HF web UI (no CLI/API support for creating Posts — must be done manually, logged in as the account owner)
+- [ ] Decide: standalone HF Post (broader reach) vs. dataset Community tab post (more targeted to people already viewing the dataset) — or both
+- [ ] Log as done on issue #57 (promotion) once published
+
+---
+
 ## Posting checklist
 
 - [ ] AMALIA HF org/community post published
 - [ ] PT gov-tech / dissemination-channel LinkedIn post published
 - [ ] Tagged LinkedIn post (§4) published with verified @-mentions
 - [ ] Reddit r/PORTUGAL name-checked post (§5) published
+- [ ] Hugging Face name-checked post (§6) published
 - [ ] Direct outreach messages sent to the Stage-0 buyer list (issue #58) using the DM template
 - [ ] All links (HF, GitHub, Gumroad) verified live before posting
 - [ ] Replies tracked in `docs/launch/metrics-tracking.md` (AMALIA outreach replies row)
