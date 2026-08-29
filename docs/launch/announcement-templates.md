@@ -78,10 +78,103 @@ Obrigado,
 
 ---
 
+## 4. LinkedIn post — tagged outreach to named Category-1/2/3 leads
+
+**Where:** your personal LinkedIn feed. **Important:** LinkedIn only creates a real `@mention` tag
+through its own compose-box autocomplete — type `@` then the company name and select it from the
+dropdown while writing the post. A plain link or name pasted from elsewhere will NOT tag the
+company; you must add each tag manually inside LinkedIn itself. Post the text below, then go back
+and replace each **[TAG: Company]** marker by deleting the placeholder, typing `@`, and selecting
+the verified company from LinkedIn's dropdown.
+
+**Verified LinkedIn company pages (fetched and confirmed live as of 2026-08-29):**
+- `linkedin.com/company/conectys` — Conectys
+- `linkedin.com/company/infraspeak` — Infraspeak
+- `linkedin.com/company/codacy` — Codacy
+- `linkedin.com/company/talkdesk` — Talkdesk
+- `linkedin.com/company/digiton-ai` — Digiton.AI
+- `linkedin.com/company/phc-software` — PHC Software (now Cegid PHC)
+- `linkedin.com/company/simmpleai` — Simmple.ai
+
+Unverified in this pass (search directly in LinkedIn's tag dropdown before posting — do not guess
+a slug): Altice Empresas, APCC, Startup Lisboa, and the rest of `stage0-outreach-leads.md`. Note
+Altice's main corporate LinkedIn (`altice-portugal`) is Altice Portugal generally, not the
+Empresas B2B unit specifically — verify before tagging.
+
+**Post:**
+```
+🇵🇹 Depois de validar o produto e ajustar preço e posicionamento, o LusoSupport-PT está pronto
+para uma nova fase: quero perceber se isto resolve um problema real para equipas portuguesas de
+apoio ao cliente.
+
+Construí um dataset de instruções em português europeu (pt-PT) — 10.828 linhas, 8 domínios, 8
+tipos de tarefa, 18 intenções de cliente — pensado para especializar modelos como o AMALIA (o LLM
+português open-source) em apoio ao cliente: respostas a tickets, classificação de urgência,
+deteção de escalonamento, tudo no registo que uma equipa portuguesa realmente usa.
+
+Se a vossa equipa lida com apoio ao cliente em português e está a explorar IA para esse trabalho,
+gostava muito de ouvir se isto seria útil — como dataset para fine-tuning próprio, ou como base
+para um modelo já especializado.
+
+🤗 Amostra gratuita (200 linhas): https://huggingface.co/datasets/ariazevedo/LusoSupport-PT
+💻 GitHub (pipeline + guia de integração): https://github.com/ariazevedopt/pt-ai-instruction-dataset
+💼 Dataset completo: https://ariazevedo.gumroad.com/l/lusosupport-pt
+
+[TAG: Conectys] [TAG: Infraspeak] [TAG: Codacy] [TAG: Talkdesk] [TAG: Digiton.AI]
+[TAG: PHC Software] [TAG: Simmple.ai]
+
+#AMALIA #AtendimentoAoCliente #IA #LLM #PortugalTech
+```
+
+**Posting checklist for this specific post:**
+- [ ] Verify each `[TAG: ...]` company still exists/is active before tagging (re-check via LinkedIn search, not just the handles above — pages can be renamed/merged, e.g. PHC Software → Cegid PHC)
+- [ ] Replace every `[TAG: ...]` placeholder with a real `@`-mention using LinkedIn's own autocomplete
+- [ ] Remove any placeholder that doesn't resolve to a real, still-active company page rather than leaving unlinked text
+- [ ] Cross-check against `docs/launch/stage0-outreach-leads.md` and update each org's Status column to `tagged in post` once live
+
+---
+
+## 5. Reddit post — name-checked leads (no native company-tag feature)
+
+**Where:** r/PORTUGAL (per the buyer-side-community research in `stage0-outreach-leads.md`).
+**Important:** Reddit has no mechanism to tag a company or organisation — only `u/username` for
+individual Reddit accounts, which none of these organisations are known to have. Don't try to fake
+a tag with a markdown link; it won't notify anyone or function as a mention. Instead, name-check
+organisations in plain text as social proof / relevant context, and follow r/PORTUGAL's
+self-promotion rules (transparent, not spammy, genuinely useful).
+
+**Post:**
+```
+Title: Built a European Portuguese (pt-PT) customer-support dataset to fine-tune AMALIA — looking for real feedback from PT support/CX teams
+
+Body:
+
+Depois do lançamento do AMALIA, o modelo LLM português open-source, construí o LusoSupport-PT: um
+dataset de instruções em pt-PT (10.828 linhas, 8 domínios, 18 intenções de cliente) para
+especializar modelos como o AMALIA em apoio ao cliente.
+
+Estou a validar se isto resolve um problema real para equipas na área — contact centers como a
+Conectys, SaaS com equipas de suporte como a Infraspeak e a Codacy, ou consultoras de IA como a
+Digiton.AI e a Simmple.ai. Se trabalhas em apoio ao cliente em português e já tentaste usar um LLM
+para esse trabalho, gostava de ouvir o que funcionou e o que não funcionou.
+
+Não estou a tentar vender nada neste post — só a validar se faz sentido continuar a desenvolver
+isto. Amostra gratuita: https://huggingface.co/datasets/ariazevedo/LusoSupport-PT
+```
+
+**Posting checklist for this specific post:**
+- [ ] Confirm r/PORTUGAL's current self-promotion rules before posting (subreddit rules can change)
+- [ ] Only name-check organisations you've genuinely identified as relevant (see Category 1-3 in `stage0-outreach-leads.md`) — do not imply an endorsement or relationship that doesn't exist
+- [ ] This counts as the Week-2 "post one problem-framed (not promotional) message in one buyer-side community" checklist item on issue #58 — mark it done once posted
+
+---
+
 ## Posting checklist
 
 - [ ] AMALIA HF org/community post published
 - [ ] PT gov-tech / dissemination-channel LinkedIn post published
+- [ ] Tagged LinkedIn post (§4) published with verified @-mentions
+- [ ] Reddit r/PORTUGAL name-checked post (§5) published
 - [ ] Direct outreach messages sent to the Stage-0 buyer list (issue #58) using the DM template
 - [ ] All links (HF, GitHub, Gumroad) verified live before posting
 - [ ] Replies tracked in `docs/launch/metrics-tracking.md` (AMALIA outreach replies row)
