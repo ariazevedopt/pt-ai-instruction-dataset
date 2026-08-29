@@ -24,7 +24,7 @@ tags:
 
 # LusoSupport-PT Lite
 
-> **Project evolution:** LusoSupport-PT launched as a standalone pt-PT instruction dataset. Since AMALIA (Portugal's open-source, government-backed pt-PT LLM) launched in July 2026, the project has repositioned around specializing AMALIA for customer support — this dataset is preserved and still available, now as the training material behind that specialization. See [the pivot strategy doc](https://github.com/ariazevedopt/pt-ai-instruction-dataset/blob/main/docs/superpowers/specs/2026-08-28-amalia-pivot-strategy.md) for the full rationale.
+> **Project evolution:** LusoSupport-PT launched as a standalone pt-PT instruction dataset. Since AMALIA (Portugal's open-source, government-backed pt-PT LLM) launched in July 2026, the project has repositioned around specializing AMALIA for customer support — this dataset is preserved and still available, now as the training material behind that specialization. See the [CHANGELOG](https://github.com/ariazevedopt/pt-ai-instruction-dataset/blob/main/CHANGELOG.md) for the full rationale.
 
 🇵🇹 **AMALIA already speaks fluent European Portuguese — LusoSupport-PT specializes it for customer support.** AMALIA (amaliallm.pt) is Portugal's open-source, government-and-university-backed LLM built for European Portuguese; its own instruction data is general-purpose, not support-domain. LusoSupport-PT fills that gap.
 

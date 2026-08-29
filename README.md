@@ -1,6 +1,6 @@
 # LusoSupport-PT
 
-> **Project evolution:** LusoSupport-PT launched as a standalone pt-PT instruction dataset. Since AMALIA (Portugal's open-source, government-backed pt-PT LLM) launched in July 2026, the project has repositioned around specializing AMALIA for customer support — the dataset below is preserved and still available, now as the training material behind that specialization. See [the pivot strategy doc](docs/superpowers/specs/2026-08-28-amalia-pivot-strategy.md) for the full rationale.
+> **Project evolution:** LusoSupport-PT launched as a standalone pt-PT instruction dataset. Since AMALIA (Portugal's open-source, government-backed pt-PT LLM) launched in July 2026, the project has repositioned around specializing AMALIA for customer support — the dataset below is preserved and still available, now as the training material behind that specialization. See the [CHANGELOG](CHANGELOG.md) for the full rationale.
 
 🇵🇹 **AMALIA already speaks fluent European Portuguese. LusoSupport-PT specializes it for customer support.** AMALIA (amaliallm.pt) is Portugal's open-source, government-and-university-backed LLM, trained from the ground up on European Portuguese — but its own instruction-tuning data is general-purpose, not support-domain. LusoSupport-PT is the customer-support specialization layer: a structured, richly annotated pt-PT instruction dataset built to fine-tune AMALIA (or any other model) into a production-ready support agent.
 
@@ -18,7 +18,7 @@ The project focuses on realistic support-related tasks written in **Portuguese f
 
 ## Get the Dataset (the AMALIA fine-tuning material)
 
-This is the training data — use it to fine-tune AMALIA yourself, or any other pt-PT-capable model. (A ready-to-use AMALIA customer-support checkpoint is on the roadmap; see the [pivot strategy doc](docs/superpowers/specs/2026-08-28-amalia-pivot-strategy.md#6-project-board-actions) for status.)
+This is the training data — use it to fine-tune AMALIA yourself, or any other pt-PT-capable model. (A ready-to-use AMALIA customer-support checkpoint is on the roadmap; see the [CHANGELOG](CHANGELOG.md) for status.)
 
 🔥 **Early Adopter Pricing** — the first 50 buyers on each tier lock in the launch price below. After that, prices rise to €39 (Individual) / €165 (Commercial).
 
@@ -42,7 +42,7 @@ Every release is measured, not just asserted. The current **v1.1** dataset (`dat
 - **Zero pt-BR leakage** on the enforced banned-vocabulary list, and **zero placeholder metadata** (every row has a real `subdomain`).
 - **128 automated tests** (`make test`) covering validation, dedupe, generation, metadata, and templates.
 
-See the [CHANGELOG](CHANGELOG.md) for version history and the [project roadmap](docs/superpowers/specs/2026-08-07-project-roadmap.md) for what's planned next.
+See the [CHANGELOG](CHANGELOG.md) for version history and the [open issues](https://github.com/ariazevedopt/pt-ai-instruction-dataset/issues) for what's planned next.
 
 ---
 

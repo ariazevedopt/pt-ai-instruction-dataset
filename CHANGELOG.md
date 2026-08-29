@@ -14,7 +14,7 @@ tracked separately from tooling changes. The current dataset release is **v1.1**
 ## [Unreleased] - 2026-08-28
 
 ### Changed
-- **Strategic pivot:** repositioned the project around specializing [AMALIA](https://amaliallm.pt/) — Portugal's open-source, government-backed pt-PT LLM — for customer support, rather than leading with the raw dataset as the primary product. The dataset itself, its pricing, and its licensing are unchanged; only the framing and target audience shifted. Full rationale in `docs/superpowers/specs/2026-08-28-amalia-pivot-strategy.md`. Updated README, HF dataset card, Gumroad landing pages, `docs/use-cases.md`, `docs/integration.md` (added an AMALIA fine-tuning walkthrough), `docs/datasheet.md`, and `docs/launch/announcement-templates.md` accordingly. An AMALIA fine-tuning spike (producing an actual fine-tuned checkpoint) remains gated on Stage-0 buyer-outreach validation (issue #64).
+- **Strategic pivot:** repositioned the project around specializing [AMALIA](https://amaliallm.pt/) — Portugal's open-source, government-backed pt-PT LLM — for customer support, rather than leading with the raw dataset as the primary product. The dataset itself, its pricing, and its licensing are unchanged; only the framing and target audience shifted. Updated README, HF dataset card, Gumroad landing pages, `docs/use-cases.md`, `docs/integration.md` (added an AMALIA fine-tuning walkthrough), `docs/datasheet.md`, and `docs/launch/announcement-templates.md` accordingly. An AMALIA fine-tuning spike (producing an actual fine-tuned checkpoint) remains gated on Stage-0 buyer-outreach validation (issue #64).
 
 ## [1.1] - 2026-08-09
 
@@ -64,7 +64,6 @@ tracked separately from tooling changes. The current dataset release is **v1.1**
 - `CHANGELOG.md` (this file) to track dataset and tooling history.
 - `.github/workflows/ci.yml` — CI that runs the test suite and dataset validation on every push and pull request.
 - `docs/datasheet.md` — a "Datasheet for Datasets" (Gebru et al.) describing motivation, composition, collection, and recommended uses.
-- `docs/superpowers/specs/2026-08-07-project-roadmap.md` — prioritised roadmap for future versions and companion products.
 - `docs/pt-pt-style-guide.md` — documents the pt-BR → pt-PT vocabulary policy: agent `output` always uses pt-PT terms; customer `input` may intentionally include pt-BR-influenced code-switching (resolves #55).
 - README "Quality at a glance" section with reproducible diversity/validation metrics.
 - A small set of intentional pt-BR-influenced customer message examples in `scripts/scenarios.py` (covering `celular`, `senha`, `nota fiscal`, `contato`) so the dataset demonstrates the agent responding in correct pt-PT to code-switched input.
