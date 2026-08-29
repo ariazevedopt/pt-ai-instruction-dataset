@@ -55,6 +55,37 @@ def to_alpaca_jsonl(rows, path):
     console.print(f"  [green]✓[/green] Alpaca → {path} ({len(rows)} rows)")
 
 
+def to_amalia_chat_jsonl(rows, path):
+    """Export rows in ChatML-style ``messages`` format for AMALIA fine-tuning.
+
+    AMALIA (amalia-llm/AMALIA-9B-0626-SFT) is post-trained with a ChatML-style
+    chat template (``<|im_start|>``/``<|im_end|>`` special tokens, system/user/
+    assistant roles) rather than a flat Alpaca instruction/input/output
+    template. Each row becomes one ``messages`` array:
+
+    - ``system``: the row's ``instruction`` (the support-agent task/policy)
+    - ``user``: the row's ``input`` (the customer's message)
+    - ``assistant``: the row's ``output`` (the expected agent reply)
+
+    This output is meant to be tokenized with the target model's own
+    ``tokenizer.apply_chat_template(messages, ...)`` at training time — it
+    intentionally does NOT hardcode ``<|im_start|>``/``<|im_end|>`` text, so it
+    stays correct if AMALIA (or another chat-tuned base model) changes its
+    template in a later release.
+    """
+    with open(path, "w", encoding="utf-8") as f:
+        for row in rows:
+            chat_row = {
+                "messages": [
+                    {"role": "system", "content": row.get("instruction", "")},
+                    {"role": "user", "content": row.get("input", "")},
+                    {"role": "assistant", "content": row.get("output", "")},
+                ]
+            }
+            f.write(json.dumps(chat_row, ensure_ascii=False) + "\n")
+    console.print(f"  [green]✓[/green] AMALIA chat → {path} ({len(rows)} rows)")
+
+
 def print_stats(rows):
     """Print a rich table summary of dataset composition."""
     if not rows:
@@ -83,6 +114,7 @@ if __name__ == "__main__":
     parser.add_argument("--csv", help="Output CSV path")
     parser.add_argument("--parquet", help="Output Parquet path")
     parser.add_argument("--alpaca", help="Output Alpaca JSONL path")
+    parser.add_argument("--amalia-chat", help="Output AMALIA ChatML-style messages JSONL path")
     parser.add_argument("--stats", action="store_true", help="Print dataset statistics")
     args = parser.parse_args()
 
@@ -95,5 +127,7 @@ if __name__ == "__main__":
         to_parquet(rows, args.parquet)
     if args.alpaca:
         to_alpaca_jsonl(rows, args.alpaca)
+    if args.amalia_chat:
+        to_amalia_chat_jsonl(rows, args.amalia_chat)
     if args.stats:
         print_stats(rows)

@@ -83,7 +83,7 @@ make test
 # Generate 1,000 rows → validate → deduplicate → save
 make pipeline
 
-# Export all formats (CSV, Alpaca JSONL, Parquet)
+# Export all formats (CSV, Alpaca JSONL, AMALIA chat JSONL, Parquet)
 make export
 
 # View dataset composition
