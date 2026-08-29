@@ -273,9 +273,115 @@
     renderBrowseTab();
   }
 
-  function renderTryTab() {}
+  // --- Try It Yourself: nearest-match lookup (no live model call) ---
+  const PT_STOPWORDS = new Set([
+    'a','o','os','as','de','da','do','das','dos','e','ou','que','um','uma',
+    'para','com','em','no','na','nos','nas','por','se','é','foi','ser',
+    'meu','minha','seu','sua','este','esta','isso','isto','como','mas',
+    'não','sim','já','ainda','muito','mais','menos','ao','à','às','aos',
+  ]);
+
+  function tokenize(text) {
+    return String(text)
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // strip accents for matching
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .split(/\s+/)
+      .filter(function (t) { return t.length > 2 && !PT_STOPWORDS.has(t); });
+  }
+
+  function findNearestRow(text, domain) {
+    if (!ALL_ROWS || ALL_ROWS.length === 0) return null;
+    var candidates = ALL_ROWS.filter(function (row) {
+      return !domain || row.domain === domain;
+    });
+    if (candidates.length === 0) return null;
+
+    var queryTokens = tokenize(text);
+    if (queryTokens.length === 0) {
+      // No usable tokens (empty/very short input) — return first candidate
+      // in the chosen domain as a representative example.
+      return candidates[0];
+    }
+
+    var querySet = new Set(queryTokens);
+    var best = null;
+    var bestScore = -1;
+    candidates.forEach(function (row) {
+      var rowTokens = new Set(tokenize(row.input));
+      var overlap = 0;
+      querySet.forEach(function (t) { if (rowTokens.has(t)) overlap += 1; });
+      if (overlap > bestScore) {
+        bestScore = overlap;
+        best = row;
+      }
+    });
+    // Fall back to the first candidate if nothing overlapped at all.
+    return best || candidates[0];
+  }
+
+  let tryLastResult = null;
+  let tryLastDomain = '';
+  let tryLastInput = '';
+
+  function renderTryTab() {
+    var container = document.getElementById('try-tab');
+    var domainOptions = '<option value="">Escolher domínio (opcional)</option>' + DOMAINS.map(function (d) {
+      return '<option value="' + d + '">' + escapeHtml(DOMAIN_LABELS[d]) + '</option>';
+    }).join('');
+
+    var resultHtml = '';
+    if (tryLastResult === 'loading') {
+      resultHtml = '<p class="mt-6 text-slate-500 dark:text-slate-400">A carregar exemplos…</p>';
+    } else if (tryLastResult === 'empty') {
+      resultHtml = '<p class="mt-6 text-pt-red">Não foi possível carregar os exemplos. Tente novamente mais tarde.</p>';
+    } else if (tryLastResult === 'none') {
+      resultHtml = '<p class="mt-6 text-slate-500 dark:text-slate-400">Nenhum exemplo correspondente foi encontrado. Tente outro domínio.</p>';
+    } else if (tryLastResult) {
+      var row = tryLastResult;
+      resultHtml =
+        '<p class="mt-6 text-xs font-semibold uppercase tracking-wide text-pt-green dark:text-green-400">Exemplo real do dataset (não é uma resposta gerada ao vivo)</p>' +
+        '<div class="mt-2 code-card rounded-xl p-5 font-mono text-sm overflow-x-auto">' +
+          '<div><span class="code-key">domínio:</span> ' + escapeHtml(DOMAIN_LABELS[row.domain] || row.domain) + '</div>' +
+          '<div><span class="code-key">instrução:</span> <span class="code-str-instr">' + escapeHtml(row.instruction) + '</span></div>' +
+          '<div class="mt-2"><span class="code-key">cliente (exemplo real):</span> <span class="code-str-instr">' + escapeHtml(row.input) + '</span></div>' +
+          '<div class="mt-2"><span class="code-key">resposta:</span> <span class="code-str-out">' + escapeHtml(row.output) + '</span></div>' +
+        '</div>' +
+        '<p class="mt-3 text-sm text-slate-500 dark:text-slate-400">Isto mostra um exemplo real do dataset para um caso semelhante — não é uma resposta gerada ao vivo pela IA. Ao afinar a AMALIA com o dataset completo, obtém respostas geradas neste mesmo estilo e qualidade.</p>';
+    }
+
+    container.innerHTML =
+      '<p class="text-sm text-slate-600 dark:text-slate-300">Escreva uma mensagem de cliente em português europeu e escolha um domínio — vamos mostrar-lhe o exemplo mais parecido já existente no dataset gratuito.</p>' +
+      '<div class="mt-4 flex flex-col gap-3">' +
+        '<select id="try-domain" class="focus-ring border border-slate-300 dark:border-slate-700 dark:bg-slate-900 rounded px-3 py-2 text-sm">' + domainOptions + '</select>' +
+        '<textarea id="try-input" rows="3" placeholder="Ex.: A minha encomenda ainda não chegou e já passou o prazo." class="focus-ring border border-slate-300 dark:border-slate-700 dark:bg-slate-900 rounded px-3 py-2 text-sm"></textarea>' +
+        '<button type="button" class="focus-ring self-start bg-pt-green hover:bg-green-800 text-white font-semibold text-sm px-5 py-2.5 rounded-full transition" onclick="onTrySubmit()">Ver exemplo</button>' +
+      '</div>' +
+      resultHtml;
+
+    // Restore user's in-progress input across re-renders triggered by tab switches.
+    if (tryLastDomain) document.getElementById('try-domain').value = tryLastDomain;
+    if (tryLastInput) document.getElementById('try-input').value = tryLastInput;
+  }
+
+  function onTrySubmit() {
+    tryLastDomain = document.getElementById('try-domain').value;
+    tryLastInput = document.getElementById('try-input').value;
+    if (!ALL_ROWS) {
+      tryLastResult = 'loading';
+      renderTryTab();
+      loadRows().then(function () {
+        tryLastResult = ALL_ROWS.length === 0 ? 'empty' : (findNearestRow(tryLastInput, tryLastDomain) || 'none');
+        renderTryTab();
+      });
+      return;
+    }
+    tryLastResult = ALL_ROWS.length === 0 ? 'empty' : (findNearestRow(tryLastInput, tryLastDomain) || 'none');
+    renderTryTab();
+  }
 
   // Kick off data load and initial render on page load.
+  renderTryTab();
   loadRows().then(renderBrowseTab);
 </script>
 
