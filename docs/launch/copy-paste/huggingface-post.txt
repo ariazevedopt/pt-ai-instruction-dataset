@@ -2,13 +2,13 @@ TITLE (HF Post short intro / first line):
 🇵🇹 LusoSupport-PT — validating a pt-PT customer-support dataset for AMALIA fine-tuning
 
 BODY:
-Depois do lançamento do AMALIA, o modelo LLM português open-source, construí o LusoSupport-PT: um dataset de instruções em pt-PT (10.828 linhas, 8 domínios, 8 tipos de tarefa, 18 intenções de cliente) pensado para especializar modelos como o AMALIA em apoio ao cliente — respostas a tickets, classificação de urgência, deteção de escalonamento, tudo no registo que uma equipa portuguesa realmente usa.
+Since AMALIA launched — Portugal's open-source, government-backed LLM — I've been building LusoSupport-PT: a European Portuguese (pt-PT) instruction dataset (10,828 rows, 8 domains, 8 task types, 18 customer intents) designed to specialize models like AMALIA for customer support — ticket responses, urgency classification, escalation detection, all in the register a real Portuguese support team actually uses.
 
-Já partilhei isto com equipas como a Conectys, Infraspeak, Codacy, Talkdesk, Digiton.AI, PHC Software e Simmple.ai para perceber se resolve um problema real. Estou a abrir a mesma pergunta aqui: se trabalhas em apoio ao cliente em português (ou constróis sobre o AMALIA), seria útil como dataset para fine-tuning próprio ou como base para um modelo já especializado?
+I've already shared this with teams like Conectys, Infraspeak, Codacy, Talkdesk, Digiton.AI, PHC Software, and Simmple.ai to find out if it solves a real problem. Opening the same question here: if you work in Portuguese-language customer support (or are building on AMALIA), would this be useful — as a dataset to fine-tune yourself, or as the basis for an already-specialized model?
 
-🤗 Amostra gratuita (200 linhas): https://huggingface.co/datasets/ariazevedo/LusoSupport-PT
-💻 GitHub (pipeline + guia de integração AMALIA): https://github.com/ariazevedopt/pt-ai-instruction-dataset
-💼 Dataset completo: https://ariazevedo.gumroad.com/l/lusosupport-pt
+🤗 Free sample (200 rows): https://huggingface.co/datasets/ariazevedo/LusoSupport-PT
+💻 GitHub (pipeline + AMALIA integration guide): https://github.com/ariazevedopt/pt-ai-instruction-dataset
+💼 Full dataset: https://ariazevedo.gumroad.com/l/lusosupport-pt
 
 ---
 IMPORTANT NOTES BEFORE POSTING:
