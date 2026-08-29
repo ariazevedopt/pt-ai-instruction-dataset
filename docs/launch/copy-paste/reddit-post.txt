@@ -1,0 +1,23 @@
+TITLE:
+Built a European Portuguese (pt-PT) customer-support dataset to fine-tune AMALIA — looking for real feedback from PT support/CX teams
+
+BODY:
+Depois do lançamento do AMALIA, o modelo LLM português open-source, construí o LusoSupport-PT: um dataset de instruções em pt-PT (10.828 linhas, 8 domínios, 18 intenções de cliente) para especializar modelos como o AMALIA em apoio ao cliente.
+
+Estou a validar se isto resolve um problema real para equipas na área — contact centers como a Conectys, SaaS com equipas de suporte como a Infraspeak e a Codacy, ou consultoras de IA como a Digiton.AI e a Simmple.ai. Se trabalhas em apoio ao cliente em português e já tentaste usar um LLM para esse trabalho, gostava de ouvir o que funcionou e o que não funcionou.
+
+Não estou a tentar vender nada neste post — só a validar se faz sentido continuar a desenvolver isto. Amostra gratuita: https://huggingface.co/datasets/ariazevedo/LusoSupport-PT
+
+---
+NOTES BEFORE POSTING:
+1. Target subreddit: r/PORTUGAL.
+2. Reddit has no company-tagging feature (only u/username for individual accounts, not
+   organisations) — the companies above are name-checked in plain text as context, not tagged.
+   This is expected behaviour, not a missing step.
+3. Re-check r/PORTUGAL's current self-promotion rules before posting (subreddit rules can change
+   over time) — keep the framing as a genuine question, not a sales pitch.
+4. Only name-check organisations you consider genuinely relevant — see
+   docs/launch/stage0-outreach-leads.md (Categories 1-3) for the full researched lead list if you
+   want to swap in different names.
+5. Posting this satisfies the Week-2 checklist item on issue #58 ("post one problem-framed
+   message in one buyer-side community") — mark it done on the issue once posted.

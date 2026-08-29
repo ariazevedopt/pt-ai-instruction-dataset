@@ -1,0 +1,35 @@
+🇵🇹 Depois de validar o produto e ajustar preço e posicionamento, o LusoSupport-PT está pronto para uma nova fase: quero perceber se isto resolve um problema real para equipas portuguesas de apoio ao cliente.
+
+Construí um dataset de instruções em português europeu (pt-PT) — 10.828 linhas, 8 domínios, 8 tipos de tarefa, 18 intenções de cliente — pensado para especializar modelos como o AMALIA (o LLM português open-source) em apoio ao cliente: respostas a tickets, classificação de urgência, deteção de escalonamento, tudo no registo que uma equipa portuguesa realmente usa.
+
+Se a vossa equipa lida com apoio ao cliente em português e está a explorar IA para esse trabalho, gostava muito de ouvir se isto seria útil — como dataset para fine-tuning próprio, ou como base para um modelo já especializado.
+
+🤗 Amostra gratuita (200 linhas): https://huggingface.co/datasets/ariazevedo/LusoSupport-PT
+💻 GitHub (pipeline + guia de integração): https://github.com/ariazevedopt/pt-ai-instruction-dataset
+💼 Dataset completo: https://ariazevedo.gumroad.com/l/lusosupport-pt
+
+[TAG: Conectys] [TAG: Infraspeak] [TAG: Codacy] [TAG: Talkdesk] [TAG: Digiton.AI] [TAG: PHC Software] [TAG: Simmple.ai]
+
+#AMALIA #AtendimentoAoCliente #IA #LLM #PortugalTech
+
+---
+HOW TO TAG (do this manually in LinkedIn's own editor — a pasted tag will NOT work):
+1. Paste this whole post into the LinkedIn compose box.
+2. For each [TAG: Company] placeholder: delete the placeholder text, type "@", then type the
+   company name and pick it from LinkedIn's own dropdown. This is the only way a real tag/mention
+   gets created — pasting text or a link does not tag anyone.
+3. Verified live LinkedIn company pages (checked 2026-08-29):
+   - linkedin.com/company/conectys        -> Conectys
+   - linkedin.com/company/infraspeak      -> Infraspeak
+   - linkedin.com/company/codacy          -> Codacy
+   - linkedin.com/company/talkdesk        -> Talkdesk
+   - linkedin.com/company/digiton-ai      -> Digiton.AI
+   - linkedin.com/company/phc-software    -> PHC Software (now Cegid PHC)
+   - linkedin.com/company/simmpleai       -> Simmple.ai
+4. Double-check each company page still exists/is active in the dropdown before tagging (pages
+   can be renamed or merged — e.g. PHC Software is now part of Cegid).
+5. Do NOT guess additional company tags beyond this verified list. See
+   docs/launch/stage0-outreach-leads.md for the full lead list if you want to research more
+   verified handles before adding further tags.
+6. After posting, update the Status column in docs/launch/stage0-outreach-leads.md to
+   "tagged in post" for each company you tagged.
