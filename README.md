@@ -440,6 +440,9 @@ pt-ai-instruction-dataset/
 │   └── review_server.py        # browser review UI server
 ├── tests/                      # pytest test suite (113 tests)
 ├── docs/                       # schema, taxonomy, usage, roadmap, launch guides
+├── landing.html                 # Gumroad Individual-tier landing page
+├── landing-commercial.html      # Gumroad Commercial-tier landing page
+├── try-it.html                  # public demo: browse + try the free Lite sample
 ├── CHANGELOG.md
 ├── Makefile
 └── requirements.txt

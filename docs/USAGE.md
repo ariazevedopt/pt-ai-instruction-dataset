@@ -2,6 +2,13 @@
 
 A quick-start guide for anyone who has downloaded or purchased **LusoSupport-PT** — whether the free Lite sample from Hugging Face or the full dataset from Gumroad. For deep integration recipes (fine-tuning, RAG, evaluation), see [`docs/integration.md`](integration.md).
 
+## Try it before you download
+
+Open [`try-it.html`](../try-it.html) in any browser (no install, no server) to
+browse real rows from the free Lite sample and try your own pt-PT customer
+message against the dataset — useful for validating quality before
+downloading the full JSONL/CSV files below.
+
 ---
 
 ## 1. What you got
