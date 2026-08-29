@@ -11,12 +11,12 @@ Step-by-step guide to publish and launch the dataset.
 - [ ] **Create HF dataset repo** (issue #11)
   1. Go to https://huggingface.co/new-dataset
   2. Name: `LusoSupport-PT`, visibility: Public
-  3. Upload `datasets/hf-lite/lusosupport_pt_lite.jsonl`
+  3. Upload `datasets/hf-lite/lusosupport_pt_lite.jsonl` and `datasets/hf-lite/lusosupport_pt_lite_amalia_chat.jsonl`
   4. Upload `datasets/hf-lite/README.md` as the dataset card
   5. Confirm dataset is accessible and renders correctly
 - [ ] **Set up Gumroad products** (issue #26)
   1. Go to https://app.gumroad.com → New Product
-  2. Individual (€59): upload `lusosupport_pt_v1.jsonl` + CSV + Alpaca JSONL + Parquet + `LICENCE-COMMERCIAL.md`
+  2. Individual (€59): upload `lusosupport_pt_v1.jsonl` + CSV + Alpaca JSONL + AMALIA chat JSONL + Parquet + `LICENCE-COMMERCIAL.md`
   3. Commercial (€229): same files + `LICENCE-COMMERCIAL.md` commercial tier
   4. Update Gumroad URLs in `datasets/hf-lite/README.md` and `README.md`
 - [ ] **Activate GitHub Sponsors** (issue #27)
@@ -49,10 +49,12 @@ Step-by-step guide to publish and launch the dataset.
 | File | Purpose |
 |---|---|
 | `datasets/hf-lite/lusosupport_pt_lite.jsonl` | 200-row free slice for HF |
+| `datasets/hf-lite/lusosupport_pt_lite_amalia_chat.jsonl` | 200-row free slice, AMALIA/ChatML chat format |
 | `datasets/hf-lite/README.md` | HF dataset card |
 | `datasets/processed/lusosupport_pt_v1.jsonl` | Full 10,828-row dataset (Gumroad) |
 | `datasets/processed/lusosupport_pt_v1.csv` | CSV export |
 | `datasets/processed/lusosupport_pt_v1_alpaca.jsonl` | Alpaca JSONL export |
+| `datasets/processed/lusosupport_pt_v1_amalia_chat.jsonl` | AMALIA/ChatML chat-format export |
 | `datasets/processed/lusosupport_pt_v1.parquet` | Parquet export |
 | `LICENCE` | CC BY 4.0 (free tier) |
 | `LICENCE-COMMERCIAL.md` | Commercial licence (Gumroad) |

@@ -16,6 +16,8 @@ Track key health metrics monthly to understand growth and prioritise effort.
 | GitHub Sponsors | github.com/sponsors/ariazevedopt | 1 | 5 |
 | Reddit post upvotes | Reddit post | 50 | — |
 | LinkedIn impressions | LinkedIn analytics | 500 | — |
+| AMALIA-specific outreach replies | Manual tracking from issue #58 outreach list | 3 | 10 |
+| Fine-tuned AMALIA model downloads/usage | HF model page (once published — see issue #64) | n/a until published | n/a until published |
 
 ---
 
@@ -23,11 +25,11 @@ Track key health metrics monthly to understand growth and prioritise effort.
 
 Add a new row to the table below each month.
 
-| Month | HF Downloads | HF Likes | GH Stars | Gumroad Ind. | Gumroad Com. | Sponsors | Notes |
-|---|---|---|---|---|---|---|---|
-| 2026-08 | 62 | 1 | 2 | 0 | 0 | ? | launch month; HF downloads/likes and GH stars pulled from HF API + `gh` on 2026-08-28 (up from 29 downloads/1 like on 2026-08-09). Gumroad sales confirmed 0 on both tiers. Sponsors figure requires dashboard access — update manually. |
-| 2026-09 | | | | | | | |
-| 2026-10 | | | | | | | |
+| Month | HF Downloads | HF Likes | GH Stars | Gumroad Ind. | Gumroad Com. | Sponsors | AMALIA Outreach Replies | Notes |
+|---|---|---|---|---|---|---|---|---|
+| 2026-08 | 62 | 1 | 2 | 0 | 0 | ? | 0 | launch month; HF downloads/likes and GH stars pulled from HF API + `gh` on 2026-08-28 (up from 29 downloads/1 like on 2026-08-09). Gumroad sales confirmed 0 on both tiers. Sponsors figure requires dashboard access — update manually. AMALIA pivot started 2026-08-28; outreach not yet begun. |
+| 2026-09 | | | | | | | | |
+| 2026-10 | | | | | | | | |
 
 ---
 

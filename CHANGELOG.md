@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project uses dataset-style versioning: the dataset release version is
 tracked separately from tooling changes. The current dataset release is **v1.1**.
 
+## [Unreleased] - 2026-08-28
+
+### Changed
+- **Strategic pivot:** repositioned the project around specializing [AMALIA](https://amaliallm.pt/) — Portugal's open-source, government-backed pt-PT LLM — for customer support, rather than leading with the raw dataset as the primary product. The dataset itself, its pricing, and its licensing are unchanged; only the framing and target audience shifted. Full rationale in `docs/superpowers/specs/2026-08-28-amalia-pivot-strategy.md`. Updated README, HF dataset card, Gumroad landing pages, `docs/use-cases.md`, `docs/integration.md` (added an AMALIA fine-tuning walkthrough), `docs/datasheet.md`, and `docs/launch/announcement-templates.md` accordingly. An AMALIA fine-tuning spike (producing an actual fine-tuned checkpoint) remains gated on Stage-0 buyer-outreach validation (issue #64).
+
 ## [1.1] - 2026-08-09
 
 ### Changed

@@ -24,17 +24,21 @@ dedupe:
 		../datasets/processed/lusosupport_pt_v1.jsonl \
 		../datasets/processed/lusosupport_pt_v1.jsonl
 
-# Export to CSV, Alpaca JSONL, and Parquet
+# Export to CSV, Alpaca JSONL, AMALIA chat JSONL, and Parquet
 export:
 	cd scripts && python3 export_formats.py \
 		../datasets/processed/lusosupport_pt_v1.jsonl \
 		--csv ../datasets/processed/lusosupport_pt_v1.csv \
 		--alpaca ../datasets/processed/lusosupport_pt_v1_alpaca.jsonl \
+		--amalia-chat ../datasets/processed/lusosupport_pt_v1_amalia_chat.jsonl \
 		--parquet ../datasets/processed/lusosupport_pt_v1.parquet
 
 # Export the free-tier HF Lite slice (~200 rows)
 export-hf-lite:
 	cd scripts && python3 export_hf_lite.py --n 200
+	cd scripts && python3 export_formats.py \
+		../datasets/hf-lite/lusosupport_pt_lite.jsonl \
+		--amalia-chat ../datasets/hf-lite/lusosupport_pt_lite_amalia_chat.jsonl
 
 # Print dataset statistics
 stats:
@@ -50,6 +54,7 @@ clean:
 	rm -f datasets/interim/generated.jsonl
 	rm -f datasets/processed/lusosupport_pt_v1.csv
 	rm -f datasets/processed/lusosupport_pt_v1_alpaca.jsonl
+	rm -f datasets/processed/lusosupport_pt_v1_amalia_chat.jsonl
 	rm -f datasets/processed/lusosupport_pt_v1.parquet
 
 flag:
