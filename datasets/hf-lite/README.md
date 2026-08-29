@@ -34,7 +34,7 @@ This **Lite** version contains **200 curated rows** — a representative free sa
 
 The full dataset (10,828 rows) is available for purchase on [Gumroad](https://ariazevedo.gumroad.com/l/lusosupport-pt) — see pricing below.
 
-🔥 **Early Adopter Pricing:** the first 50 buyers on each tier lock in the launch price. After that, prices rise to €79 / €329.
+🔥 **Early Adopter Pricing:** the first 50 buyers on each tier lock in the launch price. After that, prices rise to €39 / €165.
 
 ---
 
@@ -154,8 +154,8 @@ print(result)
 | Tier | Price | Rows | Licence |
 |---|---|---|---|
 | **Lite (this dataset)** | Free | 200 | CC BY 4.0 |
-| **Premium Individual** | €59 → €79 | 5 162 | Personal / research / non-commercial |
-| **Commercial Licence** | €229 → €329 | 5 162 | Commercial use in products & APIs |
+| **Premium Individual** | €29 → €39 | 5 162 | Personal / research / non-commercial |
+| **Commercial Licence** | €115 → €165 | 5 162 | Commercial use in products & APIs |
 
 👉 [Buy Individual Licence](https://ariazevedo.gumroad.com/l/lusosupport-pt) · [Buy Commercial Licence](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial) · [GitHub Sponsors](https://github.com/sponsors/ariazevedopt)
 

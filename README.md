@@ -20,13 +20,13 @@ The project focuses on realistic support-related tasks written in **Portuguese f
 
 This is the training data — use it to fine-tune AMALIA yourself, or any other pt-PT-capable model. (A ready-to-use AMALIA customer-support checkpoint is on the roadmap; see the [pivot strategy doc](docs/superpowers/specs/2026-08-28-amalia-pivot-strategy.md#6-project-board-actions) for status.)
 
-🔥 **Early Adopter Pricing** — the first 50 buyers on each tier lock in the launch price below. After that, prices rise to €79 (Individual) / €329 (Commercial).
+🔥 **Early Adopter Pricing** — the first 50 buyers on each tier lock in the launch price below. After that, prices rise to €39 (Individual) / €165 (Commercial).
 
 | Tier | Price | Rows | Licence |
 |---|---|---|---|
 | 🆓 **[Lite (Hugging Face)](https://huggingface.co/datasets/ariazevedo/LusoSupport-PT)** | Free | 200 | CC BY 4.0 |
-| 💼 **[Premium Individual (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt)** | €59 → €79 | 10 828 | Personal / research |
-| 🏢 **[Commercial Licence (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial)** | €229 → €329 | 10 828 | Commercial use |
+| 💼 **[Premium Individual (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt)** | €29 → €39 | 10 828 | Personal / research |
+| 🏢 **[Commercial Licence (Gumroad)](https://ariazevedo.gumroad.com/l/lusosupport-pt-commercial)** | €115 → €165 | 10 828 | Commercial use |
 
 ❤️ [Sponsor this project on GitHub](https://github.com/sponsors/ariazevedopt)
 

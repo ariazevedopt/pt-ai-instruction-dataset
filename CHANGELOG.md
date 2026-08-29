@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project uses dataset-style versioning: the dataset release version is
 tracked separately from tooling changes. The current dataset release is **v1.1**.
 
+## [Unreleased] - 2026-08-29
+
+### Changed
+- **Pricing reduced by half**, reflecting current product limitations (no live AMALIA inference yet, dataset-only product while the fine-tuning spike remains gated on Stage-0 buyer validation): Individual €29 (early adopter) → €39 (standard), was €59 → €79; Commercial €115 (early adopter) → €165 (standard), was €229 → €329. Updated live on both Gumroad listings (products, prices, and descriptions) via the Gumroad CLI, on the Hugging Face dataset card via `hf upload`, and across README, `docs/USAGE.md`, `docs/launch/launch-checklist.md`, `LICENCE-COMMERCIAL.md`, `landing.html`, and `landing-commercial.html`. No sales had occurred on either tier at the time of this change.
+
 ## [Unreleased] - 2026-08-28
 
 ### Changed
