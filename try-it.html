@@ -235,13 +235,15 @@
     if (!row) {
       body = '<p class="mt-6 text-slate-500 dark:text-slate-400">Nenhum exemplo corresponde a estes filtros.</p>';
     } else {
+      var displayOut = formatOutputForDisplay(row.output);
       body =
         '<div class="mt-6 code-card rounded-xl p-5 font-mono text-sm overflow-x-auto">' +
           '<div><span class="code-key">domínio:</span> ' + escapeHtml(DOMAIN_LABELS[row.domain] || row.domain) + '</div>' +
           '<div><span class="code-key">instrução:</span> <span class="code-str-instr">' + escapeHtml(row.instruction) + '</span></div>' +
           '<div class="mt-2"><span class="code-key">cliente:</span> <span class="code-str-instr">' + escapeHtml(row.input) + '</span></div>' +
-          '<div class="mt-2"><span class="code-key">resposta:</span> <span class="code-str-out">' + escapeHtml(row.output) + '</span></div>' +
+          '<div class="mt-2"><span class="code-key">resposta:</span> <span class="code-str-out">' + escapeHtml(displayOut.text) + '</span></div>' +
         '</div>' +
+        (displayOut.hasPlaceholders ? '<p class="mt-2 text-xs text-slate-500 dark:text-slate-400">Os campos entre parênteses rectos (ex.: [número], [Nome da Empresa]) são marcadores de dados reais, substituídos automaticamente em produção — não é um erro.</p>' : '') +
         '<div class="mt-4 flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">' +
           '<span>Exemplo ' + (browseIndex + 1) + ' de ' + rows.length + '</span>' +
           '<div class="flex gap-2">' +
@@ -290,6 +292,30 @@
       .filter(function (t) { return t.length > 2 && !PT_STOPWORDS.has(t); });
   }
 
+  // Words/patterns that signal the visitor is asking an open question
+  // ("is this possible?") rather than stating a concrete, ready-to-action
+  // request (a specific date, number, or already-decided change). Used to
+  // avoid matching an open question to a dataset row whose response
+  // confirms an action as already completed, which would misleadingly look
+  // like the "AI" jumped to conclusions.
+  const OPEN_QUESTION_MARKERS = ['possivel', 'poderia', 'gostaria', 'sera que', '?'];
+  // Words that signal a dataset row's response treats the request as already
+  // decided/confirmed/completed (asks no follow-up question of its own).
+  const CONFIRMATION_MARKERS = [
+    'confirmamos', 'foi alterada', 'foi alterado', 'foi processad',
+    'processada com sucesso', 'processado com sucesso', 'confirmação actualizada',
+  ];
+
+  function containsAny(normalizedText, markers) {
+    return markers.some(function (m) { return normalizedText.indexOf(m) !== -1; });
+  }
+
+  function normalizeForMarkers(text) {
+    return String(text)
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
   function findNearestRow(text, domain) {
     if (!ALL_ROWS || ALL_ROWS.length === 0) return null;
     var candidates = ALL_ROWS.filter(function (row) {
@@ -298,6 +324,8 @@
     if (candidates.length === 0) return null;
 
     var queryTokens = tokenize(text);
+    var isOpenQuestion = containsAny(normalizeForMarkers(text), OPEN_QUESTION_MARKERS);
+
     if (queryTokens.length === 0) {
       // No usable tokens (empty/very short input) — return first candidate
       // in the chosen domain as a representative example.
@@ -306,18 +334,39 @@
 
     var querySet = new Set(queryTokens);
     var best = null;
-    var bestScore = -1;
+    var bestScore = -Infinity;
     candidates.forEach(function (row) {
       var rowTokens = new Set(tokenize(row.input));
       var overlap = 0;
       querySet.forEach(function (t) { if (rowTokens.has(t)) overlap += 1; });
-      if (overlap > bestScore) {
-        bestScore = overlap;
+      var score = overlap;
+      // Penalize rows whose response confirms an action as already done when
+      // the visitor only asked an open question with no concrete details —
+      // that pairing reads as the "AI" inventing a completed action instead
+      // of asking a clarifying question first.
+      if (isOpenQuestion && containsAny(normalizeForMarkers(row.output), CONFIRMATION_MARKERS)) {
+        score -= 1000;
+      }
+      if (score > bestScore) {
+        bestScore = score;
         best = row;
       }
     });
     // Fall back to the first candidate if nothing overlapped at all.
     return best || candidates[0];
+  }
+
+  // --- Display cleanup for demo purposes only ---
+  // The underlying dataset intentionally ships some outputs with unfilled
+  // [placeholder] fields (e.g. [Nome da Empresa], [número]) and an internal
+  // "[Referência interna: domínio]" tag used to increase output diversity
+  // during generation. Both are expected in raw training data, but read as
+  // broken text in a live demo, so we caption them here rather than hiding
+  // them silently (hiding could make the example look edited/fabricated).
+  function formatOutputForDisplay(output) {
+    var hasPlaceholders = /\[[^\]]+\]/.test(output);
+    var cleaned = output.replace(/\n*\[Referência interna:[^\]]*\]\s*$/i, '').trim();
+    return { text: cleaned, hasPlaceholders: hasPlaceholders };
   }
 
   let tryLastResult = null;
@@ -339,14 +388,16 @@
       resultHtml = '<p class="mt-6 text-slate-500 dark:text-slate-400">Nenhum exemplo correspondente foi encontrado. Tente outro domínio.</p>';
     } else if (tryLastResult) {
       var row = tryLastResult;
+      var displayOut = formatOutputForDisplay(row.output);
       resultHtml =
         '<p class="mt-6 text-xs font-semibold uppercase tracking-wide text-pt-green dark:text-green-400">Exemplo real do dataset (não é uma resposta gerada ao vivo)</p>' +
         '<div class="mt-2 code-card rounded-xl p-5 font-mono text-sm overflow-x-auto">' +
           '<div><span class="code-key">domínio:</span> ' + escapeHtml(DOMAIN_LABELS[row.domain] || row.domain) + '</div>' +
           '<div><span class="code-key">instrução:</span> <span class="code-str-instr">' + escapeHtml(row.instruction) + '</span></div>' +
           '<div class="mt-2"><span class="code-key">cliente (exemplo real):</span> <span class="code-str-instr">' + escapeHtml(row.input) + '</span></div>' +
-          '<div class="mt-2"><span class="code-key">resposta:</span> <span class="code-str-out">' + escapeHtml(row.output) + '</span></div>' +
+          '<div class="mt-2"><span class="code-key">resposta:</span> <span class="code-str-out">' + escapeHtml(displayOut.text) + '</span></div>' +
         '</div>' +
+        (displayOut.hasPlaceholders ? '<p class="mt-2 text-xs text-slate-500 dark:text-slate-400">Os campos entre parênteses rectos (ex.: [número], [Nome da Empresa]) são marcadores de dados reais, substituídos automaticamente em produção — não é um erro.</p>' : '') +
         '<p class="mt-3 text-sm text-slate-500 dark:text-slate-400">Isto mostra um exemplo real do dataset para um caso semelhante — não é uma resposta gerada ao vivo pela IA. Ao afinar a AMALIA com o dataset completo, obtém respostas geradas neste mesmo estilo e qualidade.</p>';
     }
 
